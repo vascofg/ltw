@@ -49,7 +49,7 @@
 	include 'common/functions.php';
 	if(isset($_POST['back']))
 		redirect("./");
-	if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['text']) && !empty($_POST['text']))
+	if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['text']) && !empty($_POST['text']) && isset($_POST['posted_by']) && !empty($_POST['posted_by']))
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
