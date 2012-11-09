@@ -36,7 +36,7 @@
 //////////////////////////////
 
 //password to gain access
-$password = "6MVHjQC4";
+$password = "proj1";
 
 //directory relative to this file to search for databases (if false, manually list databases in the $databases variable)
 $directory = ".";

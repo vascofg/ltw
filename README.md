@@ -3,6 +3,8 @@ ltw-proj1
 
 ***O projecto pode ser visto [aqui][1].***
 
+***O PHPLiteAdmin (painel de administração da base de dados) pode ser acedido por [aqui][2], com a palavra passe*** *proj1.*
+
 **Datas de Entrega:**
 
  + 18-11-2012 (Intermédia)
@@ -70,3 +72,4 @@ menos os seguintes campos:
 
 
   [1]: http://paginas.fe.up.pt/~ei10054/ltw/proj1/
+  [2]: http://paginas.fe.up.pt/~ei10054/ltw/proj1/db/
