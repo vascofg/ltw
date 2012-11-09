@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	require_once 'common/functions.php';
+	if(!isset($_SESSION['username'])) //if not logged in, go away
+		redirect("./");
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -46,7 +52,7 @@
 </html>
 
 <?php
-	include 'common/functions.php';
+	require_once 'common/functions.php';
 	if(isset($_POST['back']))
 		redirect("./");
 	if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['text']) && !empty($_POST['text']) && isset($_POST['posted_by']) && !empty($_POST['posted_by']))

@@ -1,6 +1,7 @@
 <?php
+	session_start();
 	$id = $_GET['id'];
-	include 'db/db_query.php';
+	require_once 'db/db_query.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,7 +41,8 @@
 				echo "<li><a href=./>Ver Todas</a></li>";
 			else
 				echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
-			echo " <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>
+			if(isset($_SESSION['username']))
+				echo " <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>
 		<!--<li><a href="comentarios1.html">comentarios 
 		<?
 			//echo "(" . $row['count'] . ")";
@@ -52,7 +54,19 @@
 	<?}?>
 		</div>
 		<div id="rodape">
-			<p><a href="nova_noticia.php">Inserir Nova Notícia</a></p>
+			<p>
+			<?
+			if(isset($_SESSION['username']))
+			{
+				echo "
+				<a href=\"nova_noticia.php\">Inserir Nova Notícia</a>
+				| <a href=\"logout.php\">Logout</a>
+				";
+			}
+			else
+				 echo "<a href=\"login.php\">Login</a>";
+			?>
+			</p>
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>
 		</div>
 	</body>

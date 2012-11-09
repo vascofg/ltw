@@ -95,3 +95,7 @@ div.noticia li a {
 	color:white;
 	text-decoration: none;
 }
+
+textarea {
+	max-width:700px;
+}
