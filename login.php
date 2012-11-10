@@ -56,14 +56,14 @@
 		$db = new PDO('sqlite:db/news.db');
 		if(isset($_POST['register']))
 		{
-			$stmt = $db->prepare('INSERT INTO users values(?, ?)');
+			$stmt = $db->prepare('INSERT INTO user values(?, ?)');
 			$stmt = $stmt->execute(array($username, $password));
 			if($stmt)
 				echo "User registered";
 		}
 		else
 		{
-			$stmt = $db->query('SELECT count(*) as count FROM users where username="'.$username.'" and password="'.$password.'"');
+			$stmt = $db->query('SELECT count(*) as count FROM user where username="'.$username.'" and password="'.$password.'"');
 			if($stmt)
 			{
 				$result = $stmt -> fetch();
