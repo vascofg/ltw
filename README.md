@@ -1,5 +1,9 @@
 ltw-proj1
 =========
+Vasco Gonçalves
+-----------------
+Maria João Araújo
+-----------------
 
 ***O projecto pode ser visto [aqui][1].***
 
