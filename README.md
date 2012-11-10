@@ -1,78 +1,78 @@
 ltw-proj1
 =========
-Vasco Gonçalves
+Vasco GonÃ§alves
 -----------------
-Maria João Araújo
+Maria JoÃ£o AraÃºjo
 -----------------
 
 ***O projecto pode ser visto [aqui][1].***
 
-***O PHPLiteAdmin (painel de administração da base de dados) pode ser acedido por [aqui][2], com a palavra passe*** *proj1.*
+***O PHPLiteAdmin (painel de administraÃ§Ã£o da base de dados) pode ser acedido por [aqui][2], com a palavra passe*** *proj1.*
 
 **Datas de Entrega:**
 
- + 18-11-2012 (Intermédia)
+ + 18-11-2012 (IntermÃ©dia)
  + 02-12-2012 (Final)
 
-**Para a primeira entrega é necessário fazer:**
+**Para a primeira entrega Ã© necessÃ¡rio fazer:**
 
- + Especificação e desenvolvimento de uma base de dados que permita armazenar notícias e três níveis de permissões de utilizadores (leitor, apenas com permissões de read; editor com permissões de read e write; administrador com capacidade para (des)promover utilizadores já registados a editores e gerir as ligações com outros servidores)
- + Criação de um serviço web em PHP que permita fazer pesquisa de notícias na base de dados usando um protocolo conhecido:
+ + EspecificaÃ§Ã£o e desenvolvimento de uma base de dados que permita armazenar notÃ­cias e trÃªs nÃ­veis de permissÃµes de utilizadores (leitor, apenas com permissÃµes de read; editor com permissÃµes de read e write; administrador com capacidade para (des)promover utilizadores jÃ¡ registados a editores e gerir as ligaÃ§Ãµes com outros servidores)
+ + CriaÃ§Ã£o de um serviÃ§o web em PHP que permita fazer pesquisa de notÃ­cias na base de dados usando um protocolo conhecido:
  + /api/news.php
      + Tipo: GET
-     + Parâmetros:
-         + start_date: Data de início do intervalo a partir do qual as notícias deverão ser obtidas, no formato ISO8601 ("YYYY-MMDDTHH:MM:SS").
-         + end_date: Data de final do intervalo a partir do qual as notícias deverão ser obtidas, no formato ISO8601 ("YYYY-MMDDTHH:MM:SS").
-         + tags: Lista de palavras (separada por espaços) que deverão ser usadas para filtrar as notícias a obter
+     + ParÃ¢metros:
+         + start_date: Data de inÃ­cio do intervalo a partir do qual as notÃ­cias deverÃ£o ser obtidas, no formato ISO8601 ("YYYY-MMDDTHH:MM:SS").
+         + end_date: Data de final do intervalo a partir do qual as notÃ­cias deverÃ£o ser obtidas, no formato ISO8601 ("YYYY-MMDDTHH:MM:SS").
+         + tags: Lista de palavras (separada por espaÃ§os) que deverÃ£o ser usadas para filtrar as notÃ­cias a obter
      + Retorno:
          + Objecto JSON com:
-             + um array chamado “data” que contém as notícias que obedecem aos critérios especificados
-                 + Cada elemento do array “data” deverá conter pelo
+             + um array chamado â€œdataâ€ que contÃ©m as notÃ­cias que obedecem aos critÃ©rios especificados
+                 + Cada elemento do array â€œdataâ€ deverÃ¡ conter pelo
 menos os seguintes campos:
-                     + id: Identificador da notícia
-                     + title: Título da notícia
-                     + date: Data da notícia, no formato ISO8601 ("YYYY-MM-DDTHH:MM:SS")
-                     + text: Corpo da notícia
-                     + posted_by: Nome do editor que escreveu a notícia
-                     + url: URL da notícia/fonte
-                     + tags: Array de tags associadas à notícia
-                 + um campo chamado “server_name” correspondente ao nome/número do grupo de trabalho
-                 + um campo “result” com o resultado da operação (“success” ou “error”).
-                 + Caso a operação tenha falhado, o objecto deve conter ainda um campo com o nome “reason” que indica a razão porque falhou e um campo “code” que indique o código do erro.
+                     + id: Identificador da notÃ­cia
+                     + title: TÃ­tulo da notÃ­cia
+                     + date: Data da notÃ­cia, no formato ISO8601 ("YYYY-MM-DDTHH:MM:SS")
+                     + text: Corpo da notÃ­cia
+                     + posted_by: Nome do editor que escreveu a notÃ­cia
+                     + url: URL da notÃ­cia/fonte
+                     + tags: Array de tags associadas Ã  notÃ­cia
+                 + um campo chamado â€œserver_nameâ€ correspondente ao nome/nÃºmero do grupo de trabalho
+                 + um campo â€œresultâ€ com o resultado da operaÃ§Ã£o (â€œsuccessâ€ ou â€œerrorâ€).
+                 + Caso a operaÃ§Ã£o tenha falhado, o objecto deve conter ainda um campo com o nome â€œreasonâ€ que indica a razÃ£o porque falhou e um campo â€œcodeâ€ que indique o cÃ³digo do erro.
          + Exemplos:
-             + {result: “success”, server_name: “Grupo01”, data: [{id: 1, title: “LTW was considered awesome by everyone”, date: “2012-09 10T13:14:00”, text: “Lorem ipsum”, posted_by: “Journalist name”, url: “http://paginas.fe.up.pt/~ltw/ news2012/ltw-is-awesome”, tags: [“ltw”, “awesome”, “2012”]}]}
-             + {result: “error”, reason: “Start date can’t be greater than end date”, code: 2}
- + Visualização das notícias e interface da página em HTML e CSS
- + Listagem das últimas notícias inseridas
- + Criação de um formulário para inserção local de notícias
+             + {result: â€œsuccessâ€, server_name: â€œGrupo01â€, data: [{id: 1, title: â€œLTW was considered awesome by everyoneâ€, date: â€œ2012-09 10T13:14:00â€, text: â€œLorem ipsumâ€, posted_by: â€œJournalist nameâ€, url: â€œhttp://paginas.fe.up.pt/~ltw/ news2012/ltw-is-awesomeâ€, tags: [â€œltwâ€, â€œawesomeâ€, â€œ2012â€]}]}
+             + {result: â€œerrorâ€, reason: â€œStart date canâ€™t be greater than end dateâ€, code: 2}
+ + VisualizaÃ§Ã£o das notÃ­cias e interface da pÃ¡gina em HTML e CSS
+ + Listagem das Ãºltimas notÃ­cias inseridas
+ + CriaÃ§Ã£o de um formulÃ¡rio para inserÃ§Ã£o local de notÃ­cias
 
 **Funcionalidades por tipo de utilizador:**
 
  + **Visitante**
-  + Ver lista de notícias recentes
-  + Pesquisar notícias (ajax)
-  + Ver pormenores de uma notícia incluindo comentários
+  + Ver lista de notÃ­cias recentes
+  + Pesquisar notÃ­cias (ajax)
+  + Ver pormenores de uma notÃ­cia incluindo comentÃ¡rios
   + Ver o perfil de um utilizador
   + Registar-se no site
   + Fazer Login
  + **Utilizador** (tudo o que faz um visitante mais...)
-  + Introduzir comentários (ajax)
-  + Editar/apagar os próprios comentários (ajax)
+  + Introduzir comentÃ¡rios (ajax)
+  + Editar/apagar os prÃ³prios comentÃ¡rios (ajax)
   + Editar o perfil pessoal
-  + Marcar/desmarcar uma notícia como favorita (ajax)
-  + Listar as suas notícias favoritas
+  + Marcar/desmarcar uma notÃ­cia como favorita (ajax)
+  + Listar as suas notÃ­cias favoritas
   + Fazer logout
  + **Editor** (tudo o que faz um utilizador mais...)
-  + Introduzir uma nova notícia
-  + Editar/apagar as próprias notícias
-  + Apagar comentários na própria notícia (ajax)
+  + Introduzir uma nova notÃ­cia
+  + Editar/apagar as prÃ³prias notÃ­cias
+  + Apagar comentÃ¡rios na prÃ³pria notÃ­cia (ajax)
  + **Administrador** (tudo o que faz um editor mais...)
   + Promover/despromover utilizadores a editores
-  + Editar/apagar qualquer notícia
+  + Editar/apagar qualquer notÃ­cia
   + Editar/apagar utilizadores
   + Gerir a lista de servidores remotos
   + Despoletar uma pesquisa em servidores remotos
-  + Seleccionar e adicionar notícias a importar (ajax)
+  + Seleccionar e adicionar notÃ­cias a importar (ajax)
 
 
   [1]: http://paginas.fe.up.pt/~ei10054/ltw/proj1/
