@@ -27,14 +27,10 @@
 						<td>Password</td>
 						<td><input type="password" name="password"></td>
 					</tr>
-					<tr>
-						<td><input type="checkbox" name="register">Registar</td>
-						<td>
-							<button name="back">Voltar</button>
-							<input type="submit" value="Submeter">
-						</td>
-					</tr>
 				</table>
+				<p style="text-align:center;"><input type="checkbox" name="register">Registar</p>
+				<p style="text-align:center;"><button name="back">Voltar</button>
+				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
 		<div id="rodape">
@@ -44,10 +40,9 @@
 </html>
 
 <?php
-	require_once 'common/functions.php';
 	if(isset($_POST['back']))
 		redirect("./");
-	if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password']))
+	if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password']))
 	{
 		$username=$_POST['username'];
 		$password=$_POST['password'];
@@ -56,14 +51,14 @@
 		$db = new PDO('sqlite:db/news.db');
 		if(isset($_POST['register']))
 		{
-			$stmt = $db->prepare('INSERT INTO user values(?, ?)');
+			$stmt = $db->prepare('INSERT INTO user values(?, ?, 0)');
 			$stmt = $stmt->execute(array($username, $password));
 			if($stmt)
 				echo "User registered";
 		}
 		else
 		{
-			$stmt = $db->query('SELECT count(*) as count FROM user where username="'.$username.'" and password="'.$password.'"');
+			$stmt = $db->query('SELECT count(*) as count, user_type FROM user where username="'.$username.'" and password="'.$password.'"');
 			if($stmt)
 			{
 				$result = $stmt -> fetch();
@@ -71,6 +66,7 @@
 				{
 					// Register session data
 					$_SESSION['username'] = $username;
+					$_SESSION['user_type'] = $result['user_type'];
 					redirect("./");
 				}
 				else

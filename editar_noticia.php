@@ -1,40 +1,56 @@
 <?php
 	session_start();
 	require_once 'common/functions.php';
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1) //if not logged in or not editor, go away
+	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
 		redirect("./");
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Nova Notícia</title>
+		<title>Editar Notícia</title>
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
 		<div id="cabecalho">
-			<h1>Nova Notícia</h1>
-			<h2>Inserir uma nova notícia</h2>
+			<h1>Editar Notícia</h1>
+			<h2>Edite uma notícia</h2>
 		</div>
 		<div id="conteudo">
 			<form method="post">
 				<table style="margin: auto;">
-					<tr>
+<?
+	$db = new PDO('sqlite:db/news.db');
+	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+	$id = $_GET['id'];
+	$stmt = $db->query('SELECT * FROM news where rowid = '.$id);
+	if($stmt)
+	{
+		$result = $stmt -> fetchAll();
+		$result = $result[0]; //first result
+		echo "		<tr>
 						<td>Título</td>
-						<td><input type="text" name="title"></td>
+						<td><input type=\"text\" name=\"title\" value=\"".$result['title']."\"></td>
 					</tr>
 					<tr>
 						<td>Texto</td>
-						<td><textarea name="text"></textarea></td>
+						<td><textarea name=\"text\">".$result['text']."</textarea></td>
 					</tr>
 					<tr>
 						<td>Poster</td>
-						<td><input type="text" name="posted_by"></td>
+						<td><input type=\"text\" name=\"posted_by\" value=\"".$result['posted_by']."\"></td>
 					</tr>
 					<tr>
 						<td>URL</td>
-						<td><input type="text" name="url"></td>
-					</tr>
+						<td><input type=\"text\" name=\"url\" value=\"".$result['url']."\"></td>
+					</tr>";
+	}
+	else
+	{
+		$error=$db->errorInfo();
+		echo "Erro: " . $error[2];
+	}
+?>
 				</table>
 				<p style="text-align:center;"><button name="back">Voltar</button>
 				<input type="submit" value="Submeter"></p>
@@ -57,9 +73,9 @@
 		$url=$_POST['url'];
 		
 		$db = new PDO('sqlite:db/news.db');
-		$stmt = $db->prepare('INSERT INTO news values(?, ?, ?, ?, ?)');
-		$stmt->execute(array($title, time(), $text, $posted_by, $url));
+		$stmt = $db->prepare('UPDATE news SET title=?, text=?, posted_by=?, url=? where rowid = ?');
+		$stmt->execute(array($title, $text, $posted_by, $url, $id));
 		
-		redirect("./?id=" . $db->lastInsertID());
+		redirect("./?id=" . $id);
 	}
 ?>

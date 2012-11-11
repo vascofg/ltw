@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once 'common/functions.php';
-	if(!isset($_SESSION['username'])) //if not logged in, go away
+	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
 		redirect("./");
 	
 	$id=$_GET['id'];

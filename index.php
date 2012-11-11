@@ -41,8 +41,9 @@
 				echo "<li><a href=./>Ver Todas</a></li>";
 			else
 				echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
-			if(isset($_SESSION['username']))
-				echo " <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>
+			if($_SESSION['user_type']>0)
+				echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
+					   <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>
 		<!--<li><a href="comentarios1.html">comentarios 
 		<?
 			//echo "(" . $row['count'] . ")";
@@ -56,15 +57,16 @@
 		<div id="rodape">
 			<p>
 			<?
-			if(isset($_SESSION['username']))
+			if(isset($_SESSION['user_type']))
 			{
-				echo "
-				<a href=\"nova_noticia.php\">Inserir Nova Notícia</a>
-				| <a href=\"logout.php\">Logout</a>
-				";
+				if($_SESSION['user_type']>0)
+					echo "<a href=\"nova_noticia.php\">Inserir Nova Notícia</a> | ";
+				if($_SESSION['user_type']==2)
+					echo "<a href=\"alterar_permissoes.php\">Alterar permissões de utilizadores</a> | ";
+				echo "<a href=\"logout.php\">Logout</a>";
 			}
 			else
-				 echo "<a href=\"login.php\">Login</a>";
+				echo "<a href=\"login.php\">Login</a>";
 			?>
 			</p>
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>
