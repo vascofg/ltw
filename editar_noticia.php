@@ -52,7 +52,7 @@
 	}
 ?>
 				</table>
-				<p style="text-align:center;"><button name="back">Voltar</button>
+				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
@@ -63,8 +63,6 @@
 </html>
 
 <?php
-	if(isset($_POST['back']))
-		redirect("./");
 	if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['text']) && !empty($_POST['text']) && isset($_POST['posted_by']) && !empty($_POST['posted_by']))
 	{
 		$title=$_POST['title'];

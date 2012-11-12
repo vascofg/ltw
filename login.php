@@ -29,7 +29,7 @@
 					</tr>
 				</table>
 				<p style="text-align:center;"><input type="checkbox" name="register">Registar</p>
-				<p style="text-align:center;"><button name="back">Voltar</button>
+				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
@@ -40,8 +40,6 @@
 </html>
 
 <?php
-	if(isset($_POST['back']))
-		redirect("./");
 	if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password']))
 	{
 		$username=$_POST['username'];

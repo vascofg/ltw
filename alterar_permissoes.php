@@ -64,7 +64,7 @@
 	}
 ?>
 				</table>
-				<p style="text-align:center;"><button name="back">Voltar</button>
+				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
@@ -75,9 +75,6 @@
 </html>
 
 <?
-	if(isset($_POST['back']))
-		redirect("./");
-	
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
 		$user_types = $_POST['user_type']; //user_types is an array of all the selects (different usernames) and the index is the user ID
