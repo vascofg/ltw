@@ -2,7 +2,8 @@
 	session_start();
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1) //if not logged in or not editor, go away
-		redirect("./");
+		redirectmsg("./", 0);
+	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text']) || !isset($_POST['posted_by']) || empty($_POST['posted_by'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@
 						<td><input type="text" name="url"></td>
 					</tr>
 				</table>
-				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
+				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
@@ -47,7 +48,8 @@
 </html>
 
 <?php
-	if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['text']) && !empty($_POST['text']) && isset($_POST['posted_by']) && !empty($_POST['posted_by']))
+	}
+	else
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
@@ -58,6 +60,6 @@
 		$stmt = $db->prepare('INSERT INTO news values(?, ?, ?, ?, ?)');
 		$stmt->execute(array($title, time(), $text, $posted_by, $url));
 		
-		redirect("./?id=" . $db->lastInsertID());
+		redirectmsg("./?id=" . $db->lastInsertID(), 2);
 	}
 ?>

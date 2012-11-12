@@ -2,7 +2,8 @@
 	session_start();
 	require_once 'common/functions.php';
 	if(isset($_SESSION['username'])) //if logged in, go away
-		redirect("./");
+		redirectmsg("./", 0);
+	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['username']) || empty($_POST['username']) || !isset($_POST['password']) || empty($_POST['password'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,18 +30,35 @@
 					</tr>
 				</table>
 				<p style="text-align:center;"><input type="checkbox" name="register">Registar</p>
-				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
+				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
 		<div id="rodape">
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>
 		</div>
+<?
+		//display messages
+		if(isset($_GET['msgid']))
+		{
+			$msgid=$_GET['msgid'];
+			echo "<script type=\"text/javascript\">";
+			switch($msgid)
+			{
+				case 0:	echo "alert(\"Utilizador registado\");";
+						break;
+				case 1: echo "alert(\"Dados de login errados\");";
+						break;
+			}
+			echo "</script>"; 
+		}
+?>
 	</body>
 </html>
 
-<?php
-	if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password']))
+<?
+	}
+	else
 	{
 		$username=$_POST['username'];
 		$password=$_POST['password'];
@@ -52,7 +70,7 @@
 			$stmt = $db->prepare('INSERT INTO user values(?, ?, 0)');
 			$stmt = $stmt->execute(array($username, $password));
 			if($stmt)
-				echo "User registered";
+				redirectmsg($_SERVER['PHP_SELF'], 0);
 		}
 		else
 		{
@@ -63,12 +81,12 @@
 				if($result['count']>0)
 				{
 					// Register session data
-					$_SESSION['username'] = $username;
+					$_SESSION['username'] = $result['username'];
 					$_SESSION['user_type'] = $result['user_type'];
-					redirect("./");
+					redirectmsg("./", 1);
 				}
 				else
-					echo "No user found!";
+					redirectmsg($_SERVER['PHP_SELF'], 1);
 			}
 		}
 		if(!$stmt)

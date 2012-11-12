@@ -2,7 +2,9 @@
 	session_start();
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
-		redirect("./");
+		redirectmsg("./", 0);
+	$id = $_GET['id'];
+	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text']) || !isset($_POST['posted_by']) || empty($_POST['posted_by'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +24,6 @@
 <?
 	$db = new PDO('sqlite:db/news.db');
 	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-	$id = $_GET['id'];
 	$stmt = $db->query('SELECT * FROM news where rowid = '.$id);
 	if($stmt)
 	{
@@ -52,7 +53,7 @@
 	}
 ?>
 				</table>
-				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
+				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
@@ -63,7 +64,8 @@
 </html>
 
 <?php
-	if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['text']) && !empty($_POST['text']) && isset($_POST['posted_by']) && !empty($_POST['posted_by']))
+	}
+	else
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
@@ -74,6 +76,6 @@
 		$stmt = $db->prepare('UPDATE news SET title=?, text=?, posted_by=?, url=? where rowid = ?');
 		$stmt->execute(array($title, $text, $posted_by, $url, $id));
 		
-		redirect("./?id=" . $id);
+		redirectmsg("./?id=" . $id, 2);
 	}
 ?>

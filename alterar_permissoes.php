@@ -2,7 +2,10 @@
 	session_start();
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
-		redirect("./");
+		redirectmsg("./", 0);
+	$db = new PDO('sqlite:db/news.db'); //in this file it's needed either way
+	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,9 +27,6 @@
 						<td>Tipo de Utilizador</td>
 					</tr>
 <?
-	$db = new PDO('sqlite:db/news.db');
-	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-	
 	$stmt = $db->query('SELECT rowid, username, user_type FROM user');
 	if($stmt)
 	{
@@ -64,7 +64,7 @@
 	}
 ?>
 				</table>
-				<p style="text-align:center;"><a href="./"><input type="button" name="back" value="Voltar"></a>
+				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
 				<input type="submit" value="Submeter"></p>
 			</form>
 		</div>
@@ -75,7 +75,8 @@
 </html>
 
 <?
-	if($_SERVER['REQUEST_METHOD'] == "POST")
+	}
+	else
 	{
 		$user_types = $_POST['user_type']; //user_types is an array of all the selects (different usernames) and the index is the user ID
 		foreach($user_types as $i=>$user_type)
@@ -86,7 +87,7 @@
 				echo "Erro: " . $error[2];
 			}
 		}
-		redirect('./');
+		redirectmsg('./', 2);
 		//is there a way to force update of $_SESSION['user_type'] on users already logged in?
 	}
 ?>
