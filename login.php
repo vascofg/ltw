@@ -17,6 +17,11 @@
 			<h1>Login</h1>
 			<h2>Autentique-se</h2>
 		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="./">Voltar</a></li>
+			</ul>
+		</div>
 		<div id="conteudo">
 			<form method="post">
 				<table style="margin: auto;">
@@ -30,8 +35,7 @@
 					</tr>
 				</table>
 				<p style="text-align:center;"><input type="checkbox" name="register">Registar</p>
-				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
-				<input type="submit" value="Submeter"></p>
+				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 		</div>
 		<div id="rodape">
@@ -49,6 +53,8 @@
 						break;
 				case 1: echo "alert(\"Dados de login errados\");";
 						break;
+				case 2: echo "alert(\"Utilizador já registado\");";
+						break;
 			}
 			echo "</script>"; 
 		}
@@ -64,7 +70,7 @@
 		$password=$_POST['password'];
 		$password=crypt($username.$password, '$1$'.substr(md5($password.$username), 0, 8)); //le awesome salt
 		
-		$db = new PDO('sqlite:db/news.db');
+		require_once 'db/db.php';
 		if(isset($_POST['register']))
 		{
 			$stmt = $db->prepare('INSERT INTO user values(?, ?, 0)');
@@ -83,7 +89,8 @@
 					// Register session data
 					$_SESSION['username'] = $result['username'];
 					$_SESSION['user_type'] = $result['user_type'];
-					redirectmsg("./", 1);
+					//redirectmsg("./", 1); annoying
+					redirect("./");
 				}
 				else
 					redirectmsg($_SERVER['PHP_SELF'], 1);
@@ -92,6 +99,8 @@
 		if(!$stmt)
 		{
 			$error=$db->errorInfo();
+			if($error[1]==19)
+				redirectmsg($_SERVER['PHP_SELF'], 2);
 			echo "Erro: " . $error[2];
 		}
 	}

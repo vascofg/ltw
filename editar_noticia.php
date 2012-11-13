@@ -4,7 +4,8 @@
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
 		redirectmsg("./", 0);
 	$id = $_GET['id'];
-	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text']) || !isset($_POST['posted_by']) || empty($_POST['posted_by'])) {
+	require_once 'db/db.php'; //in this file it's needed either way
+	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,12 +19,16 @@
 			<h1>Editar Notícia</h1>
 			<h2>Edite uma notícia</h2>
 		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="./">Voltar</a></li>
+				<li><a href="logout.php">Logout</a></li>
+			</ul>
+		</div>
 		<div id="conteudo">
 			<form method="post">
 				<table style="margin: auto;">
 <?
-	$db = new PDO('sqlite:db/news.db');
-	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 	$stmt = $db->query('SELECT * FROM news where rowid = '.$id);
 	if($stmt)
 	{
@@ -38,10 +43,6 @@
 						<td><textarea name=\"text\">".$result['text']."</textarea></td>
 					</tr>
 					<tr>
-						<td>Poster</td>
-						<td><input type=\"text\" name=\"posted_by\" value=\"".$result['posted_by']."\"></td>
-					</tr>
-					<tr>
 						<td>URL</td>
 						<td><input type=\"text\" name=\"url\" value=\"".$result['url']."\"></td>
 					</tr>";
@@ -53,8 +54,7 @@
 	}
 ?>
 				</table>
-				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
-				<input type="submit" value="Submeter"></p>
+				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 		</div>
 		<div id="rodape">
@@ -69,12 +69,10 @@
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
-		$posted_by=$_POST['posted_by'];
 		$url=$_POST['url'];
 		
-		$db = new PDO('sqlite:db/news.db');
-		$stmt = $db->prepare('UPDATE news SET title=?, text=?, posted_by=?, url=? where rowid = ?');
-		$stmt->execute(array($title, $text, $posted_by, $url, $id));
+		$stmt = $db->prepare('UPDATE news SET title=?, text=?, url=? where rowid = ?');
+		$stmt->execute(array($title, $text, $url, $id));
 		
 		redirectmsg("./?id=" . $id, 2);
 	}

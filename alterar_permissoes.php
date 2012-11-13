@@ -1,10 +1,9 @@
 <?php
 	session_start();
 	require_once 'common/functions.php';
+	require_once 'db/db.php'; //in this file it's needed either way
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
 		redirectmsg("./", 0);
-	$db = new PDO('sqlite:db/news.db'); //in this file it's needed either way
-	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
 <!DOCTYPE html>
@@ -18,6 +17,12 @@
 		<div id="cabecalho">
 			<h1>Alterar permissões</h1>
 			<h2>Mudar níveis de permissão de utilizadores</h2>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="./">Voltar</a></li>
+				<li><a href="logout.php">Logout</a></li>
+			</ul>
 		</div>
 		<div id="conteudo">
 			<form method="post">
@@ -64,8 +69,7 @@
 	}
 ?>
 				</table>
-				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
-				<input type="submit" value="Submeter"></p>
+				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 		</div>
 		<div id="rodape">

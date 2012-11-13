@@ -3,7 +3,7 @@
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1) //if not logged in or not editor, go away
 		redirectmsg("./", 0);
-	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text']) || !isset($_POST['posted_by']) || empty($_POST['posted_by'])) {
+	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +17,12 @@
 			<h1>Nova Notícia</h1>
 			<h2>Inserir uma nova notícia</h2>
 		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="./">Voltar</a></li>
+				<li><a href="logout.php">Logout</a></li>
+			</ul>
+		</div>
 		<div id="conteudo">
 			<form method="post">
 				<table style="margin: auto;">
@@ -29,16 +35,11 @@
 						<td><textarea name="text"></textarea></td>
 					</tr>
 					<tr>
-						<td>Poster</td>
-						<td><input type="text" name="posted_by"></td>
-					</tr>
-					<tr>
 						<td>URL</td>
 						<td><input type="text" name="url"></td>
 					</tr>
 				</table>
-				<p style="text-align:center;"><input type="button" name="back" value="Voltar" onClick="javascript:location.href = './';">
-				<input type="submit" value="Submeter"></p>
+				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 		</div>
 		<div id="rodape">
@@ -53,12 +54,11 @@
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
-		$posted_by=$_POST['posted_by'];
 		$url=$_POST['url'];
 		
-		$db = new PDO('sqlite:db/news.db');
+		require_once 'db/db.php';
 		$stmt = $db->prepare('INSERT INTO news values(?, ?, ?, ?, ?)');
-		$stmt->execute(array($title, time(), $text, $posted_by, $url));
+		$stmt->execute(array($title, time(), $text, $_SESSION['username'], $url));
 		
 		redirectmsg("./?id=" . $db->lastInsertID(), 2);
 	}

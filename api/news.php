@@ -1,6 +1,5 @@
 <?php
-	$db = new PDO('sqlite:../db/news.db');
-	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+	require_once '../db/db.php';
 	/*$tags = $_GET['tags'];
 	$tags = str_replace(' ', ' or ', $tags);
 	echo $tags;*/

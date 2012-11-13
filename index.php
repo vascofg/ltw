@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	$id = $_GET['id'];
-	require_once 'db/db_query.php';
+	require_once 'db/news_query.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,25 +38,28 @@
 	<div class="noticia">
 		<h3><? echo $row['title'];?></h3>
 		<img src="common/placeholder.png" alt="300x200">
-		<p><? echo $row['text'];?></p>
-		<p><? echo "Data: ".date('d/m/Y H:i:s', $row['date']);?></p>
-		<p><? echo "Submetida por: ".$row['posted_by'];?></p>
-		<p><? echo "URL: ".$row['url'];?></p>
-		<ul>
-		<?
-			if(isset($id) && !empty($id))
-				echo "<li><a href=./>Ver Todas</a></li>";
-			else
-				echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
-			if($_SESSION['user_type']>0)
-				echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
-					   <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>
-		<!--<li><a href="comentarios1.html">comentarios 
-		<?
-			//echo "(" . $row['count'] . ")";
-		?>(0)</a></li>
-		<li><a href="partilhar1.html">partilhar</a></li>-->
-		
+<?
+	if(isset($_GET['id'])) //only display text and details on detailed view (one news item)
+		echo 	"<p class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</p>
+				<div class=\"newsdetails\">
+					Submetida por: ".$row['posted_by']."<br>
+					URL: ".$row['url']."<br>";
+	else
+		echo 	"<br><br>
+				<div class=\"newsdetails\">";
+	if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
+		echo date('H:i', $row['date']);
+	else
+		echo date('d/m/Y H:i', $row['date']);
+	echo 	"</div>
+			<ul>";
+	if(isset($id) && !empty($id))
+		echo "<li><a href=./>Ver Todas</a></li>";
+	else
+		echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
+	if($_SESSION['user_type']>0)
+		echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
+			   <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>		
 		</ul>
 	</div>
 	<?}?>
@@ -74,8 +77,8 @@
 			{
 				case 0:	echo "alert(\"Operação não permitida\");";
 						break;
-				case 1:	echo "alert(\"Login efectuado\");";
-						break;
+				/*case 1:	echo "alert(\"Login efectuado\");";
+						break;*/ //annoying
 				case 2: echo "alert(\"Operação efectuada\");";
 						break;
 			}

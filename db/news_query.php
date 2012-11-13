@@ -1,6 +1,5 @@
 <?php
-	$db = new PDO('sqlite:db/news.db');
-	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+	require_once 'db/db.php';
 	if(isset($id) && !empty($id))
 	{
 		$stmt = $db->query('SELECT rowid as id, * FROM news where rowid='.$id);
@@ -9,7 +8,7 @@
 	}
 	else
 	{
-		$stmt = $db->query('SELECT rowid as id, * FROM news');
+		$stmt = $db->query('SELECT rowid as id, * FROM news ORDER BY rowid DESC');
 	}
 	$news = $stmt->fetchAll();
 ?>

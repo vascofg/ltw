@@ -1,5 +1,5 @@
 body {
-	font-family: times, serif;
+	font-family: verdana, sans;
 	margin: 0 auto;
 	width: 800px;
 	background-color:#6EBCFF;
@@ -98,4 +98,14 @@ div.noticia li a {
 
 textarea {
 	max-width:700px;
+}
+
+p.newsbody {
+	font-size:20px;
+	text-align:justify;
+}
+
+div.newsdetails {
+	font-size:12px;
+	font-style:italic;
 }
