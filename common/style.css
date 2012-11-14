@@ -1,3 +1,7 @@
+html {
+	overflow-y: scroll;
+}
+
 body {
 	font-family: Century Gothic, sans-serif;
 	margin: 10px auto;
@@ -46,6 +50,7 @@ div#cabecalho h2 {
 div#menu ul {
 	padding-left:0;
 	margin:0;
+	display:inline;
 }
 
 div#menu li {
@@ -60,9 +65,14 @@ div#menu li:last-child {
 	border-right:none;
 }
 
+div#menu ul.login {
+	float:right;
+}
+
 div#conteudo {
 	margin:0;
-	padding:10px;
+	margin-top:10px;
+	padding:0 10px;
 }
 
 div#conteudo h3 {
@@ -72,6 +82,7 @@ div#conteudo h3 {
 }
 
 div.noticia {
+	margin-top:4px;
 	border-bottom:4px solid #ccc;
 }
 
@@ -88,7 +99,6 @@ div#rodape {
 	border-top:1px solid #ccc;
 	margin:0;
 	padding:5px 0;
-	background-color:white;
 }
 
 div#rodape p {

@@ -27,11 +27,16 @@
 			echo "<li><a href=\"nova_noticia.php\">Inserir notícia</a></li>";
 		if($_SESSION['user_type']==2)
 			echo "<li><a href=\"procurar_utilizador.php\">Alterar permissões de utilizadores</a></li>";
-		echo "<li><a href=\"logout.php\">Logout</a></li>";
 	}
 	else
-		echo "<li><a href=\"login.php\">Login</a></li>";
+		echo "<li></li>";
 ?>
+			</ul>
+			<ul class="login"><?
+				if(isset($_SESSION['user_type']))
+					echo "<li><a href=\"logout.php\">Logout</a></li>";
+				else
+					echo "<li><a href=\"login.php\">Login</a></li>";?>
 			</ul>
 		</div>
 		<div id="conteudo">

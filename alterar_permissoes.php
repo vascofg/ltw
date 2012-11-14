@@ -21,7 +21,10 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li><li><a href="logout.php">Logout</a></li>
+				<li><a href="./">Voltar</a></li>
+			</ul>
+			<ul class="login">
+				<li><a href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
