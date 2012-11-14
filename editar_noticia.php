@@ -41,10 +41,6 @@
 					<tr>
 						<td>Texto</td>
 						<td><textarea name=\"text\">".$result['text']."</textarea></td>
-					</tr>
-					<tr>
-						<td>URL</td>
-						<td><input type=\"text\" name=\"url\" value=\"".$result['url']."\"></td>
 					</tr>";
 	}
 	else
@@ -69,10 +65,9 @@
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
-		$url=$_POST['url'];
 		
-		$stmt = $db->prepare('UPDATE news SET title=?, text=?, url=? where rowid = ?');
-		$stmt->execute(array($title, $text, $url, $id));
+		$stmt = $db->prepare('UPDATE news SET title=?, text=? where rowid = ?');
+		$stmt->execute(array($title, $text, $id));
 		
 		redirectmsg("./?id=" . $id, 2);
 	}

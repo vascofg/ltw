@@ -34,10 +34,6 @@
 						<td>Texto</td>
 						<td><textarea name="text"></textarea></td>
 					</tr>
-					<tr>
-						<td>URL</td>
-						<td><input type="text" name="url"></td>
-					</tr>
 				</table>
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
@@ -54,11 +50,10 @@
 	{
 		$title=$_POST['title'];
 		$text=$_POST['text'];
-		$url=$_POST['url'];
 		
 		require_once 'db/db.php';
-		$stmt = $db->prepare('INSERT INTO news values(?, ?, ?, ?, ?)');
-		$stmt->execute(array($title, time(), $text, $_SESSION['username'], $url));
+		$stmt = $db->prepare('INSERT INTO news values(?, ?, ?, ?)');
+		$stmt->execute(array($title, time(), $text, $_SESSION['username']));
 		
 		redirectmsg("./?id=" . $db->lastInsertID(), 2);
 	}

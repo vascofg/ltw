@@ -23,7 +23,7 @@
 		foreach($stmt as $i=>$row)
 		{
 			$data[$i] = array("id" => $row['rowid'], "title" => $row['title'], "date" => date('c', $row['date']),
-				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => $row['url']);
+				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => 'http://'.$_SERVER["SERVER_NAME"].dirname(dirname($_SERVER["REQUEST_URI"])).'/?id='.$row['rowid']);
 		}
 		$result = array ("result" => "success", "server_name" => "Grupo X", "data" => $data);
 	}

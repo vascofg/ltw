@@ -23,7 +23,7 @@
 		if($_SESSION['user_type']>0)
 			echo "<li><a href=\"nova_noticia.php\">Inserir Nova Notícia</a></li>";
 		if($_SESSION['user_type']==2)
-			echo "<li><a href=\"alterar_permissoes.php\">Alterar permissões de utilizadores</a></li>";
+			echo "<li><a href=\"procurar_utilizador.php\">Alterar permissões de utilizadores</a></li>";
 		echo "<li><a href=\"logout.php\">Logout</a></li>";
 	}
 	else
@@ -34,6 +34,9 @@
 		<div id="conteudo">
 			
 <?	
+	if(count($news)==0) //if no results
+		echo "<h4>Nenhuma notícia encontrada</h4>";
+	else {
 	foreach($news as $row) {?>
 	<div class="noticia">
 		<h3><? echo $row['title'];?></h3>
@@ -42,8 +45,7 @@
 	if(isset($_GET['id'])) //only display text and details on detailed view (one news item)
 		echo 	"<p class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</p>
 				<div class=\"newsdetails\">
-					Submetida por: ".$row['posted_by']."<br>
-					URL: ".$row['url']."<br>";
+					Submetida por: ".$row['posted_by']."<br>";
 	else
 		echo 	"<br><br>
 				<div class=\"newsdetails\">";
@@ -62,7 +64,8 @@
 			   <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>		
 		</ul>
 	</div>
-	<?}?>
+	<?}
+	}?>
 		</div>
 		<div id="rodape">
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>

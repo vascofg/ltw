@@ -7,7 +7,11 @@
 	
 	$id=$_GET['id'];
 	
-	$db->query('delete from news where rowid=' .$id);
-	
-	redirectmsg('./', 2);
+	if(!$db->query('delete from news where rowid=' .$id))
+	{
+		$error=$db->errorInfo();
+		echo "Erro: " . $error[2];
+	}
+	else
+		redirectmsg('./', 2);
 ?>
