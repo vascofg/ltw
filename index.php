@@ -51,14 +51,15 @@
 		echo "<div class=\"noticia\">
 		<h3><a href=\"?id=".$row['id']."\">".$row['title']."</a></h3>
 		<a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-		<br><br>
-		<div class=\"newsdetails\">";
+		<div class=\"newsdetails\">
+			<br />";
 	else
 		echo "<div class=\"noticia\">
 		<h3>".$row['title']."</h3>
 		<a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-		<p class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</p>
+		<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
 		<div class=\"newsdetails\">
+			<br />
 			Submetida por: ".$row['posted_by']."<br>";
 		//only display text and details on detailed view (one news item)
 		

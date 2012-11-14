@@ -9,13 +9,16 @@ body {
 	color: #333333;
 	border:1px solid #ccc;
 	background-color:white;
+	border-radius:10px;
 }
 
 div#cabecalho {
 	text-align:center;
 	padding:50px 20px;
 	background-color:#8C2D19;
-	color:#ccc
+	color:#ccc;
+	border-radius:9px 9px 0 0;
+	
 }
 
 div#menu  {
@@ -91,14 +94,17 @@ div.noticia:last-child {
 }
 
 div.noticia img {
-	/*float:left;
-	margin-right:10px;*/
+	float:left;
+	margin-right:10px;
 }
 
 div#rodape {
 	border-top:1px solid #ccc;
 	margin:0;
 	padding:5px 0;
+	border-radius:0 0 9px 9px;
+	background-color:#8C2D19;
+	color:#ccc;
 }
 
 div#rodape p {
@@ -132,12 +138,13 @@ textarea {
 	max-width:700px;
 }
 
-p.newsbody {
+div.newsbody {
 	font-size:20px;
 	text-align:justify;
 }
 
 div.newsdetails {
+	clear:both;
 	font-size:12px;
 	font-style:italic;
 }
