@@ -1,34 +1,46 @@
 body {
-	font-family: verdana, sans;
-	margin: 0 auto;
+	font-family: Century Gothic, sans-serif;
+	margin: 10px auto;
 	width: 800px;
-	background-color:#6EBCFF;
+	color: #333333;
+	border:1px solid #ccc;
+	background-color:white;
 }
 
 div#cabecalho {
-	font-family: verdana, sans;
-	background-color:#262626;
-	color:white;
+	text-align:center;
 	padding:50px 20px;
+	background-color:#8C2D19;
+	color:#ccc
 }
 
 div#menu  {
-	color:white;
-	background-color:#330000;
+	background-color:#ccc;
 	padding:10px;
 }
 
-div#menu a {
-	color:white;
+a {
+	color: #333333;
 	text-decoration:none;
+}
+
+a:hover {
+	text-decoration:underline;
 }
 
 div#cabecalho h1 {
 	margin-top: 0;
+	font-size:60px;
+}
+
+div#cabecalho a {
+	color:#ccc;
+	text-decoration:none;
 }
 
 div#cabecalho h2 {
 	margin-bottom: 0;
+	font-size:30px;
 }
 
 div#menu ul {
@@ -39,7 +51,7 @@ div#menu ul {
 div#menu li {
 	display:inline;
 	border-right:solid;
-	border-width:1px;
+	border-width:2px;
 	border-color:white;
 	padding:0px 5px;
 }
@@ -49,7 +61,6 @@ div#menu li:last-child {
 }
 
 div#conteudo {
-	background-color:white;
 	margin:0;
 	padding:10px;
 }
@@ -58,12 +69,14 @@ div#conteudo h3 {
 	margin:0;
 	margin-bottom:10px;
 	font-size:30px;
-	font-family:verdana, sans;
 }
 
 div.noticia {
-	border-bottom:solid;
-	border-width:1px;
+	border-bottom:4px solid #ccc;
+}
+
+div.noticia:last-child {
+	border-bottom:none;
 }
 
 div.noticia img {
@@ -72,7 +85,9 @@ div.noticia img {
 }
 
 div#rodape {
+	border-top:1px solid #ccc;
 	margin:0;
+	padding:5px 0;
 	background-color:white;
 }
 
@@ -83,17 +98,24 @@ div#rodape p {
 div.noticia ul {
 	margin-top:30px;
 	padding-left:0;
+	background-color:#ccc;
+	padding:5px;
 }
 
 div.noticia li {
 	display:inline;
-	padding:5px;
-	background-color:#333333;
+	border-right:solid;
+	border-width:2px;
+	border-color:white;
+	padding:0px 5px;
 }
 
-div.noticia li a {
-	color:white;
-	text-decoration: none;
+div.noticia li:last-child {
+	border-right:none;
+}
+
+div.noticia h3 {
+	color:
 }
 
 textarea {
@@ -108,4 +130,19 @@ p.newsbody {
 div.newsdetails {
 	font-size:12px;
 	font-style:italic;
+}
+
+table#change_permissions {
+	margin: auto;
+	text-align:center;
+	border-collapse:collapse;
+	border-style:outset;
+	border-width:1px;
+	border-color:#ccc;
+}
+
+table#change_permissions td{
+	border-style:inset;
+	border-width:1px;
+	border-color:#ccc;
 }

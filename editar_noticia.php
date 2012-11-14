@@ -16,13 +16,12 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-			<h1>Editar Notícia</h1>
-			<h2>Edite uma notícia</h2>
+			<a href="./"><h1>Social News</h1></a>
+			<h2>Editar notícia</h2>
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
-				<li><a href="logout.php">Logout</a></li>
+				<li><a href="./">Voltar</a></li><li><a href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
@@ -39,8 +38,8 @@
 						<td><input type=\"text\" name=\"title\" value=\"".$result['title']."\"></td>
 					</tr>
 					<tr>
-						<td>Texto</td>
-						<td><textarea name=\"text\">".$result['text']."</textarea></td>
+						<td style=\"vertical-align:top;\">Texto</td>
+						<td><textarea cols=\"60\" rows=\"15\" name=\"text\">".$result['text']."</textarea></td>
 					</tr>";
 	}
 	else

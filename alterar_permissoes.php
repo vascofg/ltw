@@ -16,13 +16,12 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-			<h1>Alterar permissões</h1>
-			<h2>Mudar níveis de permissão de utilizadores</h2>
+			<a href="./"><h1>Social News</h1></a>
+			<h2>Alterar permissões de utilizadores</h2>
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
-				<li><a href="logout.php">Logout</a></li>
+				<li><a href="./">Voltar</a></li><li><a href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
@@ -39,7 +38,7 @@
 		}
 		else {?>
 			<form method="post">
-				<table style="margin: auto;" border="1">
+				<table id="change_permissions">
 					<tr>
 						<td>Username</td>
 						<td>Tipo de Utilizador</td>

@@ -13,20 +13,19 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-			<h1>Procurar utilizador</h1>
-			<h2>Insira parte do username a alterar<br>Vazio lista todos os utilizadores</h2>
+			<a href="./"><h1>Social News</h1></a>
+			<h2>Procurar utilizadores</h2>
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
-				<li><a href="logout.php">Logout</a></li>
+				<li><a href="./">Voltar</a></li><li><a href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
 			<form method="get" action="alterar_permissoes.php">
-				<table style="margin: auto;" border="1">
+				<table style="margin: auto;">
 					<tr>
-						<td>Username</td>
+						<td>Username: </td>
 						<td><input type="text" name="username"</td>
 					</tr>
 				</table>

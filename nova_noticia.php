@@ -14,13 +14,12 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-			<h1>Nova Notícia</h1>
-			<h2>Inserir uma nova notícia</h2>
+			<a href="./"><h1>Social News</h1></a>
+			<h2>Inserir notícia</h2>
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
-				<li><a href="logout.php">Logout</a></li>
+				<li><a href="./">Voltar</a></li><li><a href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
@@ -31,8 +30,8 @@
 						<td><input type="text" name="title"></td>
 					</tr>
 					<tr>
-						<td>Texto</td>
-						<td><textarea name="text"></textarea></td>
+						<td style="vertical-align:top;">Texto</td>
+						<td><textarea cols="60" rows="15" name="text"></textarea></td>
 					</tr>
 				</table>
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>

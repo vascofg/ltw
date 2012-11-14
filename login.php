@@ -14,8 +14,8 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-			<h1>Login</h1>
-			<h2>Autentique-se</h2>
+			<a href="./"><h1>Social News</h1></a>
+			<h2>Login</h2>
 		</div>
 		<div id="menu">
 			<ul>
