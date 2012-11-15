@@ -21,7 +21,7 @@
 		<div id="menu">
 			<ul>
 <?
-	if(isset($_SESSION['user_type']))
+	if(isset($_SESSION['user_type']) && $_SESSION['user_type']>0)
 	{
 		if($_SESSION['user_type']>0)
 			echo "<li><a href=\"nova_noticia.php\">Inserir notícia</a></li>";
