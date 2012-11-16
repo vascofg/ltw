@@ -21,10 +21,7 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
-			</ul>
-			<ul>
-				<li>Apagar Utilizador</li>
+				<li><a href="./">Voltar</a></li><li>Apagar Utilizador</li>
 			</ul>
 			<ul class="login">
 				<li><a href="logout.php">Logout</a></li>
