@@ -10,7 +10,7 @@
 	}
 	else
 	{
-		$stmt = $db->query('SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id ORDER BY id DESC LIMIT 10');
+		$stmt = $db->query('SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id  where news.id in (select id from news order by id desc limit 10) ORDER BY id DESC');
 	}
 	if(!stmt)
 	{
