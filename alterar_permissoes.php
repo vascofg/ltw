@@ -3,7 +3,7 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
-		redirectmsg("./", 0);
+		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
@@ -100,9 +100,8 @@
 		$user_types = $_POST['user_type']; //user_types is an array of all the selects (different usernames) and the index is the user ID
 		$ids = implode(',', array_keys($user_types)); //get all individual ids
 		$sql = "UPDATE user SET user_type = CASE rowid ";
-		foreach ($user_types as $id => $value) {
+		foreach ($user_types as $id => $value)
 			$sql .= sprintf("WHEN %d THEN %d ", $id, $value); //when ID then Value
-		}
 		$sql .= "END WHERE rowid IN ($ids)";
 		if(!$db->query($sql))
 		{
@@ -110,7 +109,7 @@
 			echo "Erro: " . $error[2];
 		}
 		else
-			redirectmsg('./', 2);
+			redirectmsg('./', 'Operação efectuada');
 		//is there a way to force update of $_SESSION['user_type'] on users already logged in?
 	}
 ?>

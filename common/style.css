@@ -149,6 +149,10 @@ div.newsdetails {
 	font-style:italic;
 }
 
+div.newstags {
+	font-size:12px;
+}
+
 table#change_permissions {
 	margin: auto;
 	text-align:center;

@@ -17,13 +17,13 @@
 		$end_date=time();
 	//if none specified then it will show from 0 to time() which means all news in the database
 
-	$stmt = $db->query('SELECT rowid, * FROM news where date > '.$start_date.' and date < '.$end_date);
+	$stmt = $db->query('SELECT id, * FROM news where date > '.$start_date.' and date < '.$end_date);
 	if($stmt)
 	{
 		foreach($stmt as $i=>$row)
 		{
-			$data[$i] = array("id" => $row['rowid'], "title" => $row['title'], "date" => date('c', $row['date']),
-				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => 'http://'.$_SERVER["SERVER_NAME"].dirname(dirname($_SERVER["REQUEST_URI"])).'/?id='.$row['rowid']);
+			$data[$i] = array("id" => $row['id'], "title" => $row['title'], "date" => date('c', $row['date']),
+				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => 'http://'.$_SERVER["SERVER_NAME"].dirname(dirname($_SERVER["REQUEST_URI"])).'/?id='.$row['id']);
 		}
 		$result = array ("result" => "success", "server_name" => "Grupo X", "data" => $data);
 	}

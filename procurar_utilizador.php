@@ -2,7 +2,7 @@
 	session_start();
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
-		redirectmsg("./", 0);
+		redirectmsg("./", 'Operação não permitida');
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,6 +1,10 @@
 <?php
 	session_start();
 	$id = $_GET['id'];
+	$tag = $_GET['tag'];
+	require_once 'common/functions.php';
+	if(!empty($id) && !empty($tag)) //tag AND id? no sir
+		redirect('./');
 	require_once 'db/news_query.php';
 ?>
 <!DOCTYPE html>
@@ -12,7 +16,7 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-<?	if(!empty($id))
+<?	if(!empty($id) || !empty($tag)) //show link if not on all news listing
 		echo "<a href=\"./\"><h1>Social News</h1></a>";
 	else
 		echo "<h1>Social News</h1>";?>
@@ -42,45 +46,55 @@
 		<div id="conteudo">
 			
 <?	
+	if(!empty($tag))
+		echo "<h4>#".$tag."</h4>";
 	if(count($news)==0) //if no results
 		echo "<h4>Nenhuma notícia encontrada</h4>";
 	else {
-	foreach($news as $row) {
-
-	if(empty($id))
-		echo "<div class=\"noticia\">
-		<h3><a href=\"?id=".$row['id']."\">".$row['title']."</a></h3>
-		<a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-		<div class=\"newsdetails\">
-			<br />";
-	else
-		echo "<div class=\"noticia\">
-		<h3>".$row['title']."</h3>
-		<a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-		<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
-		<div class=\"newsdetails\">
-			<br />
-			Submetida por: ".$row['posted_by']."<br>";
-		//only display text and details on detailed view (one news item)
-		
-	if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
-		echo "Hoje, ".date('H:i', $row['date']);
-	elseif(date('dmY', time()-86400) == date('dmY', $row['date'])) //yesterday (1 day = 86400 seconds)
-		echo "Ontem, ".date('H:i', $row['date']);
-	else
-		echo date('d/m/Y, H:i', $row['date']);
-	echo 	"</div>
-			<ul>";
-	if(!empty($id))
-		echo "<li><a href=./>Ver Todas</a></li>";
-	else
-		echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
-	if($_SESSION['user_type']>0)
-		echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
-			   <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";?>		
-		</ul>
-	</div>
-	<?}
+		foreach($news as $i=>$row) {
+			if($row['id']==$news[$i-1]['id'] && empty($tag)) //if repeating news (because of tags) (dont show if listing by tag)
+				echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
+			else
+			{
+				if(empty($id))
+					echo "<div class=\"noticia\">
+					<h3><a href=\"?id=".$row['id']."\">".$row['title']."</a></h3>
+					<a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
+					<div class=\"newsdetails\">
+						<br />";
+				else
+					echo "<div class=\"noticia\">
+					<h3>".$row['title']."</h3>
+					<a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
+					<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
+					<div class=\"newsdetails\">
+						<br />
+						Submetida por: ".$row['posted_by']."<br>";
+					//only display text and details on detailed view (one news item)
+					
+				if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
+					echo "Hoje, ".date('H:i', $row['date']);
+				elseif(date('dmY', time()-86400) == date('dmY', $row['date'])) //yesterday (1 day = 86400 seconds)
+					echo "Ontem, ".date('H:i', $row['date']);
+				else
+					echo date('d/m/Y, H:i', $row['date']);
+				if($row['tagname']!="" && empty($tag)) //(dont show if listing by tag)
+					echo "</div><div class=\"newstags\"><a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>"; //first tag (close news details and start tags div)
+			}
+			if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
+				echo 	"</div>
+						<ul>";
+				if(!empty($id))
+					echo "<li><a href=./>Ver Todas</a></li>";
+				else
+					echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
+				if($_SESSION['user_type']>0)
+					echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
+						   <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";		
+				echo "</ul>
+				</div>";
+			}
+		}
 	}?>
 		</div>
 		<div id="rodape">
@@ -88,20 +102,10 @@
 		</div>
 <?
 		//display messages
-		if(isset($_GET['msgid']))
+		if(isset($_SESSION['msg']))
 		{
-			$msgid=$_GET['msgid'];
-			echo "<script type=\"text/javascript\">";
-			switch($msgid)
-			{
-				case 0:	echo "alert(\"Operação não permitida\");";
-						break;
-				/*case 1:	echo "alert(\"Login efectuado\");";
-						break;*/ //annoying
-				case 2: echo "alert(\"Operação efectuada\");";
-						break;
-			}
-			echo "</script>"; 
+			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
+			unset($_SESSION['msg']);
 		}
 ?>
 	</body>

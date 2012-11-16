@@ -2,7 +2,7 @@
 	session_start();
 	require_once 'common/functions.php';
 	if(isset($_SESSION['username'])) //if logged in, go away
-		redirectmsg("./", 0);
+		redirectmsg("./", 'Operação não permitida');
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['username']) || empty($_POST['username']) || !isset($_POST['password']) || empty($_POST['password'])) {
 ?>
 <!DOCTYPE html>
@@ -43,20 +43,10 @@
 		</div>
 <?
 		//display messages
-		if(isset($_GET['msgid']))
+		if(isset($_SESSION['msg']))
 		{
-			$msgid=$_GET['msgid'];
-			echo "<script type=\"text/javascript\">";
-			switch($msgid)
-			{
-				case 0:	echo "alert(\"Utilizador registado\");";
-						break;
-				case 1: echo "alert(\"Dados de login errados\");";
-						break;
-				case 2: echo "alert(\"Utilizador já registado\");";
-						break;
-			}
-			echo "</script>"; 
+			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
+			unset($_SESSION['msg']);
 		}
 ?>
 	</body>
@@ -76,7 +66,7 @@
 			$stmt = $db->prepare('INSERT INTO user values(?, ?, 0)');
 			$stmt = $stmt->execute(array($username, $password));
 			if($stmt)
-				redirectmsg($_SERVER['PHP_SELF'], 0);
+				redirectmsg($_SERVER['PHP_SELF'], 'Utilizador registado');
 		}
 		else
 		{
@@ -93,14 +83,14 @@
 					redirect("./");
 				}
 				else
-					redirectmsg($_SERVER['PHP_SELF'], 1);
+					redirectmsg($_SERVER['PHP_SELF'], 'Dados de login errados');
 			}
 		}
 		if(!$stmt)
 		{
 			$error=$db->errorInfo();
 			if($error[1]==19)
-				redirectmsg($_SERVER['PHP_SELF'], 2);
+				redirectmsg($_SERVER['PHP_SELF'], 'Utilizador já registado');
 			echo "Erro: " . $error[2];
 		}
 	}

@@ -9,6 +9,8 @@ Maria João Araújo
 
 ***O PHPLiteAdmin (painel de administração da base de dados) pode ser acedido por [aqui][2], com a palavra passe*** *proj1.*
 
+**(ATENÇÃO: chaves estrangeiras só funcionam no páginas.fe.up.pt, o gnomo usa uma versão antiga de SQLite que não suporta foreign keys)**
+
 **Datas de Entrega:**
 
  + 18-11-2012 (Intermédia)
