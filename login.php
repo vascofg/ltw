@@ -1,5 +1,7 @@
 <?php
+	session_set_cookie_params(0,'/~ei09034/');
 	session_start();
+	//session_destroy();
 	require_once 'common/functions.php';
 	if(isset($_SESSION['username'])) //if logged in, go away
 		redirectmsg("./", 'Operação não permitida');
@@ -45,8 +47,8 @@
 		//display messages
 		if(isset($_SESSION['msg']))
 		{
-			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
-			unset($_SESSION['msg']);
+			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";	
+	        unset($_SESSION['msg']);
 		}
 ?>
 	</body>
