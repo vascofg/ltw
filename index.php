@@ -25,32 +25,24 @@
 		<div id="menu">
 			<ul>
 <?
-	
-	if(isset($_SESSION['user_type']) && $_SESSION['user_type']>=0)
+	if(isset($_SESSION['user_type']))
 	{
-		if(isset($_SESSION['user_type']) && $_SESSION['user_type']>0)
+		if($_SESSION['user_type']>0)
 		{
-	
-			if($_SESSION['user_type']>0)
-			{
-				echo "<li><a href=\"nova_noticia.php\">Inserir notícia</a></li>";
-			}
-		
-			if($_SESSION['user_type']==2)
-			{
-				echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>";
-			}
+			echo "<li><a href=\"nova_noticia.php\">Inserir notícia</a></li>";
+		}
+
+		if($_SESSION['user_type']==2)
+		{
+			echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>";
 		}
 		
-		echo "<li><a href=\"editar_perfil_utilizador.php\">Editar perfil de utilizador</a></li>";
-
+		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil de utilizador</a></li>";
 	}
 	else
 	{
 		echo "<li></li>";
 	}
-	
-	
 ?>
 			</ul>
 			<ul class="login"><?
