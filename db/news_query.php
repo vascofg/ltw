@@ -6,7 +6,7 @@
 	}
 	elseif(isset($tag) && !empty($tag))
 	{
-			$stmt = $db->query('SELECT id, title, date FROM news LEFT JOIN tag ON news.id=tag.news_id where tagname=\''.$tag.'\' ORDER BY id DESC');
+			$stmt = $db->query('SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id  where news.id in (select news_id from tag where tagname=\''.$tag.'\') ORDER BY id DESC');
 	}
 	else
 	{

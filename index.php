@@ -61,7 +61,7 @@
 		echo "<h4>Nenhuma notícia encontrada</h4>";
 	else {
 	foreach($news as $i=>$row) {
-      if($row['id']==$news[$i-1]['id'] && empty($tag)) //if repeating news (because of tags) (dont show if listing by tag)
+      if($row['id']==$news[$i-1]['id']) //if repeating news (because of tags)
         echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
       else
       {
@@ -87,7 +87,7 @@
           echo "Ontem, ".date('H:i', $row['date']);
         else
           echo date('d/m/Y, H:i', $row['date']);
-        if($row['tagname']!="" && empty($tag)) //(dont show if listing by tag)
+        if($row['tagname']!="")
           echo "</div><div class=\"newstags\"><a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>"; //first tag (close news details and start tags div)
       }
       if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new

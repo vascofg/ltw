@@ -1,8 +1,8 @@
 <?php
 	require_once '../db/db.php';
-	/*$tags = $_GET['tags'];
-	$tags = str_replace(' ', ' or ', $tags);
-	echo $tags;*/
+	$tags = $_GET['tags'];
+	$tags = preg_replace('/\s*(\w+)/', '\'${1}\'', $tags); //encase in ''
+	$tags = str_replace('\'\'', '\',\'', $tags); //replace spaces with commas
 	$start_date = $_GET['start_date'];
 	$end_date = $_GET['end_date'];
 	//convert to timestamp
@@ -17,13 +17,31 @@
 		$end_date=time();
 	//if none specified then it will show from 0 to time() which means all news in the database
 
-	$stmt = $db->query('SELECT id, * FROM news where date > '.$start_date.' and date < '.$end_date);
+	if(!empty($tags))
+		$stmt = $db->query('SELECT * FROM news LEFT JOIN tag ON news.id=tag.news_id  where news.id in (select news_id from tag where tagname in ('.$tags.')) and date > '.$start_date.' and date < '.$end_date.' ORDER BY id DESC');
+	else
+		$stmt = $db->query('SELECT * FROM news LEFT JOIN tag ON news.id=tag.news_id where date > '.$start_date.' and date < '.$end_date.' ORDER BY id DESC');
 	if($stmt)
 	{
+		$stmt = $stmt->fetchAll();
+		$tags = array();
 		foreach($stmt as $i=>$row)
 		{
-			$data[$i] = array("id" => $row['id'], "title" => $row['title'], "date" => date('c', $row['date']),
+			if($row['id']==$stmt[$i-1]['id']) //if repeating
+				array_push($tags, $row['tagname']);
+			else
+			{
+				$iunique=$i; //save array position
+				$data[$i] = array("id" => $row['id'], "title" => $row['title'], "date" => date('c', $row['date']),
 				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => 'http://'.$_SERVER["SERVER_NAME"].dirname(dirname($_SERVER["REQUEST_URI"])).'/?id='.$row['id']);
+				if($row['tagname']!="")
+					array_push($tags, $row['tagname']);
+			}
+				
+			if($row['id']!=$stmt[$i+1]['id']) { //if next row not a repeat, close array of tags
+				$data[$iunique]['tags']=$tags; //append tags to array data of corresponding news
+				$tags=array(); //empty tag array
+			}
 		}
 		$result = array ("result" => "success", "server_name" => "Grupo X", "data" => $data);
 	}
