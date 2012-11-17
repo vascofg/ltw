@@ -25,22 +25,23 @@
 	{
 		$stmt = $stmt->fetchAll();
 		$tags = array();
+		$data_array_pos=0; //data array position
 		foreach($stmt as $i=>$row)
 		{
 			if($row['id']==$stmt[$i-1]['id']) //if repeating
 				array_push($tags, $row['tagname']);
 			else
 			{
-				$iunique=$i; //save array position
-				$data[$i] = array("id" => $row['id'], "title" => $row['title'], "date" => date('c', $row['date']),
+				$data[$data_array_pos] = array("id" => $row['id'], "title" => $row['title'], "date" => date('c', $row['date']),
 				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => 'http://'.$_SERVER["SERVER_NAME"].dirname(dirname($_SERVER["REQUEST_URI"])).'/?id='.$row['id']);
 				if($row['tagname']!="")
 					array_push($tags, $row['tagname']);
 			}
 				
 			if($row['id']!=$stmt[$i+1]['id']) { //if next row not a repeat, close array of tags
-				$data[$iunique]['tags']=$tags; //append tags to array data of corresponding news
+				$data[$data_array_pos]['tags']=$tags; //append tags to array data on corresponding news
 				$tags=array(); //empty tag array
+				$data_array_pos++; //next data array position
 			}
 		}
 		$result = array ("result" => "success", "server_name" => "Grupo X", "data" => $data);

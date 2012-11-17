@@ -34,10 +34,11 @@
 
 		if($_SESSION['user_type']==2)
 		{
-			echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>";
+			echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>"
+			."<li><a href=\"obter_noticias.php\">Obter notícias</a></li>";
 		}
 		
-		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil de utilizador</a></li>";
+		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil</a></li>";
 	}
 	else
 	{
