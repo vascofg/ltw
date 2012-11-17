@@ -1,7 +1,9 @@
 <?php
 	session_start();
-	$id = $_GET['id'];
+	$id = (int)$_GET['id'];
 	$tag = $_GET['tag'];
+	$p = $_GET['p'];
+	$offset = "offset ".$p*10;
  	require_once 'common/functions.php';
  	if(!empty($id) && !empty($tag)) //tag AND id? no sir	
 		redirect('./');
@@ -16,7 +18,7 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-<?	if(!empty($id) || !empty($tag)) //show link if not on all news listing
+<?	if(!empty($id) || !empty($tag) || $p!=0) //show link if not on all news listing
 		echo "<a href=\"./\"><h1>Social News</h1></a>";
 	else
 		echo "<h1>Social News</h1>";?>
@@ -61,53 +63,62 @@
 	if(count($news)==0) //if no results
 		echo "<h4>Nenhuma notícia encontrada</h4>";
 	else {
-	foreach($news as $i=>$row) {
-      if($row['id']==$news[$i-1]['id']) //if repeating news (because of tags)
-        echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
-      else
-      {
-        if(empty($id))
-          echo "<div class=\"noticia\">
-          <h3><a href=\"?id=".$row['id']."\">".$row['title']."</a></h3>
-          <a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-          <div class=\"newsdetails\">
-            <br />";
-        else
-          echo "<div class=\"noticia\">
-          <h3>".$row['title']."</h3>
-          <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-          <div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
-          <div class=\"newsdetails\">
-            <br />
-            Submetida por: ".$row['posted_by']."<br>";
-          //only display text and details on detailed view (one news item)
-          
-        if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
-          echo "Hoje, ".date('H:i', $row['date']);
-        elseif(date('dmY', time()-86400) == date('dmY', $row['date'])) //yesterday (1 day = 86400 seconds)
-          echo "Ontem, ".date('H:i', $row['date']);
-        else
-          echo date('d/m/Y, H:i', $row['date']);
-        if($row['tagname']!="")
-          echo "</div><div class=\"newstags\"><a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>"; //first tag (close news details and start tags div)
-      }
-      if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
-        echo   "</div>
-            <ul>";
-        if(!empty($id))	
-          echo "<li><a href=./>Ver Todas</a></li>";
-       else
-          echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
-        if($_SESSION['user_type']>0)
-      echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
-        <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";    
-	echo "</ul>
-	</div>";
-	}
-}
+		foreach($news as $i=>$row) {
+			if($row['id']==$news[$i-1]['id']) //if repeating news (because of tags)
+				echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
+			else
+			{
+				if(empty($id))
+					echo "<div class=\"noticia\">
+						<h3><a href=\"?id=".$row['id']."\">".$row['title']."</a></h3>
+						<a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
+						<div class=\"newsdetails\">
+							<br />";
+				else
+					echo "<div class=\"noticia\">
+						<h3>".$row['title']."</h3>
+						<a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
+						<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
+						<div class=\"newsdetails\">
+							<br />
+						Submetida por: ".$row['posted_by']."<br>";
+						//only display text and details on detailed view (one news item)
+					  
+					if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
+					  echo "Hoje, ".date('H:i', $row['date']);
+					elseif(date('dmY', time()-86400) == date('dmY', $row['date'])) //yesterday (1 day = 86400 seconds)
+					  echo "Ontem, ".date('H:i', $row['date']);
+					else
+					  echo date('d/m/Y, H:i', $row['date']);
+					if($row['tagname']!="")
+					  echo "</div><div class=\"newstags\"><a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>"; //first tag (close news details and start tags div)
+			}
+			if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
+				echo   "</div>
+					<ul>";
+				if(!empty($id))	
+					echo "<li><a href=./>Ver Todas</a></li>";
+				else
+					echo "<li><a href=\"?id=".$row['id']."\">Ver Notícia</a></li>";
+				if($_SESSION['user_type']>0)
+					echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
+						<li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";    
+				echo "</ul>
+					</div>";
+			}
+		}
+		if(empty($tag) && empty($id)) //pagination
+		{
+			$totals = $db->query("select min(id) as first, max(id) as last from news")->fetch();
+			if($p>0 && $news[0]['id']<$totals['last'])
+				echo "<p style=\"float:left;margin:5px 0;\"><a href=\"./?p=".($p-1)."\"><</a></p>";
+			$lastelem = end($news); //last element of array news
+			if($lastelem['id']>$totals['first'])
+				echo "<p style=\"float:right;margin:5px 0;\"><a href=\"./?p=".($p+1)."\">></a></p>";
+		}
 	}?>
 		</div>
-		<div id="rodape">
+		<div id="rodape" style="clear:both;"> <!-- clear both needed because of pagination-->
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>
 		</div>
 <?

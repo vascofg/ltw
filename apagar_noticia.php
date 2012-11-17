@@ -5,7 +5,7 @@
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
 		redirectmsg("./", 'Operação não permitida');
 	
-	$id=$_GET['id'];
+	$id=(int)$_GET['id'];
 	
 	if(!$db->query('delete from news where id=' .$id))
 	{

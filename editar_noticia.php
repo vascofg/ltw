@@ -3,7 +3,7 @@
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
 		redirectmsg("./", 'Operação não permitida');
-	$id = $_GET['id'];
+	$id = (int)$_GET['id'];
 	require_once 'db/db.php'; //in this file it's needed either way
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>

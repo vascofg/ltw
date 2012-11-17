@@ -4,7 +4,7 @@
 	require_once 'db/db.php'; //in this file it's needed either way
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
 		redirectmsg("./", 0);
-	$id=$_GET['id'];
+	$id=(int)$_GET['id'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
 <!DOCTYPE html>
