@@ -2,7 +2,7 @@
 	session_start();
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
+	if(!isset($_SESSION['username'])) //if not logged in, go away
 		redirectmsg("./", 0);
 	$id=(int)$_GET['id'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
@@ -21,7 +21,7 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li><li>Apagar Utilizador</li>
+			 	<li><a href="./">Voltar</a></li><li>Apagar Utilizador</li>
 			</ul>
 			<ul class="login">
 				<li><a href="logout.php">Logout</a></li>
@@ -42,16 +42,18 @@
 		
 		$row=$stmt[0];
 		?>
-			<form method="post" action="guardar_alteracoes_perfil_utilizador.php">
+			<form method="post" action="guardar_alteracoes_perfil_utilizador.php?username=<? echo $row['username'];?>">
 				<table style="margin: auto;">
 				<tr>
 						<td>Username: </td>
-						<td><input type="text" value=<? echo $row['username'];?>></td>
-						
+						<td><? echo $row['username'];?></td>
+				<?
+				if($_SESSION['user_type'] == 2)
+				{	?>
 				<tr>	<td>Tipo de Utilizador:</td> 
 						<td>
 <?
-						echo "<select name = user_type[".$row['rowid']."]>
+						echo "<select name = \"user_type\">
 							<option value=0";
 						if($row['user_type']==0)
 							echo " selected=\"selected\"";
@@ -69,10 +71,19 @@
 					?>
 					</td>
 					</tr>
-					
+				
+				<?
+				}
+					if($_SESSION['user_type'] != 2)
+					{
+				?>
 					<tr>
 					<td>Password actual: </td><td><input type="password" name="pass_actual"></td>
 					</tr>
+					<?
+					}
+					?>
+				
 					<tr>
 					<td>Nova Password: </td><td><input type="password" name="nova_pass"></td>
 					</tr>
@@ -88,11 +99,11 @@
 			</form>
 <?
 		}
-	}
 	else
 	{
 		$error=$db->errorInfo();
 		echo "Erro: " . $error[2];
+	}
 	}
 ?>
 		</div>

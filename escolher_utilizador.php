@@ -41,7 +41,7 @@
 		}
 		else {?>
 			<form action="editar_perfil_utilizador.php" method="get">
-				<table border="1" style="margin: auto;" id="utilizadores_encontrados">
+				<table border="1" style="margin: auto;" id="utilizadores_encontrados">					
 					<col width="60%">
 					<col width="90%">
 					<tr>
