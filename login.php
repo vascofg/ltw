@@ -70,7 +70,7 @@
 		}
 		else
 		{
-			$stmt = $db->query('SELECT rowid, count(*) as count, user_type FROM user where username="'.$username.'" and password="'.$password.'"');
+			$stmt = $db->query('SELECT rowid, count(*) as count, username, user_type FROM user where username="'.$username.'" and password="'.$password.'"');
 			if($stmt)
 			{
 				$result = $stmt -> fetch();
