@@ -3,7 +3,7 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
-		redirectmsg("./", 0);
+		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 	$user_type=$_POST['user_type'];
 	$pass_actual=$_POST['pass_actual'];
