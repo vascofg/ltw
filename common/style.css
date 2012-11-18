@@ -90,51 +90,65 @@ div#conteudo h4 {
 
 div.noticia {
 	margin-top: 4px;
-border-bottom: 4px solid #CCC;
-display: inline-block;
-width:99%;
+	border-bottom: 4px solid #CCC;
+	display: inline-block;
+	width:99%;
 }
 
 
 
 div.noticia:last-child {
 	border-bottom:none;
+	width: 100%;
 }
 
 div.noticia img {
 	float:left;
 	margin-right:10px;
 }
-
+div.noticia_index img {
+	float:left;
+	margin-right:10px;
+	width: 100%;
+}
 
 div.noticia_index {
 	margin-top: 13px;
-border-bottom: 4px solid #CCC;
-display: inline-block;
-width: 25%;
-float: left;
-height: 290px;
+	border-bottom: 4px solid #CCC;
+	display: inline-block;
+	width: 25%;
+	float: left;
+	height: 290px;
 }
 
 div.noticia_index>h3{
 	display: inline-block;
 	position: absolute;
-	width:300px;
+	width:295px;
 	float: left;
 	margin-bottom: 0 !important;
 	margin-top: 150px !important;
 	background-color: rgba(0, 0, 0, 0.5);
 }
+
 div.noticia_index>h3>a{
 	color: white;
-	
+	margin-left: 5px;
 }
+
 div.noticia_index li {
 	display:inline;
 	border-right:solid;
 	border-width:2px;
 	border-color:white;
-	padding:0px 5px;
+	padding-left: 2%;
+	padding-right: 2%;
+}
+
+div.noticia_index li:first-child {
+	border-left:solid;
+	border-width:2px;
+	border-color:white;
 }
 
 div.noticia_index ul {
@@ -219,6 +233,6 @@ table#change_permissions td{
 
 div#controlos{
 	width: 100%;
-display: inline;
-float: left;
+	display: inline;
+	float: left;
 }
