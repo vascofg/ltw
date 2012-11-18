@@ -5,7 +5,7 @@
 	elseif(isset($tag) && !empty($tag))
 		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where news.id in (select news_id from tag where tagname=\''.$tag.'\') ORDER BY id DESC';
 	else
-		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where news.id in (select id from news order by id desc limit 10 '.$offset.') ORDER BY id DESC';
+		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where news.id in (select id from news order by id desc limit 12 '.$offset.') ORDER BY id DESC';
 	$stmt = $db->query($sql);
 	if(!stmt)
 	{

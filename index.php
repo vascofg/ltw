@@ -3,7 +3,7 @@
 	$id = (int)$_GET['id'];
 	$tag = $_GET['tag'];
 	$p = $_GET['p'];
-	$offset = "offset ".$p*10;
+	$offset = "offset ".$p*12;
  	require_once 'common/functions.php';
  	if(!empty($id) && !empty($tag)) //tag AND id? no sir	
 		redirect('./');
@@ -107,13 +107,14 @@
 	}
 }
 		if(empty($tag) && empty($id)) //pagination
-		{
+		{	echo "<div id=controlos>";
 			$totals = $db->query("select min(id) as first, max(id) as last from news")->fetch();
 			if($p>0 && $news[0]['id']<$totals['last'])
 				echo "<p style=\"float:left;margin:5px 0;\"><a href=\"./?p=".($p-1)."\"><</a></p>";
 			$lastelem = end($news); //last element of array news
 			if($lastelem['id']>$totals['first'])
 				echo "<p style=\"float:right;margin:5px 0;\"><a href=\"./?p=".($p+1)."\">></a></p>";
+			echo "</div>";
 		}
 	}?>
 		</div>

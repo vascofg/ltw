@@ -196,3 +196,9 @@ table#change_permissions td{
 	border-width:1px;
 	border-color:#ccc;
 }
+
+div#controlos{
+	width: 100%;
+display: inline;
+float: left;
+}
