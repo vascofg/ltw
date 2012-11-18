@@ -88,7 +88,7 @@
 			</ul>
 		</div>
 		<div id="conteudo">
-		<?
+		<?php
 		
 		if(! $stmt->execute())
 			{

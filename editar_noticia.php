@@ -30,7 +30,7 @@
 		<div id="conteudo">
 			<form method="post">
 				<table style="margin: auto;">
-<?
+<?php
 	$stmt = $db->query('SELECT id, title, date, text, posted_by, tag.rowid as tagid, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where id = '.$id);
 	if($stmt)
 	{

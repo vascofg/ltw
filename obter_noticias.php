@@ -25,7 +25,7 @@
 			</ul>
 		</div>
 		<div id="conteudo">
-<?
+<?php
 	if($_SERVER['REQUEST_METHOD'] != "POST" || empty($_POST['url'])) {?>
 			<form method="post">
 				<table style="margin: auto;">
@@ -48,7 +48,7 @@
 				</table>
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
-<?
+<?php
 	}
 	else {
 		$url = $_POST['url'];

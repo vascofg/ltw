@@ -43,7 +43,7 @@
 		<div id="rodape">
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>
 		</div>
-<?
+<?php
 		//display messages
 		if(isset($_SESSION['msg']))
 		{
@@ -54,7 +54,7 @@
 	</body>
 </html>
 
-<?
+<?php
 	}
 	else
 	{

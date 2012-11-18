@@ -28,7 +28,7 @@
 			</ul>
 		</div>
 		<div id="conteudo">
-<?
+<?php
 		$stmt = $db->prepare('SELECT rowid, username, user_type FROM user WHERE rowid = :id');
 		$stmt->bindparam(':id',$id);
 		$stmt->execute();
@@ -42,17 +42,17 @@
 		
 		$row=$stmt[0];
 		?>
-			<form method="post" action="guardar_alteracoes_perfil_utilizador.php?username=<? echo $row['username'];?>">
+			<form method="post" action="guardar_alteracoes_perfil_utilizador.php?username=<?php echo $row['username'];?>">
 				<table style="margin: auto;">
 				<tr>
 						<td>Username: </td>
-						<td><? echo $row['username'];?></td>
-				<?
+						<td><?php echo $row['username'];?></td>
+				<?php
 				if($_SESSION['user_type'] == 2)
 				{	?>
 				<tr>	<td>Tipo de Utilizador:</td> 
 						<td>
-<?
+<?php
 						echo "<select name = \"user_type\">
 							<option value=0";
 						if($row['user_type']==0)
@@ -72,7 +72,7 @@
 					</td>
 					</tr>
 				
-				<?
+				<?php
 				}
 					if($_SESSION['user_type'] != 2)
 					{
@@ -80,7 +80,7 @@
 					<tr>
 					<td>Password actual: </td><td><input type="password" name="pass_actual"></td>
 					</tr>
-					<?
+					<?php
 					}
 					?>
 				
@@ -90,14 +90,14 @@
 					<tr>
 					<td>Confirmar Nova Password: </td><td><input type="password" name="nova_pass_2"></td>	
 					</tr>
-					<?
+					<?php
 						
 		}
 ?>
 				</table>
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
-<?
+<?php
 		}
 	else
 	{

@@ -28,7 +28,7 @@
 			</ul>
 		</div>
 		<div id="conteudo">
-<?
+<?php
 	if(!empty($username))
 		$stmt = $db->query('SELECT rowid, username, user_type FROM user WHERE username like \'%'.$_GET['username'].'%\'');
 	else
@@ -48,7 +48,7 @@
 						<th>Username</th>
 						<th>Tipo de Utilizador</th>
 					</tr>
-<?
+<?php
 			foreach($stmt as $row)
 			{
 			
@@ -83,7 +83,7 @@
 ?>
 				</table>
 			</form>
-<?
+<?php
 		}
 	}
 	else
@@ -100,7 +100,7 @@
 	</body>
 </html>
 
-<?
+<?php
 	}
 	else
 	{

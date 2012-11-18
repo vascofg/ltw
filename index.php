@@ -18,7 +18,7 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-<?	if(!empty($id) || !empty($tag) || $p!=0) //show link if not on all news listing
+<?php	if(!empty($id) || !empty($tag) || $p!=0) //show link if not on all news listing
 		echo "<a href=\"./\"><h1>Social News</h1></a>";
 	else
 		echo "<h1>Social News</h1>";?>
@@ -26,7 +26,7 @@
 		</div>
 		<div id="menu">
 			<ul>
-<?
+<?php
 	if(isset($_SESSION['user_type']))
 	{
 		if($_SESSION['user_type']>0)
@@ -48,7 +48,7 @@
 	}
 ?>
 			</ul>
-			<ul class="login"><?
+			<ul class="login"><?php
 				if(isset($_SESSION['user_type']))
 					echo "<li><a href=\"logout.php\">Logout</a></li>";
 				else
@@ -57,7 +57,7 @@
 		</div>
 		<div id="conteudo">
 			
-<?	
+<?php	
 	if(!empty($tag))
  		echo "<h4>#".$tag."</h4>";
 	if(count($news)==0) //if no results
@@ -121,7 +121,7 @@
 		<div id="rodape" style="clear:both;"> <!-- clear both needed because of pagination-->
 			<p>Projecto 1 de LTW @ FEUP - 2012</p>
 		</div>
-<?
+<?php
 		//display messages
 		if(isset($_SESSION['msg']))
 		{
