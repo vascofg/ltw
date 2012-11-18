@@ -44,7 +44,7 @@
 				$data_array_pos++; //next data array position
 			}
 		}
-		$result = array ("result" => "success", "server_name" => "Grupo X", "data" => $data);
+		$result = array ("result" => "success", "server_name" => "Grupo T5G7", "data" => $data);
 	}
 	else
 	{

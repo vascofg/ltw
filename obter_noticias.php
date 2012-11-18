@@ -14,7 +14,7 @@
 	<body>
 		<div id="cabecalho">
 			<a href="./"><h1>Social News</h1></a>
-			<h2>Obter notícias de noutros servidores</h2>
+			<h2>Obter notícias de outros servidores</h2>
 		</div>
 		<div id="menu">
 			<ul>

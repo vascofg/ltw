@@ -2,11 +2,11 @@
 	session_start();
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
+	$pass_actual=$_POST['pass_actual'];
+	if(!isset($_SESSION['username']) || (!isset($pass_actual)&&$_SESSION['user_type']<2)) //if not logged in or not admin, go away
 		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 	$user_type=$_POST['user_type'];
-	$pass_actual=$_POST['pass_actual'];
 		
 	$nova_pass=$_POST['nova_pass'];
 	$nova_pass_2=$_POST['nova_pass_2'];
@@ -45,22 +45,18 @@
 			echo "<p>A nova password não foi bem confirmada!</p>";
 		}	
 		else
-		{
-			$password=crypt($username.$nova_pass, '$1$'.substr(md5($nova_pass.$username), 0, 8)); //le awesome salt
-			$stmt = $db->prepare('UPDATE user SET user_type = :user_type, password =:nova_pass WHERE username = :username');
-			$stmt->bindparam(':user_type', $user_type);
-			
-			if(empty($nova_pass) || empty($nova_pass_2))
-			{
-				$stmt->bindparam(':nova_pass', $pass_actual);
+		{	
+			if(strlen($nova_pass)>0){
+				$password=crypt($username.$nova_pass, '$1$'.substr(md5($nova_pass.$username), 0, 8)); //le awesome salt
+				$stmt_password = $db->prepare('UPDATE user SET password =:nova_pass WHERE username = :username');
+				$stmt_password->bindparam(':nova_pass', $password);
+				$stmt_password->bindparam(':username', $username);
+			 }
+			if(isset($user_type)){
+				$stmt_user_type = $db->prepare('UPDATE user SET user_type = :user_type WHERE username = :username');
+				$stmt_user_type->bindparam(':user_type', $user_type);
+				$stmt_user_type->bindparam(':username', $username);
 			}
-			else			
-			{
-				$stmt->bindparam(':nova_pass', $password);
-			}
-			
-			$stmt->bindparam(':username', $username);
-			
 		}	
 		
 	}
@@ -89,14 +85,16 @@
 		</div>
 		<div id="conteudo">
 		<?php
+		$executa_password=(!isset($stmt_password) || $stmt_password->execute());
+		$executa_user_type=(!isset($stmt_user_type) || $stmt_user_type->execute());
 		
-		if(! $stmt->execute())
+		if($executa_password && $executa_user_type)
 			{
-				echo "<p>A edição de dados falhou!</p>";
+				echo "<p>Perfil editado com sucesso!</p>";
 			}
 			else
 			{
-				echo "<p>Perfil editado com sucesso!</p>";
+				echo "<p>A edição de dados falhou!</p>";
 			}
 		
 		?>

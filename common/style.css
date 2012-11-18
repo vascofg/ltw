@@ -1,24 +1,26 @@
 html {
 	overflow-y: scroll;
+
 }
 
 body {
 	font-family: Century Gothic, sans-serif;
+	/*font-family: Helvetica, sans-serif;*/
 	margin: 10px auto;
-	width: 800px;
+	border-left: 10px;
+	width: 1200px;
 	color: #333333;
 	border:1px solid #ccc;
-	background-color:white;
 	border-radius:10px;
 }
 
 div#cabecalho {
 	text-align:center;
-	padding:50px 20px;
-	background-color:#8C2D19;
-	color:#ccc;
+	padding:20px 20px;
+	background-color:white;
+	color:black;
 	border-radius:9px 9px 0 0;
-	
+	background-color:white;
 }
 
 div#menu  {
@@ -36,18 +38,14 @@ a:hover {
 }
 
 div#cabecalho h1 {
-	margin-top: 0;
-	font-size:60px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size:40px;
 }
 
 div#cabecalho a {
-	color:#ccc;
+	color:black;
 	text-decoration:none;
-}
-
-div#cabecalho h2 {
-	margin-bottom: 0;
-	font-size:30px;
 }
 
 div#menu ul {
@@ -84,10 +82,20 @@ div#conteudo h3 {
 	font-size:30px;
 }
 
-div.noticia {
-	margin-top:4px;
-	border-bottom:4px solid #ccc;
+div#conteudo h4 {
+	margin-top:20px; 
+	margin-bottom:10px;
+	font-size:30px;
 }
+
+div.noticia {
+	margin-top: 4px;
+border-bottom: 4px solid #CCC;
+display: inline-block;
+width:99%;
+}
+
+
 
 div.noticia:last-child {
 	border-bottom:none;
@@ -98,13 +106,54 @@ div.noticia img {
 	margin-right:10px;
 }
 
+
+div.noticia_index {
+	margin-top: 13px;
+border-bottom: 4px solid #CCC;
+display: inline-block;
+width: 25%;
+float: left;
+height: 290px;
+}
+
+div.noticia_index>h3{
+	display: inline-block;
+	position: absolute;
+	width:300px;
+	float: left;
+	margin-bottom: 0 !important;
+	margin-top: 150px !important;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+div.noticia_index>h3>a{
+	color: white;
+	
+}
+div.noticia_index li {
+	display:inline;
+	border-right:solid;
+	border-width:2px;
+	border-color:white;
+	padding:0px 5px;
+}
+
+div.noticia_index ul {
+	margin-top:10px;
+	padding-top:2px;
+	padding-left:0;
+	background-color:#ccc;
+	padding:5px;
+}
+
 div#rodape {
 	border-top:1px solid #ccc;
 	margin:0;
 	padding:5px 0;
 	border-radius:0 0 9px 9px;
-	background-color:#8C2D19;
-	color:#ccc;
+	background-color:black;
+	color:white;
+	display: inline-block;
+	width: 100%;
 }
 
 div#rodape p {
@@ -166,4 +215,10 @@ table#change_permissions td{
 	border-style:inset;
 	border-width:1px;
 	border-color:#ccc;
+}
+
+div#controlos{
+	width: 100%;
+display: inline;
+float: left;
 }
