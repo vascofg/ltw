@@ -36,7 +36,7 @@
 			</form>
 		</div>
 		<div id="rodape">
-			<p>Projecto 1 de LTW @ FEUP - 2012</p>
+			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
 		</div>
 	</body>
 </html>
