@@ -3,7 +3,7 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	if(!isset($_SESSION['username'])) //if not logged in, go away
-		redirectmsg("./", 0);
+		redirectmsg("./", 'Operação não permitida');
 	$id=(int)$_GET['id'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>

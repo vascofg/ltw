@@ -3,7 +3,7 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
-		redirectmsg("./", 0);
+		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
@@ -117,7 +117,7 @@
 			echo "Erro: " . $error[2];
 		}
 		else
-			redirectmsg('./', 2);
+			redirectmsg('./', 'Operação efectuada');
 		//is there a way to force update of $_SESSION['user_type'] on users already logged in?
 	}
 ?>
