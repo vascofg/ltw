@@ -93,17 +93,22 @@
           echo "</div><div class=\"newstags\"><a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>"; //first tag (close news details and start tags div)
       }
       if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
-        echo   "</div>
-            <ul>";
+        echo   "</div>";
+		
+		if(!empty($id) || isset($_SESSION['username']))
+			echo "<ul>";
+			
         if(!empty($id))	
           echo "<li><a href=./>Ver Todas</a></li>";
        
          
         if($_SESSION['user_type']>0)
-      echo " <li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li>
-        <li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";    
-	echo "</ul>
-	</div>";
+			echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";    
+			
+		if(!empty($id) || isset($_SESSION['username']))
+			echo "</ul>";
+		
+		echo "</div>";
 	}
 }
 		if(empty($tag) && empty($id)) //pagination
