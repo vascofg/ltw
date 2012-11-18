@@ -1,7 +1,5 @@
 <?php
-	session_set_cookie_params(0,'/~ei09034/');
 	session_start();
-	//session_destroy();
 	require_once 'common/functions.php';
 	if(isset($_SESSION['username'])) //if logged in, go away
 		redirectmsg("./", 'Operação não permitida');
