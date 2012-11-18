@@ -90,17 +90,17 @@ div#conteudo h4 {
 
 div.noticia {
 	margin-top: 4px;
-	border-bottom: 4px solid #CCC;
+	/*border-bottom: 4px solid #CCC;*/
 	display: inline-block;
 	width:99%;
 }
 
 
 
-div.noticia:last-child {
+/*div.noticia:last-child {
 	border-bottom:none;
 	width: 100%;
-}
+}*/
 
 div.noticia img {
 	float:left;
@@ -114,7 +114,7 @@ div.noticia_index img {
 
 div.noticia_index {
 	margin-top: 13px;
-	border-bottom: 4px solid #CCC;
+	/*border-bottom: 4px solid #CCC;*/
 	display: inline-block;
 	width: 25%;
 	float: left;

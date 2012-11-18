@@ -103,7 +103,7 @@
        
          
         if($_SESSION['user_type']>0)
-			echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";    
+			echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";
 			
 		if(!empty($id) || isset($_SESSION['username']))
 			echo "</ul>";
