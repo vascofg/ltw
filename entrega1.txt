@@ -1,0 +1,17 @@
+T5G7
+
+Vasco Gonçalves
+Maria João Araújo
+
+ATENÇÃO: chaves estrangeiras só funcionam no paginas.fe.up.pt, o gnomo usa uma versão antiga de SQLite que não suporta foreign keys
+
+Para a primeira entrega foi feito:
+
+- Base de dados
+- Inserção, edição e apagamento de notícias (incluindo tags)
+- Listagem de notícias locais
+- Pesquisa por tag
+- Listagem de notícias remotas
+- Registo, login e gestão de utilizadores
+- Edição de perfil (não 100%)
+- Protocolo para pesquisa remota
