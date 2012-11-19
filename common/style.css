@@ -113,6 +113,7 @@ div.noticia_index img {
 }
 
 div.noticia_index {
+	position:relative;
 	margin-top: 13px;
 	/*border-bottom: 4px solid #CCC;*/
 	display: inline-block;
@@ -126,8 +127,7 @@ div.noticia_index>h3{
 	position: absolute;
 	width:295px;
 	float: left;
-	margin-bottom: 0 !important;
-	margin-top: 150px !important;
+	bottom:93px;
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -152,9 +152,9 @@ div.noticia_index li:first-child {
 }
 
 div.noticia_index ul {
-	margin-top:10px;
-	padding-top:2px;
-	padding-left:0;
+	position:absolute;
+	bottom:-10px;
+	width:100%;
 	background-color:#ccc;
 	padding:5px;
 }

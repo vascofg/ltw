@@ -7,11 +7,12 @@ ATENÇÃO: chaves estrangeiras só funcionam no paginas.fe.up.pt, o gnomo usa uma v
 
 Para a primeira entrega foi feito:
 
-- Base de dados
-- Inserção, edição e apagamento de notícias (incluindo tags)
+- Base de dados e protocolo de comunicação em php
+- Inserção, edição e eliminação de notícias e tags
 - Listagem de notícias locais
 - Pesquisa por tag
 - Listagem de notícias remotas
 - Registo, login e gestão de utilizadores
-- Edição de perfil (não 100%)
+- Edição de perfil (excepto apagar perfil e validações com ERs)
 - Protocolo para pesquisa remota
+- Implementadas diferentes funcionalidades de acordo com o tipo de utilizador
