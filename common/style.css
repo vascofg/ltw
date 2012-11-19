@@ -128,6 +128,7 @@ div.noticia_index>h3{
 	width:295px;
 	float: left;
 	bottom:93px;
+	word-wrap: break-word;
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
