@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once 'common/functions.php';
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id'])) //if not logged in, not editor or no id set, go away
+	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id']) || empty($_GET['id'])) //if not logged in, not editor or no id set, go away
 		redirectmsg("./", 'Operação não permitida');
 	$id = (int)$_GET['id'];
 	require_once 'db/db.php'; //in this file it's needed either way
@@ -28,33 +28,40 @@
 			</ul>
 		</div>
 		<div id="conteudo">
-			<form method="post">
-				<table style="margin: auto;">
 <?php
 	$stmt = $db->query('SELECT id, title, date, text, posted_by, tag.rowid as tagid, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where id = '.$id);
 	if($stmt)
 	{
 		$result = $stmt -> fetchAll();
-		echo "		<tr>
-						<td>Título</td>
-						<td><input type=\"text\" size=\"50\" name=\"title\" value=\"".$result[0]['title']."\"></td>
-					</tr>
-					<tr>
-						<td style=\"vertical-align:top;\">Texto</td>
-						<td><textarea cols=\"60\" rows=\"15\" name=\"text\">".$result[0]['text']."</textarea></td>
-					</tr>";
-		if(!empty($result[0]['tagname'])){ //if any tags already exist
+		if(count($result)>0) {
+			echo "<form method=\"post\">
+						<table style=\"margin: auto;\">		
+						<tr>
+							<td>Título</td>
+							<td><input type=\"text\" size=\"50\" name=\"title\" value=\"".$result[0]['title']."\"></td>
+						</tr>
+						<tr>
+							<td style=\"vertical-align:top;\">Texto</td>
+							<td><textarea cols=\"60\" rows=\"15\" name=\"text\">".$result[0]['text']."</textarea></td>
+						</tr>";
+			if(!empty($result[0]['tagname'])){ //if any tags already exist
+				echo "<tr>
+						<td style=\"vertical-align:top;\">Apagar<br>tags</td>
+						<td>";
+				foreach($result as $row)
+					echo "<input type=\"checkbox\" name=\"tag[".$row['tagid']."]\"> ".$row['tagname']."<br>";
+				echo "</td></tr>";
+			}
 			echo "<tr>
-					<td style=\"vertical-align:top;\">Apagar<br>tags</td>
-					<td>";
-			foreach($result as $row)
-				echo "<input type=\"checkbox\" name=\"tag[".$row['tagid']."]\"> ".$row['tagname']."<br>";
-			echo "</td></tr>";
+					<td>Novas<br>tags</td>
+					<td><input type=\"text\" size=\"50\" name=\"tags\" placeholder=\"Tags separadas por espaço\"></td>
+				</tr>
+				</table>
+				<p style=\"text-align:center;\"><input type=\"submit\" value=\"Submeter\"></p>
+			</form>";
 		}
-		echo "<tr>
-				<td>Novas<br>tags</td>
-				<td><input type=\"text\" size=\"50\" name=\"tags\" placeholder=\"Tags separadas por espaço\"></td>
-			</tr>";
+		else
+			echo "<h4>Nenhuma notícia encontrada</h4>";
 	}
 	else
 	{
@@ -62,9 +69,6 @@
 		echo "Erro: " . $error[2];
 	}
 ?>
-				</table>
-				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
-			</form>
 		</div>
 		<div id="rodape">
 			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>

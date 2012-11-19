@@ -117,9 +117,10 @@ div.noticia_index {
 div.noticia_index>h3{
 	display: inline-block;
 	position: absolute;
-	width:295px;
+	width:285px;
 	float: left;
 	bottom:93px;
+	padding:0 5px;
 	word-wrap: break-word;
 	background-color: rgba(0, 0, 0, 0.5);
 }

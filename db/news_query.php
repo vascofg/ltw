@@ -1,7 +1,7 @@
 <?php
 	require_once 'db/db.php';
 	if(isset($id) && !empty($id))
-		$sql = 'SELECT id, title, date, text, posted_by, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where id='.$id;
+		$sql = 'SELECT id, title, date, text, posted_by, url, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where id='.$id;
 	elseif(isset($tag) && !empty($tag))
 		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where news.id in (select news_id from tag where tagname=\''.$tag.'\') ORDER BY id DESC';
 	else

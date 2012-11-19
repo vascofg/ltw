@@ -66,7 +66,7 @@
 		}
 			
 		require_once 'db/db.php';
-		$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?)');
+		$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, null)');
 		if($stmt->execute(array($title, time(), $text, $_SESSION['username'])))
 		{
 			$news_id=$db->lastInsertID();

@@ -3,6 +3,7 @@
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not administrator, go away
 		redirectmsg("./", 'Operação não permitida');
+	if(!isset($_POST['submit_insert'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,17 +69,20 @@
 			else
 			{
 				$json_news = $json->{'data'};
+				$_SESSION['json_news']=$json_news;
 				if(count($json_news)==0) //if no results
 					echo "<h4>Nenhuma notícia encontrada</h4>";
 				else
 				{
-					foreach($json_news as $row)
+					echo "<form method=\"post\">";
+					foreach($json_news as $i => $row)
 					{
 						echo "<div class=\"noticia\">
-						  <h3>".$row->{'title'}."</h3>
+						  <h3><input type=\"checkbox\" name=\"news[".$i."]\"> ".$row->{'title'}."</h3>
 						  <div class=\"newsbody\">".nl2br/*convert newlines in json to <br>*/($row->{'text'})."</div>
 						  <div class=\"newsdetails\">
 							<br />
+							URL: <a href=\"".$row->{'url'}."\">".$row->{'url'}."</a><br>
 							Submetida por: ".$row->{'posted_by'}."<br>";
 						  //only display text and details on detailed view (one news item)
 						 
@@ -103,6 +107,8 @@
 						}
 						echo "<br></div>";
 					}
+					echo "<p style=\"text-align:center;\"><input type=\"submit\" name=\"submit_insert\" value=\"Inserir\"></p>
+					</form>";
 				}
 			}
 		}
@@ -114,3 +120,50 @@
 		</div>
 	</body>
 </html>
+<?php }
+else { //insert selected news
+	require_once 'db/db.php';
+	if(isset($_SESSION['json_news']))
+	{
+		$json_news = $_SESSION['json_news'];
+
+		foreach($_POST['news'] as $i => $row)
+		{
+			$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, ?)');
+			if($stmt->execute(array($json_news[$i]->{'title'}, strtotime($json_news[$i]->{'date'}), $json_news[$i]->{'text'}, $json_news[$i]->{'posted_by'}, $json_news[$i]->{'url'})))
+			{
+				$news_id=$db->lastInsertID();
+				
+				if(!empty($json_news[$i]->{'tags'}))
+				{
+					$sql = "INSERT INTO 'tag'
+								SELECT '".$news_id."' as 'news_id', '".$json_news[$i]->{'tags'}[0]."' as 'tag' ";
+					foreach ($json_news[$i]->{'tags'} as $j=>$tag)
+					{
+						if ($j < 1) continue; //skip first tag
+						$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, $json_news[$i]->{'tags'}[$j]);
+					}
+					if(!$db->query($sql))
+					{	
+						$error=$db->errorInfo();
+						if($error[1]!=19) //skip duplicate tag error
+						{
+							echo "Erro: " . $error[2];
+							exit;
+						}
+					}
+				}
+			}
+			else
+			{
+				$error=$db->errorInfo();
+				echo "Erro: " . $error[2];
+			}
+		}
+		unset($_SESSION['json_news']);
+		redirectmsg("./", 'Operação efectuada');
+	}
+	else
+		redirectmsg("./", 'Erro a obter o JSON');
+}
+ ?>

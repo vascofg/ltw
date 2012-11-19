@@ -74,15 +74,18 @@
           <div class=\"newsdetails\">
             <br />";
         else
+		{
           echo "<div class=\"noticia\">
           <h3>".$row['title']."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
           <div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
           <div class=\"newsdetails\">
-            <br />
-            Submetida por: ".$row['posted_by']."<br>";
+            <br />";
+			if(!empty($row['url'])) //display URL if news is imported
+				echo "URL original: <a href=\"".$row['url']."\">".$row['url']."</a><br>";
+            echo "Submetida por: ".$row['posted_by']."<br>";
           //only display text and details on detailed view (one news item)
-          
+		}
         if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
           echo "Hoje, ".date('H:i', $row['date']);
         elseif(date('dmY', time()-86400) == date('dmY', $row['date'])) //yesterday (1 day = 86400 seconds)
