@@ -90,17 +90,9 @@ div#conteudo h4 {
 
 div.noticia {
 	margin-top: 4px;
-	/*border-bottom: 4px solid #CCC;*/
 	display: inline-block;
-	width:99%;
+	width:100%;
 }
-
-
-
-/*div.noticia:last-child {
-	border-bottom:none;
-	width: 100%;
-}*/
 
 div.noticia img {
 	float:left;
