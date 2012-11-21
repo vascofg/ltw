@@ -118,7 +118,7 @@ div.noticia_index>h3{
 	display: inline-block;
 	position: absolute;
 	width:285px;
-	float: left;
+	left:0;
 	bottom:93px;
 	padding:0 5px;
 	word-wrap: break-word;
