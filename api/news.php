@@ -18,9 +18,9 @@
 	//if none specified then it will show from 0 to time() which means all news in the database
 
 	if(!empty($tags))
-		$stmt = $db->query('SELECT * FROM news LEFT JOIN tag ON news.id=tag.news_id  where news.id in (select news_id from tag where tagname in ('.$tags.')) and date > '.$start_date.' and date < '.$end_date.' ORDER BY id DESC');
+		$stmt = $db->query('SELECT * FROM news LEFT JOIN tag ON news.id=tag.news_id  where news.id in (select news_id from tag where tagname in ('.$tags.')) and date > '.$start_date.' and date < '.$end_date.' and url is NULL ORDER BY id DESC');
 	else
-		$stmt = $db->query('SELECT * FROM news LEFT JOIN tag ON news.id=tag.news_id where date > '.$start_date.' and date < '.$end_date.' ORDER BY id DESC');
+		$stmt = $db->query('SELECT * FROM news LEFT JOIN tag ON news.id=tag.news_id where date > '.$start_date.' and date < '.$end_date.' and url is NULL ORDER BY id DESC');
 	if($stmt)
 	{
 		$stmt = $stmt->fetchAll();
@@ -32,7 +32,7 @@
 				array_push($tags, $row['tagname']);
 			else
 			{
-				$data[$data_array_pos] = array("id" => $row['id'], "title" => $row['title'], "date" => date('c', $row['date']),
+				$data[$data_array_pos] = array("id" => $row['id'], "title" => $row['title'], "date" => preg_replace('/\+\d\d:\d\d/','',date('c', $row['date'])),
 				"text" => $row['text'], "posted_by" => $row['posted_by'], "url" => 'http://'.$_SERVER["SERVER_NAME"].dirname(dirname($_SERVER["REQUEST_URI"])).'/?id='.$row['id']);
 				if($row['tagname']!="")
 					array_push($tags, $row['tagname']);

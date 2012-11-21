@@ -13,13 +13,9 @@ Maria João Araújo
 
 **A fazer:**
 
- + mostar so minhas noticias na api
  + verificar utilizador actual na edição de perfil / remoçao de utilizador
  + guardar servidores de noticias remotas
- + problema no layout no firefox !
  + edição de tags tudo na mesmo input ??
- + obter noticias enviar no formato especificado
- + api (datas no formato especificado)
 
 **Datas de Entrega:**
 

@@ -56,9 +56,9 @@
 		$start_date = $_POST['start_date'];
 		$end_date = $_POST['end_date'];
 		if(!empty($start_date))
-			$start_date=date('c',strtotime($start_date)); //convert date to iso 8601
+			$start_date=preg_replace('/\+\d\d:\d\d/','',date('c',strtotime($start_date))); //convert date to iso 8601
 		if(!empty($end_date))
-			$end_date=date('c',strtotime($end_date)); //convert date to iso 8601
+			$end_date=preg_replace('/\+\d\d:\d\d/','',date('c',strtotime($end_date))); //convert date to iso 8601
 		$tags = $_POST['tags'];
 		$url = $url."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
 		if(!$json = json_decode(file_get_contents($url)))
@@ -69,7 +69,7 @@
 			else
 			{
 				$json_news = $json->{'data'};
-				$_SESSION['json_news']=$json_news;
+				$_SESSION['json_news']=$json_news; //improve? (won't be unset if no news are added
 				if(count($json_news)==0) //if no results
 					echo "<h4>Nenhuma notícia encontrada</h4>";
 				else
