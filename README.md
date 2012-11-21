@@ -11,6 +11,16 @@ Maria João Araújo
 
 **(ATENÇÃO: chaves estrangeiras só funcionam no páginas.fe.up.pt, o gnomo usa uma versão antiga de SQLite que não suporta foreign keys)**
 
+**A fazer:**
+
+ + mostar so minhas noticias na api
+ + verificar utilizador actual na edição de perfil / remoçao de utilizador
+ + guardar servidores de noticias remotas
+ + problema no layout no firefox !
+ + edição de tags tudo na mesmo input ??
+ + obter noticias enviar no formato especificado
+ + api (datas no formato especificado)
+
 **Datas de Entrega:**
 
  + 18-11-2012 (Intermédia)
