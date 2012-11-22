@@ -69,7 +69,7 @@
 			else
 			{
 				$json_news = $json->{'data'};
-				$_SESSION['json_news']=$json_news; //improve? (won't be unset if no news are added
+				$_SESSION['json_news']=$json_news; //improve? (won't be unset if no news are added - unsetting on index)
 				if(count($json_news)==0) //if no results
 					echo "<h4>Nenhuma notícia encontrada</h4>";
 				else

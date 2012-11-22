@@ -13,7 +13,7 @@ Maria João Araújo
 
 **A fazer:**
 
- + verificar utilizador actual na edição de perfil / remoçao de utilizador
+ + verificar utilizador actual na remoçao de utilizador
  + guardar servidores de noticias remotas
  + edição de tags tudo na mesmo input ??
 
