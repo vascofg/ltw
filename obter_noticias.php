@@ -56,10 +56,15 @@
 		$url = $_POST['url'];
 		$start_date = $_POST['start_date'];
 		$end_date = $_POST['end_date'];
+		
 		if(!empty($start_date))
 			$start_date=preg_replace('/\+\d\d:\d\d/','',date('c',strtotime($start_date))); //convert date to iso 8601
+		else
+			$start_date=preg_replace('/\+\d\d:\d\d/','',date('c',0));
 		if(!empty($end_date))
 			$end_date=preg_replace('/\+\d\d:\d\d/','',date('c',strtotime($end_date))); //convert date to iso 8601
+		else
+			$end_date=preg_replace('/\+\d\d:\d\d/','',date('c',time()));
 		$tags = $_POST['tags'];
 		$url = $url."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
 		if(!$json = json_decode(file_get_contents($url)))
