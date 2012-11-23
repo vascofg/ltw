@@ -78,12 +78,12 @@
 					foreach($json_news as $i => $row)
 					{
 						echo "<div class=\"noticia\">
-						  <h3><input type=\"checkbox\" name=\"news[".$i."]\"> ".$row->{'title'}."</h3>
-						  <div class=\"newsbody\">".nl2br/*convert newlines in json to <br>*/($row->{'text'})."</div>
+						  <h3><input type=\"checkbox\" name=\"news[".$i."]\"> ".stripslashes($row->{'title'})."</h3>
+						  <div class=\"newsbody\">".nl2br/*convert newlines in json to <br>*/(stripslashes($row->{'text'}))."</div>
 						  <div class=\"newsdetails\">
 							<br />
-							URL: <a href=\"".$row->{'url'}."\">".$row->{'url'}."</a><br>
-							Submetida por: ".$row->{'posted_by'}."<br>";
+							URL: <a href=\"".stripslashes($row->{'url'})."\">".stripslashes($row->{'url'})."</a><br>
+							Submetida por: ".stripslashes($row->{'posted_by'})."<br>";
 						  //only display text and details on detailed view (one news item)
 						 
 						$date = strtotime($row->{'date'});
@@ -99,7 +99,7 @@
 							echo "<div class=\"newstags\">";
 							foreach($row->{'tags'} as $i=>$json_tag)
 							{
-								echo "#".$json_tag;
+								echo "#".stripslashes($json_tag);
 								if(++$i != count($row->{'tags'}))
 									echo " ";
 							}

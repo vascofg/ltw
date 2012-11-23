@@ -70,20 +70,20 @@
       {
         if(empty($id))
           echo "<div class=\"noticia_index\">
-          <h3><a href=\"?id=".$row['id']."\">".$row['title']."</a></h3>
+          <h3><a href=\"?id=".$row['id']."\">".stripslashes($row['title'])."</a></h3>
           <a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\" href=\"?id=".$row['id']."\"></a>
           <div class=\"newsdetails\">
             <br />";
         else
 		{
           echo "<div class=\"noticia\">
-          <h3>".$row['title']."</h3>
+          <h3>".stripslashes($row['title'])."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-          <div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/($row['text'])."</div>
+          <div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
             <br />";
 			if(!empty($row['url'])) //display URL if news is imported
-				echo "URL original: <a href=\"".$row['url']."\">".$row['url']."</a><br>";
+				echo "URL original: <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
             echo "Submetida por: ".$row['posted_by']."<br>";
           //only display text and details on detailed view (one news item)
 		}
@@ -94,7 +94,7 @@
         else
           echo date('d/m/Y, H:i', $row['date']);
         if($row['tagname']!="")
-          echo "</div><div class=\"newstags\"><a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>"; //first tag (close news details and start tags div)
+          echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
       }
       if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
         echo   "</div>";

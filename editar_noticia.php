@@ -38,18 +38,18 @@
 						<table style=\"margin: auto;\">		
 						<tr>
 							<td>Título</td>
-							<td><input type=\"text\" size=\"50\" name=\"title\" value=\"".$result[0]['title']."\"></td>
+							<td><input type=\"text\" size=\"50\" name=\"title\" value=\"".stripslashes($result[0]['title'])."\"></td>
 						</tr>
 						<tr>
 							<td style=\"vertical-align:top;\">Texto</td>
-							<td><textarea cols=\"60\" rows=\"15\" name=\"text\">".$result[0]['text']."</textarea></td>
+							<td><textarea cols=\"60\" rows=\"15\" name=\"text\">".stripslashes($result[0]['text'])."</textarea></td>
 						</tr>";
 			if(!empty($result[0]['tagname'])){ //if any tags already exist
 				echo "<tr>
 						<td style=\"vertical-align:top;\">Apagar<br>tags</td>
 						<td>";
 				foreach($result as $row)
-					echo "<input type=\"checkbox\" name=\"tag[".$row['tagid']."]\"> ".$row['tagname']."<br>";
+					echo "<input type=\"checkbox\" name=\"tag[".$row['tagid']."]\"> ".stripslashes($row['tagname'])."<br>";
 				echo "</td></tr>";
 			}
 			echo "<tr>
