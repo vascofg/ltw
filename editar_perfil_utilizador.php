@@ -1,23 +1,12 @@
 <?php
 	session_start();
 	require_once 'common/functions.php';
-	require_once 'db/db.php'; //in this file it's needed either way
-	if(!isset($_SESSION['username']) || !isset($_GET['id']) || empty($_GET['id'])) //if not logged in or id is not set, go away
+	require_once 'db/db.php';
+	
+	if((!isset($_SESSION['username'])) || (empty($_GET['id'])) || (((int)$_SESSION['user_type']) != 2 && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
 		redirectmsg("./", 'Operação não permitida');
 	$id=(int)$_GET['id'];
-	$stmt = $db->prepare('SELECT rowid, username, user_type FROM user WHERE rowid = :id');
-	$stmt->bindparam(':id',$id);
-	$stmt->execute();
-
-	if($stmt){
-		$stmt = $stmt->fetchAll();
-		if(count($stmt)==0){ //if no results
-			redirectmsg('./','Utilizador não encontrado');
-		}
-		$row=$stmt[0];
-		if($row['rowid']!=$_SESSION['user_id'] && $_SESSION['user_type']!=2) //only allow current user or admin
-			redirectmsg("./", 'Operação não permitida');
-		if($_SERVER['REQUEST_METHOD'] != "POST") {
+	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,13 +22,28 @@
 		</div>
 		<div id="menu">
 			<ul>
-			 	<li><a href="./">Voltar</a></li><li>Apagar Utilizador</li>
+			 	<li><a href="./">Voltar</a></li>
+			 	<li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
 			</ul>
 			<ul class="login">
 				<li><a href="logout.php">Logout</a></li>
 			</ul>
 		</div>
 		<div id="conteudo">
+<?php
+		$stmt = $db->prepare('SELECT rowid, username, user_type FROM user WHERE rowid = :id');
+		$stmt->bindparam(':id',$id);
+		$stmt->execute();
+	
+	if($stmt){
+		$stmt = $stmt->fetchAll();
+		if(count($stmt)==0){ //if no results
+			echo "<h4>Nenhum utilizador encontrado</h4>";
+		}
+		else {
+		
+		$row=$stmt[0];
+		?>
 			<form method="post" action="guardar_alteracoes_perfil_utilizador.php?username=<?php echo $row['username'];?>">
 				<table style="margin: auto;">
 				<tr>
@@ -96,11 +100,12 @@
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 <?php
-	}
+		}
 	else
 	{
 		$error=$db->errorInfo();
 		echo "Erro: " . $error[2];
+	}
 	}
 ?>
 		</div>
