@@ -1,4 +1,5 @@
 <?php
+	session_name(substr($_SERVER['REQUEST_URI'],2,7));
 	session_start();
 	$id = (int)$_GET['id'];
 	$tag = $_GET['tag'];

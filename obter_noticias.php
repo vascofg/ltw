@@ -1,4 +1,5 @@
 <?php
+	session_name(substr($_SERVER['REQUEST_URI'],2,7));
 	session_start();
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not administrator, go away

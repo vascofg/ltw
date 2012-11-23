@@ -1,4 +1,5 @@
 <?php
+	session_name(substr($_SERVER['REQUEST_URI'],2,7));
 	session_start();
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
@@ -37,9 +38,8 @@
 	
 	if($stmt){
 		$stmt = $stmt->fetchAll();
-		if(count($stmt)==0){ //if no results
-			echo "<h4>Nenhum utilizador encontrado</h4>";
-		}
+		if(count($stmt)==0) //if no results
+			redirectmsg('./','Utilizador não encontrado');
 		else {
 		
 		$row=$stmt[0];

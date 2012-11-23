@@ -1,4 +1,5 @@
 <?php
+	session_name(substr($_SERVER['REQUEST_URI'],2,7));
 	session_start();
 	require_once 'common/functions.php';
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1 || !isset($_GET['id']) || empty($_GET['id'])) //if not logged in, not editor or no id set, go away
