@@ -13,9 +13,9 @@ Maria João Araújo
 
 **A fazer:**
 
- + verificar utilizador actual na remoçao de utilizador
  + guardar servidores de noticias remotas
  + edição de tags tudo na mesmo input ??
+ + edição de noticias (apagamento) só pelo seu editor (ou admin?)
 
 **Datas de Entrega:**
 

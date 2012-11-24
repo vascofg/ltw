@@ -1,6 +1,4 @@
 <?php
-	session_name(substr($_SERVER['REQUEST_URI'],2,7));
-	session_start();
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
 	if((!isset($_SESSION['username'])) || (empty($_GET['id'])) || (((int)$_SESSION['user_type']) != 2 && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away

@@ -98,19 +98,16 @@
       if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
         echo   "</div>";
 		
-		if(!empty($id) || isset($_SESSION['username']))
+		if(!empty($id) || (isset($_SESSION['username']) && $_SESSION['user_type']>0))
+		{
 			echo "<ul>";
 			
-        if(!empty($id))	
-          echo "<li><a href=./>Ver Todas</a></li>";
-       
-         
-        if($_SESSION['user_type']>0)
-			echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";
-			
-		if(!empty($id) || isset($_SESSION['username']))
-			echo "</ul>";
-		
+			if(!empty($id))	
+			  echo "<li><a href=./>Ver Todas</a></li>";
+			  
+			echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>
+				</ul>";
+		}
 		echo "</div>";
 	}
 }
