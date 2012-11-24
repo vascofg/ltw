@@ -25,4 +25,15 @@
 		$_SESSION['msg']=$msg;
 		redirect($url);
 	}
+	
+	function hasfavorite($news_id, $db) {
+		$stmt = $db->prepare('SELECT count(favorite.news_id) as favorite FROM news LEFT JOIN favorite ON news.id=favorite.news_id where news.id=? and favorite.user_id=?');
+		if($stmt->execute(array($news_id, $_SESSION['user_id'])))
+		{
+			$stmt=$stmt->fetch();
+			if($stmt['favorite']==0)
+				return false;
+			return true;
+		}
+	}
 ?>

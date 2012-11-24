@@ -5,7 +5,7 @@
 		redirectmsg("./", 'Operação não permitida');
 	
 	$id=$_GET['id'];
-	$stmt=$db->prepare('delete from user where rowid= :id');
+	$stmt=$db->prepare('delete from user where id= :id');
 	$stmt->bindparam(':id', $id);
 	
 	if(!$stmt->execute())

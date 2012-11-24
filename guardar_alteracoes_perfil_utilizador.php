@@ -15,14 +15,14 @@
 	{
 	
 	$password=crypt($username.$pass_actual, '$1$'.substr(md5($pass_actual.$username), 0, 8)); //le awesome salt
-	$stmt = $db->prepare('SELECT rowid, username, user_type FROM user WHERE username = :username and password=:password');
+	$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE username = :username and password=:password');
 	$stmt->bindparam(':username', $username);
 	$stmt->bindparam(':password', $password);
 	}
 	// if the user is an administrator, he doesn't need to input the current password of the user
 	else
 	{
-	$stmt = $db->prepare('SELECT rowid, username, user_type FROM user WHERE username = :username ');
+	$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE username = :username ');
 	$stmt->bindparam(':username', $username);
 	}
 	

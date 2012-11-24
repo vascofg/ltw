@@ -15,6 +15,8 @@
 		<meta charset="UTF-8">
 		<title>Social News</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/favorites.js"></script>
 	</head>
 	<body>
 		<div id="cabecalho">
@@ -75,10 +77,17 @@
             <br />";
         else
 		{
-          echo "<div class=\"noticia\">
-          <h3>".stripslashes($row['title'])."</h3>
+          echo "<div class=\"noticia\">";
+		  if(isset($_SESSION['username'])) {
+			if(hasfavorite($id, $db))
+				echo "<div class=\"del_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_filled.png\">";
+			else
+				echo "<div class=\"add_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_empty.png\">";
+		  }
+		  echo "</div>
+		  <h3>".stripslashes($row['title'])."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-          <div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
+          <div style=\"clear:right;\" class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
             <br />";
 			if(!empty($row['url'])) //display URL if news is imported
@@ -102,11 +111,11 @@
 		{
 			echo "<ul>";
 			
-			if(!empty($id))	
-			  echo "<li><a href=./>Ver Todas</a></li>";
-			  
-			echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>
-				</ul>";
+			if(!empty($id))
+				echo "<li><a href=./>Ver Todas</a></li>";
+			if(isset($_SESSION['username']) && $_SESSION['user_type']>0)
+				echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>
+					</ul>";
 		}
 		echo "</div>";
 	}

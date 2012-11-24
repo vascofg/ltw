@@ -30,7 +30,7 @@
 		</div>
 		<div id="conteudo">
 <?php
-		$stmt = $db->prepare('SELECT rowid, username, user_type FROM user WHERE rowid = :id');
+		$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE id = :id');
 		$stmt->bindparam(':id',$id);
 		$stmt->execute();
 	

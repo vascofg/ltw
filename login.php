@@ -75,7 +75,7 @@
 		}
 		else
 		{
-			$stmt = $db->query('SELECT rowid, count(*) as count, username, user_type FROM user where username="'.$username.'" and password="'.$password.'"');
+			$stmt = $db->query('SELECT id, count(*) as count, username, user_type FROM user where username="'.$username.'" and password="'.$password.'"');
 			if($stmt)
 			{
 				$result = $stmt -> fetch();
@@ -84,7 +84,7 @@
 					// Register session data
 					$_SESSION['username'] = $result['username'];
 					$_SESSION['user_type'] = $result['user_type'];
-					$_SESSION['user_id'] = $result['rowid'];
+					$_SESSION['user_id'] = $result['id'];
 					//redirectmsg("./", 1); annoying
 					redirect("./");
 				}

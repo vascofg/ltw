@@ -4,7 +4,6 @@
 	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
 		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
-	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,9 +28,9 @@
 		<div id="conteudo">
 <?php
 	if(!empty($username))
-		$stmt = $db->query('SELECT rowid, username, user_type FROM user WHERE username like \'%'.$_GET['username'].'%\'');
+		$stmt = $db->query('SELECT id, username, user_type FROM user WHERE username like \'%'.$_GET['username'].'%\'');
 	else
-		$stmt = $db->query('SELECT rowid, username, user_type FROM user');
+		$stmt = $db->query('SELECT id, username, user_type FROM user');
 	
 	if($stmt){
 		$stmt = $stmt->fetchAll();
@@ -68,7 +67,7 @@
 				echo " 
 					<tr>
 						<td>
-							<a href=editar_perfil_utilizador.php?id=".$row['rowid'].">".$row['username']."</a>
+							<a href=editar_perfil_utilizador.php?id=".$row['id'].">".$row['username']."</a>
 						</td>
 						
 						<td>
@@ -98,25 +97,3 @@
 		</div>
 	</body>
 </html>
-
-<?php
-	}
-	else
-	{
-		$user_types = $_POST['user_type']; //user_types is an array of all the selects (different usernames) and the index is the user ID
-		$ids = implode(',', array_keys($user_types)); //get all individual ids
-		$sql = "UPDATE user SET user_type = CASE rowid ";
-		foreach ($user_types as $id => $value) {
-			$sql .= sprintf("WHEN %d THEN %d ", $id, $value); //when ID then Value
-		}
-		$sql .= "END WHERE rowid IN ($ids)";
-		if(!$db->query($sql))
-		{
-			$error=$db->errorInfo();
-			echo "Erro: " . $error[2];
-		}
-		else
-			redirectmsg('./', 'Operação efectuada');
-		//is there a way to force update of $_SESSION['user_type'] on users already logged in?
-	}
-?>
