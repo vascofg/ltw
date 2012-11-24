@@ -67,7 +67,13 @@
 			$stmt = $db->prepare('INSERT INTO user values(?, ?, 0)');
 			$stmt = $stmt->execute(array($username, $password));
 			if($stmt)
-				redirectmsg($_SERVER['PHP_SELF'], 'Utilizador registado');
+			{
+				// Register session data
+				$_SESSION['username'] = $username;
+				$_SESSION['user_type'] = 0;
+				$_SESSION['user_id'] = $db->lastInsertID();
+				redirectmsg('./', 'Utilizador registado\nLogin efectuado');
+			}
 		}
 		else
 		{
