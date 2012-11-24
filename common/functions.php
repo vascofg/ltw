@@ -1,4 +1,9 @@
 <?php
+	if(preg_match('/~\w+/',$_SERVER['REQUEST_URI'],$matches)) //if at FEUP (link contains ~<username>)
+		session_name($matches[0]."social_news_t5g7");
+	else
+		session_name("social_news_t5g7");
+	session_start();
 	function redirect($url) {
 		if(!headers_sent()) {
 			//If headers not sent yet... then do php redirect

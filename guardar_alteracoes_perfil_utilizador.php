@@ -1,6 +1,4 @@
 <?php
-	session_name(substr($_SERVER['REQUEST_URI'],2,7));
-	session_start();
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	$pass_actual=$_POST['pass_actual'];

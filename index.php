@@ -1,11 +1,9 @@
 <?php
-	session_name(substr($_SERVER['REQUEST_URI'],2,7));
-	session_start();
+	require_once 'common/functions.php';
 	$id = (int)$_GET['id'];
 	$tag = $_GET['tag'];
 	$p = (int)$_GET['p'];
 	$offset = "offset ".$p*12;
- 	require_once 'common/functions.php';
  	if(!empty($id) && !empty($tag)) //tag AND id? no sir	
 		redirect('./');
 	unset($_SESSION['json_news']); //unset array of news from obter_noticias.php (if no news have been added)
