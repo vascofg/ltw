@@ -4,6 +4,8 @@
 		$sql = 'SELECT id, title, date, text, posted_by, url, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where id='.$id;
 	elseif(isset($tag) && !empty($tag))
 		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where news.id in (select news_id from tag where tagname=\''.$tag.'\') ORDER BY id DESC';
+	elseif(isset($fav) && !empty($fav))
+		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id LEFT JOIN favorite ON news.id=favorite.news_id where favorite.user_id = '.$_SESSION['user_id'].' ORDER BY id DESC';
 	else
 		$sql = 'SELECT id, title, date, tagname FROM news LEFT JOIN tag ON news.id=tag.news_id where news.id in (select id from news order by id desc limit 12 '.$offset.') ORDER BY id DESC';
 	$stmt = $db->query($sql);

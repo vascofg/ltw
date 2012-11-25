@@ -3,10 +3,14 @@
 	$id = (int)$_GET['id'];
 	$tag = $_GET['tag'];
 	$p = (int)$_GET['p'];
+	$fav = (int)$_GET['fav'];
+	if(!empty($fav) && !isset($_SESSION['username'])) //only allow favorite search if user is logged in
+		redirectmsg("./", 'Operação não permitida');
 	$offset = "offset ".$p*12;
- 	if(!empty($id) && !empty($tag)) //tag AND id? no sir	
+ 	if((!empty($id) && !empty($tag)) || (!empty($id) && !empty($fav)) || (!empty($tag) && !empty($fav))) //tag AND id AND favorite? no sir	
 		redirect('./');
-	unset($_SESSION['json_news']); //unset array of news from obter_noticias.php (if no news have been added)
+	if(isset($_SESSION['json_news']))
+		unset($_SESSION['json_news']); //unset array of news from obter_noticias.php (if no news have been added)
 	require_once 'db/news_query.php';
 ?>
 <!DOCTYPE html>
@@ -20,7 +24,7 @@
 	</head>
 	<body>
 		<div id="cabecalho">
-<?php	if(!empty($id) || !empty($tag) || $p!=0) //show link if not on all news listing
+<?php	if(!empty($id) || !empty($tag) || $p!=0 || !empty($fav)) //show link if not on all news listing
 		echo "<a href=\"./\"><h1>Social News</h1></a>";
 	else
 		echo "<h1>Social News</h1>";?>
@@ -30,6 +34,8 @@
 <?php
 	if(isset($_SESSION['user_type']))
 	{
+		echo "<li><a href=\"./?fav=1\">Meus favoritos</a></li>";
+		
 		if($_SESSION['user_type']>0)
 		{
 			echo "<li><a href=\"nova_noticia.php\">Inserir notícia</a></li>";
@@ -61,6 +67,8 @@
 <?php
 	if(!empty($tag))
  		echo "<h4>#".$tag."</h4>";
+	if(!empty($fav))
+		echo "<h4>Favoritos</h4>";
 	if(count($news)==0) //if no results
 		echo "<h4>Nenhuma notícia encontrada</h4>";
 	else {
@@ -84,9 +92,9 @@
 				echo "<div class=\"del_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_filled.png\">";
 			else
 				echo "<div class=\"add_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_empty.png\">";
+			echo "</div>";
 		  }
-		  echo "</div>
-		  <h3>".stripslashes($row['title'])."</h3>
+		  echo "<h3>".stripslashes($row['title'])."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
           <div style=\"clear:right;\" class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
@@ -142,7 +150,7 @@
 		echo "</div>";
 	}
 }
-		if(empty($tag) && empty($id)) //pagination
+		if(empty($tag) && empty($id) && empty($fav)) //pagination
 		{	echo "<div id=controlos>";
 			$totals = $db->query("select min(id) as first, max(id) as last from news")->fetch();
 			if($p>0 && $news[0]['id']<$totals['last'])
