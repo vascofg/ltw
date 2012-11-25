@@ -1,8 +1,6 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
-	if(!isset($_SESSION['username'])) //if not logged in, go away
-		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['posted_by'];
 ?>
 <!DOCTYPE html>
