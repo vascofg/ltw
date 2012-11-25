@@ -16,6 +16,8 @@ Maria João Araújo
  + guardar servidores de noticias remotas
  + edição de tags tudo na mesmo input ??
  + edição de noticias (apagamento) só pelo seu editor (ou admin?)
+ + ver notícias criadas por esse utilizador no ver perfil de utilizador?
+ + o q é q isto quer dizer? -> Possibilidade de alertas para a entrada de novas notícias enquanto se lê ou edita uma notícia
 
 **Datas de Entrega:**
 
