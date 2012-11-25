@@ -86,14 +86,35 @@
 				echo "<div class=\"add_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_empty.png\">";
 		  }
 		  echo "</div>
-		  <h3>".stripslashes(wordwrap($row['title'], 50, "<br/>", 1))."</h3>
+		  <h3>".stripslashes(wordwrap($row['title'], 75, "<br/>", 1))."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
           <div style=\"clear:right;\" class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
             <br />";
 			if(!empty($row['url'])) //display URL if news is imported
 				echo "URL original: <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
-            echo "Submetida por: ".$row['posted_by']."<br>";
+		
+			// if the user exists in the database, its profile can be seen
+			if(!empty($row['posted_by']))
+			{
+				$stmt = $db->prepare('SELECT id, user_type FROM user WHERE username = :username');
+				$stmt->bindparam(':username', $row['posted_by']);
+			}
+	
+			if($stmt->execute())
+			{
+				$stmt = $stmt->fetchAll();
+				
+				if(count($stmt)==0)
+				{ //if no results, the user profile can't be seen
+					 echo "Submetida por: ".$row['posted_by']."<br>";
+				}
+				else
+				{
+					 echo "Submetida por: <a href= ver_perfil_utilizador.php?posted_by=".$row['posted_by'].">".$row['posted_by']."</a><br>";
+				}
+			}	
+				
           //only display text and details on detailed view (one news item)
 		}
         if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
