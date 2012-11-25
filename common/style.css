@@ -171,6 +171,7 @@ div#rodape p {
 div.del_favorite, div.add_favorite{
 	float:right;
 	padding-top:5px;
+	margin-left:10px;
 }
 
 div.noticia ul {
@@ -193,7 +194,7 @@ div.noticia li:last-child {
 }
 
 div.noticia h3 {
-	color:
+	text-align:justify;
 }
 
 textarea {

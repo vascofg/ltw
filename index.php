@@ -86,7 +86,7 @@
 				echo "<div class=\"add_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_empty.png\">";
 		  }
 		  echo "</div>
-		  <h3>".stripslashes(wordwrap($row['title'], 75, "<br/>", 1))."</h3>
+		  <h3>".stripslashes($row['title'])."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
           <div style=\"clear:right;\" class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
