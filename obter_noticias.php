@@ -93,12 +93,7 @@
 						  //only display text and details on detailed view (one news item)
 						 
 						$date = strtotime($row->{'date'});
-						if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
-						  echo "Hoje, ".date('H:i', $date);
-						elseif(date('dmY', time()-86400) == date('dmY', $date)) //yesterday (1 day = 86400 seconds)
-						  echo "Ontem, ".date('H:i', $date);
-						else
-						  echo date('d/m/Y, H:i', $date);
+						echo displaydate($date);
 						echo "<br></div>";
 						if(!empty($row->{'tags'}))
 						{

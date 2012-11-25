@@ -69,4 +69,14 @@
 		}
 		return false;
 	}
+	
+	function displaydate($date)
+	{
+		if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
+          return "Hoje, ".date('H:i', $date);
+        elseif(date('dmY', time()-86400) == date('dmY', $date)) //yesterday (1 day = 86400 seconds)
+          return "Ontem, ".date('H:i', $date);
+        else
+          return date('d/m/Y, H:i', $date);
+	}
 ?>

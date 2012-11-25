@@ -107,12 +107,7 @@
 				echo "Importada por: ".getuserprofilelink($row['imported_by'], $db)."<br>";
 			}
 		}
-        if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
-          echo "Hoje, ".date('H:i', $row['date']);
-        elseif(date('dmY', time()-86400) == date('dmY', $row['date'])) //yesterday (1 day = 86400 seconds)
-          echo "Ontem, ".date('H:i', $row['date']);
-        else
-          echo date('d/m/Y, H:i', $row['date']);
+        echo displaydate($row['date']);
         if($row['tagname']!="")
           echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
       }

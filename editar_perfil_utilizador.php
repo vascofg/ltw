@@ -21,8 +21,7 @@
 		</div>
 		<div id="menu">
 			<ul>
-			 	<li><a href="./">Voltar</a></li>
-			 	<li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
+			 	<li><a href="./">Voltar</a></li><li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
 			</ul>
 			<ul class="login">
 <?php
