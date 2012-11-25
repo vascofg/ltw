@@ -4,6 +4,10 @@
 		redirectmsg("./", 'Operação não permitida');
 	$id = (int)$_GET['id'];
 	require_once 'db/db.php'; //in this file it's needed either way
+	
+	if($_SESSION['user_type']<2 && !isnewsfromuser($id, $db)) //if user isn't admin and news isn't his, go away
+		redirectmsg("./", 'Operação não permitida');
+		
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>
 <!DOCTYPE html>

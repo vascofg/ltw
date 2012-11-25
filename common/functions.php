@@ -35,10 +35,11 @@
 				return false;
 			return true;
 		}
+		return false;
 	}
 	
 	function getuserprofilelink($username, $db) { // if the user exists get the link, else just echo the name
-		$stmt = $db->prepare('SELECT id, user_type FROM user WHERE username = :username');
+		$stmt = $db->prepare('SELECT id FROM user WHERE username = :username');
 		$stmt->bindparam(':username', $username);
 			
 		if($stmt->execute())
@@ -50,5 +51,22 @@
 			else
 				return "<a href=ver_perfil_utilizador.php?id=".$stmt[0]['id'].">".$username."</a>";
 		}
+		return false;
+	}
+	
+	function isnewsfromuser($news_id, $db)
+	{
+		$stmt = $db->prepare('SELECT count(*) as count FROM news WHERE id = :news_id and (posted_by = :username OR imported_by = :username)');
+		$stmt->bindparam(':news_id', $news_id);
+		$stmt->bindparam(':username', $_SESSION['username']);
+		if($stmt->execute())
+		{
+			$stmt = $stmt->fetchAll();
+			if($stmt[0]['count']==1)
+				return true;
+			else
+				return false;
+		}
+		return false;
 	}
 ?>

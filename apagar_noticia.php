@@ -6,6 +6,9 @@
 	
 	$id=(int)$_GET['id'];
 	
+	if($_SESSION['user_type']<2 && !isnewsfromuser($id, $db)) //if user isn't admin and news isn't his, go away
+		redirectmsg("./", 'Operação não permitida');
+	
 	if(!$db->query('delete from news where id=' .$id))
 	{
 		$error=$db->errorInfo();
