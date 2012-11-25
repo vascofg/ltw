@@ -148,7 +148,7 @@ div.noticia_index li:first-child {
 div.noticia_index ul {
 	position:absolute;
 	bottom:-10px;
-	width:100%;
+	width:285px;
 	background-color:#ccc;
 	padding:5px;
 }
@@ -204,6 +204,7 @@ textarea {
 div.newsbody {
 	font-size:20px;
 	text-align:justify;
+	clear:right;
 }
 
 div.newsdetails {

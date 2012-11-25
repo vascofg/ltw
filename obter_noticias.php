@@ -21,7 +21,9 @@
 				<li><a href="./">Voltar</a></li>
 			</ul>
 			<ul style="display:inline;" class="login"> <!-- had to define style because there was a bug in Chrome where the display:inline wouldnt work from the css file-->
-				<li><a href="logout.php">Logout</a></li>
+<?php
+	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+?>
 			</ul>
 		</div>
 		<div id="conteudo">
@@ -133,8 +135,8 @@ else { //insert selected news
 
 		foreach($_POST['news'] as $i => $row)
 		{
-			$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, ?)');
-			if($stmt->execute(array($json_news[$i]->{'title'}, strtotime($json_news[$i]->{'date'}), $json_news[$i]->{'text'}, $json_news[$i]->{'posted_by'}, $json_news[$i]->{'url'})))
+			$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, ?, ?)');
+			if($stmt->execute(array($json_news[$i]->{'title'}, strtotime($json_news[$i]->{'date'}), $json_news[$i]->{'text'}, $json_news[$i]->{'posted_by'}, $json_news[$i]->{'url'}, $_SESSION['username'])))
 			{
 				$news_id=$db->lastInsertID();
 				

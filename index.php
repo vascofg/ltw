@@ -46,8 +46,6 @@
 			echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>"
 			."<li><a href=\"obter_noticias.php\">Obter notícias</a></li>";
 		}
-		
-		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil</a></li>";
 	}
 	else
 	{
@@ -56,8 +54,8 @@
 ?>
 			</ul>
 			<ul class="login"><?php
-				if(isset($_SESSION['user_type']))
-					echo "<li><a href=\"logout.php\">Logout</a></li>";
+				if(isset($_SESSION['username']))
+					echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
 				else
 					echo "<li><a href=\"login.php\">Login</a></li>";?>
 			</ul>
@@ -84,7 +82,7 @@
           <a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\" href=\"?id=".$row['id']."\"></a>
           <div class=\"newsdetails\">
             <br />";
-        else
+        else //only display text and details on detailed view (one news item)
 		{
           echo "<div class=\"noticia\">";
 		  if(isset($_SESSION['username'])) {
@@ -96,34 +94,18 @@
 		  }
 		  echo "<h3>".stripslashes($row['title'])."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
-          <div style=\"clear:right;\" class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
+          <div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
             <br />";
 			if(!empty($row['url'])) //display URL if news is imported
 				echo "URL original: <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
-		
-			// if the user exists in the database, its profile can be seen
-			if(!empty($row['posted_by']))
+
+			echo "Submetida por: ".getuserprofilelink($row['posted_by'], $db)."<br>";
+			
+			if(!empty($row['imported_by'])) //if news is imported
 			{
-				$stmt = $db->prepare('SELECT id, user_type FROM user WHERE username = :username');
-				$stmt->bindparam(':username', $row['posted_by']);
+				echo "Importada por: ".getuserprofilelink($row['imported_by'], $db)."<br>";
 			}
-	
-			if($stmt->execute())
-			{
-				$stmt = $stmt->fetchAll();
-				
-				if(count($stmt)==0)
-				{ //if no results, the user profile can't be seen
-					 echo "Submetida por: ".$row['posted_by']."<br>";
-				}
-				else
-				{
-					 echo "Submetida por: <a href= ver_perfil_utilizador.php?posted_by=".$row['posted_by'].">".$row['posted_by']."</a><br>";
-				}
-			}	
-				
-          //only display text and details on detailed view (one news item)
 		}
         if(date('dmY') == date('dmY', $row['date'])) //if news is from today, display only time, otherwise display date and time
           echo "Hoje, ".date('H:i', $row['date']);
@@ -134,7 +116,7 @@
         if($row['tagname']!="")
           echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
       }
-      if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this new
+      if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this news
         echo   "</div>";
 		
 		if(!empty($id) || (isset($_SESSION['username']) && $_SESSION['user_type']>0))
@@ -143,9 +125,10 @@
 			
 			if(!empty($id))
 				echo "<li><a href=./>Ver Todas</a></li>";
-			if(isset($_SESSION['username']) && $_SESSION['user_type']>0)
-				echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>
-					</ul>";
+			if(isset($_SESSION['username']) && ($_SESSION['user_type']==2 || ($_SESSION['user_type']==1 && ($_SESSION['username'] == $row['posted_by'] || $_SESSION['username'] == $row['imported_by']))))
+				echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";
+			echo "<li style=\"border:0;\"></li>"; //display full height <ul>
+			echo "</ul>";
 		}
 		echo "</div>";
 	}

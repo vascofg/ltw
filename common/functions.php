@@ -36,4 +36,19 @@
 			return true;
 		}
 	}
+	
+	function getuserprofilelink($username, $db) { // if the user exists get the link, else just echo the name
+		$stmt = $db->prepare('SELECT id, user_type FROM user WHERE username = :username');
+		$stmt->bindparam(':username', $username);
+			
+		if($stmt->execute())
+		{
+			$stmt = $stmt->fetchAll();
+			
+			if(count($stmt)==0) //if no results, the user profile can't be seen
+				return $username;
+			else
+				return "<a href=ver_perfil_utilizador.php?id=".$stmt[0]['id'].">".$username."</a>";
+		}
+	}
 ?>

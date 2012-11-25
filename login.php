@@ -62,7 +62,7 @@
 		require_once 'db/db.php';
 		if(isset($_POST['register']))
 		{
-			$stmt = $db->prepare('INSERT INTO user values(?, ?, 0)');
+			$stmt = $db->prepare('INSERT INTO user values(null, ?, ?, 0)');
 			$stmt = $stmt->execute(array($username, $password));
 			if($stmt)
 			{

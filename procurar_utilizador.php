@@ -20,7 +20,9 @@
 				<li><a href="./">Voltar</a></li>
 			</ul>
 			<ul class="login">
-				<li><a href="logout.php">Logout</a></li>
+<?php
+	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+?>
 			</ul>
 		</div>
 		<div id="conteudo">

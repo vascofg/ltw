@@ -1,7 +1,9 @@
 <?php
 	require_once 'common/functions.php';
-	require_once 'db/db.php'; //in this file it's needed either way
-	$username=$_GET['posted_by'];
+	require_once 'db/db.php';
+	$id=$_GET['id'];
+	if(empty($id)) //if no id set, go away
+		redirectmsg("./", 'Operação não permitida');
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,58 +19,50 @@
 		</div>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
+				<li><a href="./">Voltar</a></li><?php
+	if($id==$_SESSION['user_id'] || $_SESSION['user_type']==2) //if current user profile or admin
+		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil</a></li>";
+?>
 			</ul>
 			<ul class="login">
-				<li><a href="logout.php">Logout</a></li>
+<?php
+	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+?>
 			</ul>
 		</div>
 		<div id="conteudo">
 <?php
-	if(!empty($username))
-	{
-		$stmt = $db->prepare('SELECT id, user_type FROM user WHERE username = :username');
-		$stmt->bindparam(':username', $username);
-	}
+	$stmt = $db->prepare('SELECT username, user_type FROM user WHERE id = :id');
+	if(!empty($id))
+		$stmt->bindparam(':id', $id);
 	else
-	{
-		$stmt = $db->query('SELECT id, user_type FROM user');
-	}
+		$stmt->bindparam(':id', $_SESSION['user_id']);
 	
 	if($stmt->execute()){
 		$stmt = $stmt->fetchAll();
 		if(count($stmt)==0){ //if no results
 			echo "<h4>Nenhum utilizador encontrado</h4>";
 		}
-		else {?>
+		else {
 			
-			<table border="1" style="margin: auto;" id="detalhes_utilizador">					
-				<col width="40%">
-				<col width="60%">	
-<?php				
+		echo "<table border=\"1\" style=\"margin: auto;\" id=\"utilizadores_encontrados\">					
+			<col width=\"60%\">
+			<col width=\"90%\">		
+			<tr><th>Username</th><th>Tipo de Utilizador</th><tr>";
 
-				echo "<tr><th>Username</th><th>Tipo de Utilizador</th><tr>";
-		
-				$row = $stmt[0];	
-					
-		 		if($row['user_type']==0)
-				{
-					$name= "Utilizador";
-				}
-				if($row['user_type']==1)
-				{
-					$name= "Editor";
-				}
-				if($row['user_type']==2)
-				{
-					$name= "Administrador";
-				}
+			$row = $stmt[0];	
 				
-				echo "<td>".$username."</td><td>".$name."</td>";
-				
-?>
-				</table>
-<?php
+			switch($row['user_type'])
+			{
+				case 0: $type="Utilizador";
+						break;
+				case 1: $type="Editor";
+						break;
+				case 2: $type="Administrador";
+						break;
+			}
+			echo "<td>".$row['username']."</td><td>".$type."</td>
+			</table>";
 		}
 	}
 	else
