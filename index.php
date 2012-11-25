@@ -69,9 +69,10 @@
         echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
       else
       {
+      	$title = (strlen($row['title']) > 30) ? substr($row['title'],0,27).'...' : $row['title'];
         if(empty($id))
           echo "<div class=\"noticia_index\">
-          <h3><a href=\"?id=".$row['id']."\">".stripslashes($row['title'])."</a></h3>
+          <h3><a href=\"?id=".$row['id']."\">".stripslashes($title)."</a></h3>
           <a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\" href=\"?id=".$row['id']."\"></a>
           <div class=\"newsdetails\">
             <br />";
@@ -85,7 +86,7 @@
 				echo "<div class=\"add_favorite\" id=\"".$id."\"><img width=\"30px\" src=\"common/star_empty.png\">";
 		  }
 		  echo "</div>
-		  <h3>".stripslashes($row['title'])."</h3>
+		  <h3>".stripslashes(wordwrap($row['title'], 50, "<br/>", 1))."</h3>
           <a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
           <div style=\"clear:right;\" class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
           <div class=\"newsdetails\">
