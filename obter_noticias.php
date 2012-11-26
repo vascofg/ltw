@@ -68,16 +68,16 @@
 		$tags = $_POST['tags'];
 		$url = $url."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
 		if(!$json = json_decode(file_get_contents($url)))
-			echo "<h4>Falhou a obtenção do JSON</h4>";
+			echo "<h5>Falhou a obtenção do JSON!</h5>";
 		else{
 			if($json->{'result'}=="error")
-				echo "<h4>O JSON reportou um erro com o código ".$json->{'code'}.": \"".$json->{'reason'}."\"</h4>";
+				echo "<h5>O JSON reportou um erro com o código ".$json->{'code'}.": \"".$json->{'reason'}."\"</h5>";
 			else
 			{
 				$json_news = $json->{'data'};
 				$_SESSION['json_news']=$json_news; //improve? (won't be unset if no news are added - unsetting on index)
 				if(count($json_news)==0) //if no results
-					echo "<h4>Nenhuma notícia encontrada</h4>";
+					echo "<h5>Nenhuma notícia encontrada!</h5>";
 				else
 				{
 					echo "<form method=\"post\">";

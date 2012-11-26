@@ -5,7 +5,6 @@ html {
 
 body {
 	font-family: Century Gothic, sans-serif;
-	/*font-family: Helvetica, sans-serif;*/
 	margin: 10px auto;
 	border-left: 10px;
 	width: 1200px;
@@ -86,6 +85,13 @@ div#conteudo h4 {
 	margin-top:20px; 
 	margin-bottom:10px;
 	font-size:30px;
+}
+
+div#conteudo h5 {
+	margin-top:20px; 
+	margin-bottom:10px;
+	font-size:20px;
+	font-weight: normal !important;
 }
 
 div.noticia {
@@ -215,6 +221,7 @@ div.newsdetails {
 
 div.newstags {
 	font-size:12px;
+	font-weight: bold;
 }
 
 table#change_permissions {

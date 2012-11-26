@@ -68,7 +68,7 @@
 	if(!empty($fav))
 		echo "<h4>Favoritos</h4>";
 	if(count($news)==0) //if no results
-		echo "<h4>Nenhuma notícia encontrada</h4>";
+		echo "<h5>Nenhuma notícia encontrada.</h5>";
 	else {
 	foreach($news as $i=>$row) {
       if($row['id']==$news[$i-1]['id']) //if repeating news (because of tags)
@@ -98,13 +98,13 @@
           <div class=\"newsdetails\">
             <br />";
 			if(!empty($row['url'])) //display URL if news is imported
-				echo "URL original: <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
+				echo "<b>URL original:</b> < <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
 
-			echo "Submetida por: ".getuserprofilelink($row['posted_by'], $db)."<br>";
+			echo "<b>Submetida por:</b> ".getuserprofilelink($row['posted_by'], $db)."<br>";
 			
 			if(!empty($row['imported_by'])) //if news is imported
 			{
-				echo "Importada por: ".getuserprofilelink($row['imported_by'], $db)."<br>";
+				echo "<b>Importada por:</b> ".getuserprofilelink($row['imported_by'], $db)."<br>";
 			}
 		}
         echo displaydate($row['date']);

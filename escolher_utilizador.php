@@ -37,7 +37,7 @@
 	if($stmt){
 		$stmt = $stmt->fetchAll();
 		if(count($stmt)==0){ //if no results
-			echo "<h4>Nenhum utilizador encontrado</h4>";
+			echo "<h5>Nenhum utilizador encontrado.</h5>";
 		}
 		else {?>
 			<form action="editar_perfil_utilizador.php" method="get">

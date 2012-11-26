@@ -30,8 +30,8 @@
 	$stmt = $stmt->fetchAll();
 	
 	if(count($stmt)==0){ //if no results
-		echo "<p>Os dados não foram alterados.</p>";
-		echo "<p>Nenhum utilizador encontrado</p>";
+		echo "<h5>Os dados não foram alterados!</h5>";
+		echo "<h5>Nenhum utilizador encontrado.</h5>";
 	}
 	else {
 		
@@ -39,9 +39,9 @@
 		
 		if($nova_pass != $nova_pass_2)
 		{
-			echo "<p>Os dados não foram alterados.</p>";
+			echo "<h5>Os dados não foram alterados!</h5>";
 			
-			echo "<p>A nova password não foi bem confirmada!</p>";
+			echo "<h5>A nova password não foi bem confirmada!</h5>";
 		}	
 		else
 		{	
@@ -91,11 +91,11 @@
 		
 		if($executa_password && $executa_user_type)
 			{
-				echo "<p>Perfil editado com sucesso!</p>";
+				echo "<h5>Perfil editado com sucesso!</h5>";
 			}
 			else
 			{
-				echo "<p>A edição de dados falhou!</p>";
+				echo "<h5>A edição de dados falhou!</h5>";
 			}
 		
 		?>

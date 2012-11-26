@@ -41,13 +41,13 @@
 	if($stmt->execute()){
 		$stmt = $stmt->fetchAll();
 		if(count($stmt)==0){ //if no results
-			echo "<h4>Nenhum utilizador encontrado</h4>";
+			echo "<h5>Nenhum utilizador encontrado.</h5>";
 		}
 		else {
 			
 		echo "<table border=\"1\" style=\"margin: auto;\" id=\"utilizadores_encontrados\">					
-			<col width=\"60%\">
-			<col width=\"90%\">		
+			<col width=\"40%\">
+			<col width=\"40%\">		
 			<tr><th>Username</th><th>Tipo de Utilizador</th><tr>";
 
 			$row = $stmt[0];	
