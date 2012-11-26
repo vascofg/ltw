@@ -66,7 +66,7 @@
 			</form>";
 		}
 		else
-			echo "<h4>Nenhuma notícia encontrada</h4>";
+			echo "<h5>Nenhuma notícia encontrada.</h5>";
 	}
 	else
 	{
