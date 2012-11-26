@@ -1,5 +1,6 @@
 <?php
 	require_once '../db/db.php';
+	header('Content-Type:application/json');
 	$tags = $_GET['tags'];
 	$tags = preg_replace('/\s*(\w+)/', '\'${1}\'', $tags); //encase in ''
 	$tags = str_replace('\'\'', '\',\'', $tags); //replace spaces with commas
