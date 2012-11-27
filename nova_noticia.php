@@ -13,7 +13,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Inserir notícia', true);
+	showheader('Inserir notícia');
 ?>
 		<div id="menu">
 			<ul>

@@ -19,7 +19,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Editar notícia', true);
+	showheader('Editar notícia');
 ?>
 		<div id="menu">
 			<ul>

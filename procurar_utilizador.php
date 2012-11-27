@@ -12,7 +12,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Procurar utilizadores', true);
+	showheader('Procurar utilizadores');
 ?>
 		<div id="menu">
 			<ul>

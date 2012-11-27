@@ -192,13 +192,10 @@
 			echo "</div>";
 	}
 	
-	function showheader($subtitle,$linkhome)
+	function showheader($subtitle)
 	{
 		echo "<div id=\"cabecalho\">";
-		if($linkhome)
-			echo "<a href=\"./\"><h1>Social News</h1></a>";
-		else
-			echo "<h1>Social News</h1>";
+		echo "<a href=\"./\"><h1>Social News</h1></a>";
 		if(!empty($subtitle))
 			echo "<h2>".$subtitle."</h2>";
 		echo "</div>";
@@ -219,5 +216,14 @@
 		else
 			echo "<li><a href=\"login.php\">Login</a></li>";
 		echo "</ul>";
+	}
+	
+	function showmessages()
+	{
+		if(isset($_SESSION['msg']))
+		{
+			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
+			unset($_SESSION['msg']);
+		}
 	}
 ?>

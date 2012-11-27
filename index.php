@@ -25,17 +25,14 @@
 	</head>
 	<body>
 <?php
-	if(!empty($id) || !empty($tag) || $p!=0 || !empty($fav)) //show link if not on all news listing
-	{
-		if(!empty($tag)) //tag search
-			showheader('#'.$tag, true);
-		elseif(!empty($fav)) //favorites
-			showheader('Favoritos', true);
-		else
-			showheader('', true);
-	}
+	
+	if(!empty($tag)) //tag search
+		showheader('#'.$tag);
+	elseif(!empty($fav)) //favorites
+		showheader('Favoritos');
 	else
-		showheader('', false);
+		showheader('');
+		
 ?>
 		<div id="menu">
 			<ul>
@@ -87,12 +84,7 @@
 	}
 	echo "</div>";
 	showfooter();
-	//display messages
-	if(isset($_SESSION['msg']))
-	{
-		echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
-		unset($_SESSION['msg']);
-	}
+	showmessages();
 ?>
 	</body>
 </html>

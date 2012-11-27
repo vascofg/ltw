@@ -13,7 +13,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Login', true);
+	showheader('Login');
 ?>
 		<div id="menu">
 			<ul>
@@ -38,12 +38,7 @@
 		</div>
 <?php
 		showfooter();
-		//display messages
-		if(isset($_SESSION['msg']))
-		{
-			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";	
-	        unset($_SESSION['msg']);
-		}
+		showmessages();
 ?>
 	</body>
 </html>

@@ -71,7 +71,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Editar Perfil do Utilizador', true);
+	showheader('Editar Perfil do Utilizador');
 ?>
 		<div id="menu">
 			<ul>

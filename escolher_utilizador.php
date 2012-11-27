@@ -14,7 +14,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Escolher Utilizador', true);
+	showheader('Escolher Utilizador');
 ?>
 		<div id="menu">
 			<ul>

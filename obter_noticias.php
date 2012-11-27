@@ -13,7 +13,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Obter notícias de outros servidores', true);
+	showheader('Obter notícias de outros servidores');
 ?>
 		<div id="menu">
 			<ul>

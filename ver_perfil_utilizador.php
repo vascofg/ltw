@@ -14,7 +14,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Ver Perfil de Utilizador', true);
+	showheader('Ver Perfil de Utilizador');
 ?>
 		<div id="menu">
 			<ul>
