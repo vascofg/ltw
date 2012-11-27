@@ -2,7 +2,7 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
 	
-	if((!isset($_SESSION['username'])) || (empty($_GET['id'])) || (((int)$_SESSION['user_type']) != 2 && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
+	if((!loggedin()) || (empty($_GET['id'])) || (!admin() && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
 		redirectmsg("./", 'Operação não permitida');
 	$id=(int)$_GET['id'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
@@ -15,19 +15,16 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Editar Perfil do Utilizador</h2>
-		</div>
+<?php
+	showheader('Editar Perfil do Utilizador', true);
+?>
 		<div id="menu">
 			<ul>
 			 	<li><a href="./">Voltar</a></li><li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
 			</ul>
-			<ul class="login">
 <?php
-	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+	showloginmenu()
 ?>
-			</ul>
 		</div>
 		<div id="conteudo">
 <?php
@@ -49,7 +46,7 @@
 						<td>Username: </td>
 						<td><?php echo $row['username'];?></td>
 				<?php
-				if($_SESSION['user_type'] == 2)
+				if(admin())
 				{	?>
 				<tr>	<td>Tipo de Utilizador:</td> 
 						<td>
@@ -75,7 +72,7 @@
 				
 				<?php
 				}
-					if($_SESSION['user_type'] != 2)
+					if(admin())
 					{
 				?>
 					<tr>
@@ -100,16 +97,14 @@
 			</form>
 <?php
 		}
-	else
-	{
-		$error=$db->errorInfo();
-		echo "Erro: " . $error[2];
+		else
+		{
+			$error=$db->errorInfo();
+			echo "Erro: " . $error[2];
+		}
 	}
-	}
+	echo "</div>";
+	showfooter();
 ?>
-		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
 	</body>
 </html>

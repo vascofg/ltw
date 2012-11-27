@@ -1,6 +1,6 @@
 <?php
 	require_once 'common/functions.php';
-	if(isset($_SESSION['username'])) //if logged in, go away
+	if(loggedin()) //if logged in, go away
 		redirectmsg("./", 'Operação não permitida');
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['username']) || empty($_POST['username']) || !isset($_POST['password']) || empty($_POST['password'])) {
 ?>
@@ -12,10 +12,9 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Login</h2>
-		</div>
+<?php
+	showheader('Login', true);
+?>
 		<div id="menu">
 			<ul>
 				<li><a href="./">Voltar</a></li>
@@ -37,10 +36,8 @@
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
 <?php
+		showfooter();
 		//display messages
 		if(isset($_SESSION['msg']))
 		{

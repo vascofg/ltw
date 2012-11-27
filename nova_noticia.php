@@ -1,6 +1,6 @@
 <?php
 	require_once 'common/functions.php';
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<1) //if not logged in or not editor, go away
+	if(!loggedin() || user()) //if not logged in or not editor, go away
 		redirectmsg("./", 'Operação não permitida');
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>
@@ -12,19 +12,16 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Inserir notícia</h2>
-		</div>
+<?php
+	showheader('Inserir notícia', true);
+?>
 		<div id="menu">
 			<ul>
 				<li><a href="./">Voltar</a></li>
 			</ul>
-			<ul class="login">
 <?php
-	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+	showloginmenu()
 ?>
-			</ul>
 		</div>
 		<div id="conteudo">
 			<form method="post">
@@ -45,9 +42,9 @@
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
+<?php
+	showfooter();
+?>
 	</body>
 </html>
 

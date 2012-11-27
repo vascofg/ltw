@@ -168,6 +168,7 @@ div#rodape {
 	color:white;
 	display: inline-block;
 	width: 100%;
+	clear:both;
 }
 
 div#rodape p {

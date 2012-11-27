@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
-	if((!isset($_SESSION['username'])) || (empty($_GET['id'])) || (((int)$_SESSION['user_type']) != 2 && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
+	if((!loggedin()) || (empty($_GET['id'])) || (!admin() && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
 		redirectmsg("./", 'Operação não permitida');
 	
 	$id=$_GET['id'];

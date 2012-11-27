@@ -1,6 +1,6 @@
 <?php
 	require_once 'common/functions.php';
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not administrator, go away
+	if(!loggedin() || !admin()) //if not logged in or not administrator, go away
 		redirectmsg("./", 'Operação não permitida');
 	if(!isset($_POST['submit_insert'])) {
 ?>
@@ -12,10 +12,9 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Obter notícias de outros servidores</h2>
-		</div>
+<?php
+	showheader('Obter notícias de outros servidores', true);
+?>
 		<div id="menu">
 			<ul>
 				<li><a href="./">Voltar</a></li>
@@ -93,7 +92,7 @@
 						  //only display text and details on detailed view (one news item)
 						 
 						$date = strtotime($row->{'date'});
-						echo displaydate($date);
+						displaydate($date);
 						echo "<br></div>";
 						if(!empty($row->{'tags'}))
 						{
@@ -114,11 +113,9 @@
 			}
 		}
 	}
+	echo "</div>";
+	showfooter();
 ?>
-		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
 	</body>
 </html>
 <?php }
@@ -161,7 +158,6 @@ else { //insert selected news
 				echo "Erro: " . $error[2];
 			}
 		}
-		unset($_SESSION['json_news']);
 		redirectmsg("./", 'Operação efectuada');
 	}
 	else

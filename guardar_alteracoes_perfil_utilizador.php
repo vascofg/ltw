@@ -2,7 +2,7 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	$pass_actual=$_POST['pass_actual'];
-	if(!isset($_SESSION['username']) || (!isset($pass_actual)&&$_SESSION['user_type']<2)) //if not logged in or not admin, go away
+	if(!loggedin() || (!isset($pass_actual)&&!admin())) //if not logged in or not admin, go away
 		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 	$user_type=$_POST['user_type'];
@@ -11,7 +11,7 @@
 	$nova_pass_2=$_POST['nova_pass_2'];
 	
 	// if the user isn't an administrator, his current password needs to be verified
-	if($_SESSION['user_type'] != 2)
+	if(!admin())
 	{
 	
 	$password=crypt($username.$pass_actual, '$1$'.substr(md5($pass_actual.$username), 0, 8)); //le awesome salt
@@ -70,19 +70,16 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Editar Perfil do Utilizador</h2>
-		</div>
+<?php
+	showheader('Editar Perfil do Utilizador', true);
+?>
 		<div id="menu">
 			<ul>
 				<li><a href="./">Voltar</a></li><li>Apagar Utilizador</li>
 			</ul>
-			<ul class="login">
 <?php
-	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+	showloginmenu()
 ?>
-			</ul>
 		</div>
 		<div id="conteudo">
 		<?php
@@ -90,19 +87,16 @@
 		$executa_user_type=(!isset($stmt_user_type) || $stmt_user_type->execute());
 		
 		if($executa_password && $executa_user_type)
-			{
-				echo "<h5>Perfil editado com sucesso!</h5>";
-			}
-			else
-			{
-				echo "<h5>A edição de dados falhou!</h5>";
-			}
+		{
+			echo "<h5>Perfil editado com sucesso!</h5>";
+		}
+		else
+		{
+			echo "<h5>A edição de dados falhou!</h5>";
+		}
 		
-		?>
-		
-		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
+		echo "</div>";
+		showfooter();
+?>
 	</body>
 </html>

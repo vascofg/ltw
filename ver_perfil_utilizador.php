@@ -13,22 +13,19 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Ver Perfil de Utilizador</h2>
-		</div>
+<?php
+	showheader('Ver Perfil de Utilizador', true);
+?>
 		<div id="menu">
 			<ul>
 				<li><a href="./">Voltar</a></li><?php
-	if($id==$_SESSION['user_id'] || $_SESSION['user_type']==2) //if current user profile or admin
+	if($id==$_SESSION['user_id'] || admin()) //if current user profile or admin
 		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil</a></li>";
 ?>
 			</ul>
-			<ul class="login">
 <?php
-	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+	showloginmenu()
 ?>
-			</ul>
 		</div>
 		<div id="conteudo">
 <?php
@@ -70,11 +67,9 @@
 		$error=$db->errorInfo();
 		echo "Erro: " . $error[2];
 	}
-?>
-		<p></p>
-		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
+	echo "<p></p>
+		</div>";
+	showfooter();
+?>	
 	</body>
 </html>

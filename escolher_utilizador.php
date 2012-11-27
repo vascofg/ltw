@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
-	if(!isset($_SESSION['username']) || $_SESSION['user_type']<2) //if not logged in or not admin, go away
+	if(!loggedin() || !admin()) //if not logged in or not admin, go away
 		redirectmsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 ?>
@@ -13,19 +13,16 @@
 		<link rel="stylesheet" href="common/style.css">
 	</head>
 	<body>
-		<div id="cabecalho">
-			<a href="./"><h1>Social News</h1></a>
-			<h2>Escolher Utilizador</h2>
-		</div>
+<?php
+	showheader('Escolher Utilizador', true);
+?>
 		<div id="menu">
 			<ul>
 				<li><a href="./">Voltar</a></li>
 			</ul>
-			<ul class="login">
 <?php
-	echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+	showloginmenu()
 ?>
-			</ul>
 		</div>
 		<div id="conteudo">
 <?php
@@ -91,11 +88,9 @@
 		$error=$db->errorInfo();
 		echo "Erro: " . $error[2];
 	}
+	echo "<p></p>
+		</div>";
+	showfooter();
 ?>
-		<p></p>
-		</div>
-		<div id="rodape">
-			<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
-		</div>
 	</body>
 </html>
