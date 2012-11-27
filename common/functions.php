@@ -65,7 +65,7 @@
 			if(count($stmt)==0) //if no results, the user profile can't be seen
 				return $username;
 			else
-				return "<a href=ver_perfil_utilizador.php?id=".$stmt[0]['id'].">".$username."</a>";
+				return "<a href=\"ver_perfil_utilizador.php?id=".$stmt[0]['id']."\">".$username."</a>";
 		}
 		return false;
 	}
@@ -105,8 +105,8 @@
 			{
 				$title = (strlen($row['title']) > 30) ? substr($row['title'],0,27).'...' : $row['title'];
 				  echo "<div class=\"noticia_index\">
-				  <h3><a href=\"?id=".$row['id']."\">".stripslashes($title)."</a></h3>
-				  <a href=\"?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\" href=\"?id=".$row['id']."\"></a>
+				  <h3><a href=\"./?id=".$row['id']."\">".stripslashes($title)."</a></h3>
+				  <a href=\"./?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
 				  <div class=\"newsdetails\">
 					<br />";
 				displaydate($row['date']);
@@ -151,7 +151,7 @@
 				<div class=\"newsdetails\">
 				<br />";
 				if(!empty($row['url'])) //display URL if news is imported
-					echo "<b>URL original:</b> < <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
+					echo "<b>URL original:</b> <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
 
 				echo "<b>Submetida por:</b> ".getuserprofilelink($row['posted_by'], $db)."<br>";
 				
