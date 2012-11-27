@@ -69,10 +69,17 @@ div#menu ul.login {
 	float:right;
 }
 
-div#conteudo {
+div#conteudo{
 	margin:0;
 	margin-top:10px;
 	padding:0 10px;
+}
+
+div#search{
+	margin:0;
+	margin-top:10px;
+	padding:0 10px;
+	text-align:right;
 }
 
 div#conteudo h3 {
