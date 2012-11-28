@@ -22,6 +22,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="common/favorites.js"></script>
 		<script src="common/search.js"></script>
+		<script src="common/messages.js"></script>
 	</head>
 	<body>
 <?php
@@ -61,6 +62,7 @@
 	echo "</ul>";
 	showloginmenu();
 	echo "</div>";
+	showmessage();
 	if(empty($tag) && empty($fav) && empty($id))
 	{
 		echo '<div id="search">
@@ -85,7 +87,6 @@
 	}
 	echo "</div>";
 	showfooter();
-	showmessages();
 ?>
 	</body>
 </html>

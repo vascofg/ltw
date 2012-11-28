@@ -266,3 +266,21 @@ div#controlos{
 h4.servertitle{
 	border-bottom:1px solid;
 }
+
+div#message{
+	position:relative;
+	background-color:#4ea5cd;
+	border:1px solid #3b8eb5;
+	color:white;
+	text-align:center;
+	padding:10px 0;
+	font-size:25px;
+}
+
+div#close{
+	position:absolute;
+	top:0;
+	right:2px;
+	font-size:15px;
+	cursor:pointer; 
+}

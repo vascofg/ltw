@@ -10,6 +10,8 @@
 		<meta charset="UTF-8">
 		<title>Login</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/messages.js"></script>
 	</head>
 	<body>
 <?php
@@ -20,6 +22,9 @@
 				<li><a href="./">Voltar</a></li>
 			</ul>
 		</div>
+<?php
+	showmessage();
+?>
 		<div id="conteudo">
 			<form method="post">
 				<table style="margin: auto;">
@@ -38,7 +43,6 @@
 		</div>
 <?php
 		showfooter();
-		showmessages();
 ?>
 	</body>
 </html>

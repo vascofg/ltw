@@ -11,6 +11,8 @@
 		<meta charset="UTF-8">
 		<title>Gerir servidores</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/messages.js"></script>
 	</head>
 	<body>
 <?php
@@ -21,11 +23,10 @@
 				<li><a href="./">Voltar</a></li><li><a href="adicionar_servidor.php">Adicionar servidor</a></li>
 			</ul>
 <?php
-	showloginmenu()
-?>
-		</div>
-		<div id="conteudo">
-<?php
+	showloginmenu();
+	echo "</div>";
+	showmessage();
+	echo "<div id=\"conteudo\">";
 	$stmt = $db->query('SELECT rowid, * FROM server order by name');
 	
 	if($stmt){
@@ -74,7 +75,6 @@
 	echo "<p></p>
 		</div>";
 	showfooter();
-	showmessages();
 ?>
 	</body>
 </html>

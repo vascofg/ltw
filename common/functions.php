@@ -218,11 +218,11 @@
 		echo "</ul>";
 	}
 	
-	function showmessages()
+	function showmessage()
 	{
 		if(isset($_SESSION['msg']))
 		{
-			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
+			echo "<div id=\"message\">".$_SESSION['msg']."<div id=\"close\">[ x ]</div></div>";
 			unset($_SESSION['msg']);
 		}
 	}
