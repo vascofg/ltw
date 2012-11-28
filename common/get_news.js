@@ -1,10 +1,22 @@
 $(document).ready(function(){
-	$("div.server h4").toggle(function()
+	$("div.server h4 div.arrow").toggle(function()
 		{
-			$(this).parent().find("div.noticia").fadeIn();
+			var thiselem=$(this);
+			$(this).parent().parent().find("div.noticia").slideDown(function(){thiselem.text("˄");});
 		},
 		function()
 		{
-			$(this).parent().find("div.noticia").fadeOut();
+			var thiselem=$(this);
+			$(this).parent().parent().find("div.noticia").slideUp(function(){thiselem.text("˅");});
+	});
+	$("div.server h3 div.arrow").toggle(function()
+		{
+			var thiselem=$(this);
+			$(this).parent().parent().find("div.newsbody").slideDown(function(){thiselem.text("˄");});
+		},
+		function()
+		{
+			var thiselem=$(this);
+			$(this).parent().parent().find("div.newsbody").slideUp(function(){thiselem.text("˅");});
 	});
 });

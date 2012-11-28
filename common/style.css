@@ -101,6 +101,11 @@ div#conteudo h5 {
 	font-weight: normal !important;
 }
 
+div.arrow {
+	float:right;
+	cursor: pointer;
+}
+
 div.noticia {
 	margin-top: 4px;
 	display: inline-block;
@@ -190,6 +195,7 @@ div.del_favorite, div.add_favorite{
 	float:right;
 	padding-top:5px;
 	margin-left:10px;
+	cursor:pointer;
 }
 
 div.noticia ul {
@@ -255,4 +261,8 @@ div#controlos{
 	width: 100%;
 	display: inline;
 	float: left;
+}
+
+h4.servertitle{
+	border-bottom:1px solid;
 }

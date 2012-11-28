@@ -96,7 +96,7 @@
 			foreach($stmt as $serveri => $server)
 			{
 			
-			echo "<div class=\"server\"><h4 style=\"border-bottom:1px solid;\">".$server['name']." - <a target=\"_blank\" href=\"".$server['url']."\">".$server['url']."</a></h4>";
+			echo "<div class=\"server\"><h4 class=\"servertitle\">".$server['name']." - <a target=\"_blank\" href=\"".$server['url']."\">".$server['url']."</a><div class=\"arrow\">˅</div></h4>";
 		
 			$url = $server['url']."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
 			if(!$json = json_decode(file_get_contents($url)))
@@ -116,9 +116,9 @@
 						foreach($json_news as $i => $row)
 						{
 							echo "<div class=\"noticia\">
-								<h3><input type=\"checkbox\" name=\"news[".$serveri."][".$i."]\"> ".stripslashes($row->{'title'})."</h3>".
-								//<div class=\"newsbody\">".nl2br/*convert newlines in json to <br>*/(stripslashes($row->{'text'}))."</div>
-								"<div class=\"newsdetails\">
+								<h3><input type=\"checkbox\" name=\"news[".$serveri."][".$i."]\"> ".stripslashes($row->{'title'})."<div class=\"arrow\">˅</div></h3>
+								<div class=\"newsbody\" style=\"display:none;\">".nl2br/*convert newlines in json to <br>*/(stripslashes($row->{'text'}))."</div>
+								<div class=\"newsdetails\">
 								<br />
 								URL: <a target=\"_blank\" href=\"".stripslashes($row->{'url'})."\">".stripslashes($row->{'url'})."</a><br>
 								Submetida por: ".stripslashes($row->{'posted_by'})."<br>";
