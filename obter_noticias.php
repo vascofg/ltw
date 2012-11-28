@@ -2,6 +2,7 @@
 	require_once 'common/functions.php';
 	if(!loggedin() || !admin()) //if not logged in or not administrator, go away
 		redirectmsg("./", 'Operação não permitida');
+	require_once('db/db.php');
 	if(!isset($_POST['submit_insert'])) {
 ?>
 <!DOCTYPE html>
@@ -10,6 +11,8 @@
 		<meta charset="UTF-8">
 		<title>Obter Notícias</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/get_news.js"></script>
 	</head>
 	<body>
 <?php
@@ -27,13 +30,22 @@
 		</div>
 		<div id="conteudo">
 <?php
-	if($_SERVER['REQUEST_METHOD'] != "POST" || empty($_POST['url'])) {?>
+	if($_SERVER['REQUEST_METHOD'] != "POST") {
+		
+		$stmt = $db->query('SELECT count(*) as count FROM server');
+	
+		if(!$stmt)
+		{
+			$error=$db->errorInfo();
+			echo "Erro: " . $error[2];
+		}
+		else{
+			$stmt = $stmt->fetch();
+			if((int)$stmt["count"]==0) //if no results
+				echo "<h5>Nenhum servidor encontrado.</h5>";
+			else {?>
 			<form method="post">
 				<table style="margin: auto;">
-					<tr>
-						<td>URL: </td>
-						<td><input size="50" type="text" name="url" placeholder="URL para a raiz do site, incluindo http://"></td>
-					</tr>
 					<tr>
 						<td>Data Inicial: </td>
 						<td><input size="50" type="text" name="start_date"></td>
@@ -50,9 +62,10 @@
 				<p style="text-align:center;"><input type="submit" value="Submeter"></p>
 			</form>
 <?php
+			}
+		}
 	}
 	else {
-		$url = $_POST['url'];
 		$start_date = $_POST['start_date'];
 		$end_date = $_POST['end_date'];
 		
@@ -65,53 +78,78 @@
 		else
 			$end_date=preg_replace('/\+\d\d:\d\d/','',date('c',time()));
 		$tags = $_POST['tags'];
-		$url = $url."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
-		if(!$json = json_decode(file_get_contents($url)))
-			echo "<h5>Falhou a obtenção do JSON!</h5>";
+		
+		//Get server URLs
+		$stmt = $db->query('SELECT rowid,* FROM server order by name');
+	
+		if(!$stmt)
+		{
+			$error=$db->errorInfo();
+			echo "Erro: " . $error[2];
+		}
 		else{
-			if($json->{'result'}=="error")
-				echo "<h5>O JSON reportou um erro com o código ".$json->{'code'}.": \"".$json->{'reason'}."\"</h5>";
-			else
+			$stmt = $stmt->fetchAll();
+			if(count($stmt)==0) //if no results
+			echo "<h5>Nenhum servidor encontrado.</h5>";
+			else {
+			
+			foreach($stmt as $serveri => $server)
 			{
-				$json_news = $json->{'data'};
-				$_SESSION['json_news']=$json_news; //improve? (won't be unset if no news are added - unsetting on index)
-				if(count($json_news)==0) //if no results
-					echo "<h5>Nenhuma notícia encontrada!</h5>";
+			
+			echo "<div class=\"server\"><h4 style=\"border-bottom:1px solid;\">".$server['name']." - <a target=\"_blank\" href=\"".$server['url']."\">".$server['url']."</a></h4>";
+		
+			$url = $server['url']."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
+			if(!$json = json_decode(file_get_contents($url)))
+				echo "<h5>Falhou a obtenção do JSON!</h5>";
+			else{
+				if($json->{'result'}=="error")
+					echo "<h5>O JSON reportou um erro com o código ".$json->{'code'}.": \"".$json->{'reason'}."\"</h5>";
 				else
 				{
-					echo "<form method=\"post\">";
-					foreach($json_news as $i => $row)
+					$json_news = $json->{'data'};
+					$_SESSION['json_news'][$serveri]=$json_news; //improve? (won't be unset if no news are added - unsetting on index)
+					if(count($json_news)==0) //if no results
+						echo "<h5>Nenhuma notícia encontrada!</h5>";
+					else
 					{
-						echo "<div class=\"noticia\">
-						  <h3><input type=\"checkbox\" name=\"news[".$i."]\"> ".stripslashes($row->{'title'})."</h3>
-						  <div class=\"newsbody\">".nl2br/*convert newlines in json to <br>*/(stripslashes($row->{'text'}))."</div>
-						  <div class=\"newsdetails\">
-							<br />
-							URL: <a href=\"".stripslashes($row->{'url'})."\">".stripslashes($row->{'url'})."</a><br>
-							Submetida por: ".stripslashes($row->{'posted_by'})."<br>";
-						  //only display text and details on detailed view (one news item)
-						 
-						$date = strtotime($row->{'date'});
-						displaydate($date);
-						echo "<br></div>";
-						if(!empty($row->{'tags'}))
+						echo "<form method=\"post\">";
+						foreach($json_news as $i => $row)
 						{
-							echo "<div class=\"newstags\">";
-							foreach($row->{'tags'} as $i=>$json_tag)
+							echo "<div class=\"noticia\">
+								<h3><input type=\"checkbox\" name=\"news[".$serveri."][".$i."]\"> ".stripslashes($row->{'title'})."</h3>".
+								//<div class=\"newsbody\">".nl2br/*convert newlines in json to <br>*/(stripslashes($row->{'text'}))."</div>
+								"<div class=\"newsdetails\">
+								<br />
+								URL: <a target=\"_blank\" href=\"".stripslashes($row->{'url'})."\">".stripslashes($row->{'url'})."</a><br>
+								Submetida por: ".stripslashes($row->{'posted_by'})."<br>";
+								//only display text and details on detailed view (one news item)
+							 
+							$date = strtotime($row->{'date'});
+							displaydate($date);
+							echo "<br></div>";
+							if(!empty($row->{'tags'}))
 							{
-								echo "#".stripslashes($json_tag);
-								if(++$i != count($row->{'tags'}))
-									echo " ";
+								echo "<div class=\"newstags\">";
+								foreach($row->{'tags'} as $i=>$json_tag)
+								{
+									echo "#".stripslashes($json_tag);
+									if(++$i != count($row->{'tags'}))
+										echo " ";
+								}
+								echo "</div>";
 							}
-							echo "</div>";
+							echo "<br></div>";
 						}
-						echo "<br></div>";
+						
 					}
-					echo "<p style=\"text-align:center;\"><input type=\"submit\" name=\"submit_insert\" value=\"Inserir\"></p>
-					</form>";
 				}
 			}
+			echo "</div>";
 		}
+		echo "<p style=\"text-align:center;\"><input type=\"submit\" name=\"submit_insert\" value=\"Inserir\"></p>
+						</form>";
+	}
+	}
 	}
 	echo "</div>";
 	showfooter();
@@ -120,42 +158,46 @@
 </html>
 <?php }
 else { //insert selected news
-	require_once 'db/db.php';
+	if(!isset($_POST['news']))
+		redirectmsg("./", 'Nenhuma notícia seleccionada');
 	if(isset($_SESSION['json_news']))
 	{
 		$json_news = $_SESSION['json_news'];
 
-		foreach($_POST['news'] as $i => $row)
+		foreach($_POST['news'] as $serveri => $server)
 		{
-			$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, ?, ?)');
-			if($stmt->execute(array($json_news[$i]->{'title'}, strtotime($json_news[$i]->{'date'}), $json_news[$i]->{'text'}, $json_news[$i]->{'posted_by'}, $json_news[$i]->{'url'}, $_SESSION['username'])))
+			foreach($server as $i => $row)
 			{
-				$news_id=$db->lastInsertID();
-				
-				if(!empty($json_news[$i]->{'tags'}))
+				$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, ?, ?)');
+				if($stmt->execute(array($json_news[$serveri][$i]->{'title'}, strtotime($json_news[$serveri][$i]->{'date'}), $json_news[$serveri][$i]->{'text'}, $json_news[$serveri][$i]->{'posted_by'}, $json_news[$serveri][$i]->{'url'}, $_SESSION['username'])))
 				{
-					$sql = "INSERT INTO 'tag'
-								SELECT '".$news_id."' as 'news_id', '".$json_news[$i]->{'tags'}[0]."' as 'tag' ";
-					foreach ($json_news[$i]->{'tags'} as $j=>$tag)
+					$news_id=$db->lastInsertID();
+				
+					if(!empty($json_news[$serveri][$i]->{'tags'}))
 					{
-						if ($j < 1) continue; //skip first tag
-						$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, $json_news[$i]->{'tags'}[$j]);
-					}
-					if(!$db->query($sql))
-					{	
-						$error=$db->errorInfo();
-						if($error[1]!=19) //skip duplicate tag error
+						$sql = "INSERT INTO 'tag'
+									SELECT '".$news_id."' as 'news_id', '".$json_news[$serveri][$i]->{'tags'}[0]."' as 'tag' ";
+						foreach ($json_news[$serveri][$i]->{'tags'} as $j=>$tag)
 						{
-							echo "Erro: " . $error[2];
-							exit;
+							if ($j < 1) continue; //skip first tag
+							$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, $json_news[$serveri][$i]->{'tags'}[$j]);
+						}
+						if(!$db->query($sql))
+						{	
+							$error=$db->errorInfo();
+							if($error[1]!=19) //skip duplicate tag error
+							{
+								echo "Erro: " . $error[2];
+								exit;
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				$error=$db->errorInfo();
-				echo "Erro: " . $error[2];
+				else
+				{
+					$error=$db->errorInfo();
+					echo "Erro: " . $error[2];
+				}
 			}
 		}
 		redirectmsg("./", 'Operação efectuada');

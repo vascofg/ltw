@@ -151,7 +151,7 @@
 				<div class=\"newsdetails\">
 				<br />";
 				if(!empty($row['url'])) //display URL if news is imported
-					echo "<b>URL original:</b> <a href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
+					echo "<b>URL original:</b> <a target=\"_blank\" href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
 
 				echo "<b>Submetida por:</b> ".getuserprofilelink($row['posted_by'], $db)."<br>";
 				

@@ -48,8 +48,9 @@
 
 		if(admin())
 		{
-			echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>"
-			."<li><a href=\"obter_noticias.php\">Obter notícias</a></li>";
+			echo "<li><a href=\"procurar_utilizador.php\">Gerir utilizadores</a></li>".
+			"<li><a href=\"gerir_servidor.php\">Gerir servidores</a></li>".
+			"<li><a href=\"obter_noticias.php\">Obter notícias</a></li>";
 		}
 	}
 	else

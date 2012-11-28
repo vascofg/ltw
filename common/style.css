@@ -107,6 +107,10 @@ div.noticia {
 	width:100%;
 }
 
+div.server div.noticia {
+	display:none;
+}
+
 div.noticia img {
 	float:left;
 	margin-right:10px;

@@ -37,7 +37,6 @@
 			echo "<h5>Nenhum utilizador encontrado.</h5>";
 		}
 		else {?>
-			<form action="editar_perfil_utilizador.php" method="get">
 				<table border="1" style="margin: auto;" id="utilizadores_encontrados">					
 					<col width="60%">
 					<col width="90%">
@@ -79,7 +78,6 @@
 			}
 ?>
 				</table>
-			</form>
 <?php
 		}
 	}
