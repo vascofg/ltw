@@ -51,7 +51,7 @@
 						</td>
 						
 						<td>
-							".$row['url']."
+							<a target=\"_blank\" href=\"".$row['url']."\">".$row['url']."</a>
 						</td>	
 						<td style=\"text-align:center;\">
 							<a href=\"apagar_servidor.php?id=".$row['rowid']."\">Remover</a>
