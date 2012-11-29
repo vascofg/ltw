@@ -169,7 +169,7 @@
 							echo "<div class=comment".$row['id']."><h2>Comentários:</h2><div id=comments_server></div>";
 							echo "</div>";
 							if(isset($_SESSION['user_id']))
-								echo "<div id=new_comment><textarea id=text_new_comment rows=6 cols=96 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
+								echo "<div id=new_comment><textarea id=text_new_comment rows=4 cols=92 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
 				if(loggedin() && (editor() || admin()))
 				{
 					echo "<ul>";

@@ -9,22 +9,24 @@ body {
 	border-left: 10px;
 	width: 1200px;
 	color: #333333;
-	border:1px solid #ccc;
+	border:1px solid;
+	border-color: black;
 	border-radius:10px;
+	background-color: white;
 }
 
 div#cabecalho {
 	text-align:center;
-	padding:20px 20px;
+	padding:15px 20px;
 	background-color:white;
 	color:black;
 	border-radius:9px 9px 0 0;
-	background-color:white;
 }
 
 div#menu  {
 	background-color:#ccc;
 	padding:10px;
+	margin-bottom: 15px;
 }
 
 a {
@@ -70,14 +72,15 @@ div#menu ul.login {
 }
 
 div#conteudo{
-	margin:0;
-	margin-top:10px;
+	margin: 0;
 	padding:0 10px;
+	background-color: white;
+	height: 100%;
+	width: 1180px;
 }
 
 div#search{
-	margin:0;
-	margin-top:10px;
+	margin:10px 0;
 	padding:0 10px;
 	text-align:right;
 }
@@ -101,6 +104,15 @@ div#conteudo h5 {
 	font-weight: normal !important;
 }
 
+div#new_comment input
+{
+	float:none;
+	margin-left: 50%;
+	background-color: black;
+	border-color: black;
+	color: white;
+}
+
 div#comment_from_server
 {
 	border-style:solid;
@@ -108,6 +120,7 @@ div#comment_from_server
 	border-radius:10px;
 	width: 58%;
 	padding: 10px;
+	margin-bottom:1%;
 }
 
 div#comment_from_server div.comment_username
@@ -135,7 +148,8 @@ div#new_comment textarea
 	border-radius: 10px;
 	border-style: dashed;
 	border-width:1px;
-	padding-left:10px;
+	padding: 20px;
+	margin-bottom:1%;
 }
 
 div.arrow {
@@ -171,6 +185,7 @@ div.noticia_index {
 	width: 25%;
 	float: left;
 	height: 290px;
+		background-color:white;
 }
 
 div.noticia_index>h3{
