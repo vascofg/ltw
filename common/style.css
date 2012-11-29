@@ -101,6 +101,22 @@ div#conteudo h5 {
 	font-weight: normal !important;
 }
 
+div#comment_from_server
+{
+	border-style:solid;
+	border-width:1px;
+}
+
+div#comment_from_server h1
+{
+	font-size:15px;
+}
+
+div#comment_from_server date
+{
+	font-size:10px;
+}
+
 div.arrow {
 	float:right;
 	cursor: pointer;

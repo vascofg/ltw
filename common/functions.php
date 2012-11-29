@@ -137,7 +137,7 @@
 				echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
 			else
 			{
-				echo "<div class=\"noticia\">";
+				echo "<div class=\"noticia\" id=".$row['id'].">";
 				if(loggedin()) { //favorites
 					if(hasfavorite($row['id'], $db))
 						echo "<div class=\"del_favorite\" id=\"".$row['id']."\"><img width=\"30px\" src=\"common/star_filled.png\">";
@@ -162,10 +162,14 @@
 				displaydate($row['date']);
 				if($row['tagname']!="")
 				  echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
+
 			}
 			if(++$i == sizeof($news)) { //if next row is the end
 				echo   "</div>";
-			
+							echo "<div class=comment".$row['id']."><h2>Comentários:</h2><div id=comments_server></div>";
+							echo "</div>";
+							if(isset($_SESSION['user_id']))
+								echo "<div id=new_comment><textarea id=text_new_comment rows=6 cols=100></textarea><input id=send_comment type=button value=\"enviar comentário\"></div>";
 				if(loggedin() && (editor() || admin()))
 				{
 					echo "<ul>";
@@ -212,7 +216,7 @@
 	{
 		echo "<ul class=\"login\">";
 		if(loggedin())
-			echo "<li>Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
+			echo "<li id=username userid=".$_SESSION['user_id'].">Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
 		else
 			echo "<li><a href=\"login.php\">Login</a></li>";
 		echo "</ul>";
@@ -222,6 +226,7 @@
 	{
 		if(isset($_SESSION['msg']))
 		{
+			echo "<script type=\"text/javascript\">alert(\"".$_SESSION['msg']."\")</script>";
 			echo "<div id=\"message\">".$_SESSION['msg']."<div id=\"close\">[ x ]</div></div>";
 			unset($_SESSION['msg']);
 		}
