@@ -72,7 +72,7 @@
 				
 				<?php
 				}
-					if(admin())
+					if(!admin())
 					{
 				?>
 					<tr>

@@ -19,22 +19,8 @@ $(document).ready(function(){
 		}
 	});
 	if($('div.noticia').attr("id")>0){
-  	$.ajax({ 
-  		 url: 'obter_comentarios.php',
-  		 dataType: 'json',
-		 data: {id: $('.noticia').attr('id')},
-		 type: 'get',
-		 success: function(output) {
-		 
-			$.each(output,function(index,value){
-				var comment=$('<div>');
-				comment.attr({id:'comment_from_server'});
-				comment.html('<h1>'+value.username+' disse:</h1><p>'+value.text+'</p><date>'+value.date+'</date');
-				comment.appendTo('#comments_server');
-			});		
-		}
-		});
-		}
+  		reload_comments();
+	}
 	
 });
 
@@ -50,7 +36,7 @@ if($('div.noticia').attr("id")>0){
 			$.each(output,function(index,value){
 				var comment=$('<div>');
 				comment.attr({id:'comment_from_server'});
-				comment.html('<h1>'+value.username+' disse:</h1><p>'+value.text+'</p>');
+				comment.html('<div class=comment_username>'+value.username+' disse:</div><div class=comment_text>'+value.text+'</div><div class=comment_date>'+value.date+'</div>');
 				comment.appendTo('#comments_server');
 			});		
 		}
