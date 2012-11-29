@@ -23,6 +23,7 @@
 		<script src="common/favorites.js"></script>
 		<script src="common/search.js"></script>
 		<script src="common/messages.js"></script>
+		<script src="common/comments.js"></script>
 	</head>
 	<body>
 <?php
