@@ -7,27 +7,23 @@ body {
 	font-family: Century Gothic, sans-serif;
 	margin: 10px auto;
 	width: 1200px;
-	color: #333333;
-	border:2px solid;
-	border-color: #3b8eb5;
-	border-radius:12px;
+	border:1px solid #ccc;
+	border-radius:10px;
 	background-color: white;
+	color: #333;
 }
 
 div#cabecalho {
 	text-align:center;
-	padding:15px 20px;
-	background-color:#4ea5cd;
+	padding:20px 20px;
 	color:black;
 	border-radius:9px 9px 0 0;
-	width: 1160px;
-	height: 90px;
+	background-color:white;
 }
 
 div#menu  {
 	background-color:#ccc;
 	padding:10px;
-	margin-bottom: 15px;
 }
 
 a {
@@ -43,14 +39,14 @@ div#cabecalho h1 {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size:40px;
-	text-shadow: 0px 2px 10px black;
+	/*text-shadow: 0px 2px 10px black;*/
 }
 
 div#cabecalho h2 
 {
 	margin: 0;
-	color: white;
-	text-shadow: 0px 2px 10px #ccc;
+	/*color: white;
+	text-shadow: 0px 2px 10px #ccc;*/
 }
 
 div#cabecalho a {
@@ -81,15 +77,13 @@ div#menu ul.login {
 }
 
 div#conteudo{
-	margin: 0;
+	margin: 10px 0;
 	padding:0 10px;
-	background-color: white;
-	height: 100%;
-	width: 1180px;
 }
 
 div#search{
-	margin:10px 0;
+	margin:0;
+	margin-top:10px;
 	padding:0 10px;
 	text-align:right;
 }
@@ -280,12 +274,10 @@ div#rodape {
 	padding:5px 0;
 	border-radius:0 0 9px 9px;
 	background-color:black;
-	color:#4ea5cd;
+	color:#ccc;
 	display: inline-block;
 	width: 100%;
 	clear:both;
-	border-top:2px solid #3b8eb5;
-	text-shadow: 0px 2px 10px #3b8eb5;
 }
 
 div#rodape p {
@@ -366,7 +358,6 @@ div#controlos {
 
 div#controlos a
 {
-	color:#4ea5cd;
 	font-weight: bold;
 }
 
@@ -376,13 +367,13 @@ h4.servertitle{
 
 div#message{
 	position:relative;
-	background-color:#4ea5cd;
-	border-top:2px solid #3b8eb5;
-	border-bottom:2px solid #3b8eb5;
+	background-color:#4ea5cd;  	
+	border:1px solid #3b8eb5;
 	color:white;
+	margin-bottom:5px;
 	text-align:center;
 	padding:10px 0;
-	font-size:20px;
+	font-size:25px;
 }
 
 div#close{

@@ -41,7 +41,7 @@
 <?php
 	if(loggedin())
 	{
-		echo "<li><a href=\"./\">Página Inicial</a></li><li><a href=\"./?fav=1\">Meus favoritos</a></li>";
+		echo "<li><a href=\"./?fav=1\">Meus favoritos</a></li>";
 		
 		if((editor() || admin()))
 		{
