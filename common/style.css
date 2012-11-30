@@ -6,21 +6,22 @@ html {
 body {
 	font-family: Century Gothic, sans-serif;
 	margin: 10px auto;
-	border-left: 10px;
 	width: 1200px;
 	color: #333333;
-	border:1px solid;
-	border-color: black;
-	border-radius:10px;
+	border:2px solid;
+	border-color: #3b8eb5;
+	border-radius:12px;
 	background-color: white;
 }
 
 div#cabecalho {
 	text-align:center;
 	padding:15px 20px;
-	background-color:white;
+	background-color:#4ea5cd;
 	color:black;
 	border-radius:9px 9px 0 0;
+	width: 1160px;
+	height: 90px;
 }
 
 div#menu  {
@@ -42,10 +43,18 @@ div#cabecalho h1 {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size:40px;
+	text-shadow: 0px 2px 10px black;
+}
+
+div#cabecalho h2 
+{
+	margin: 0;
+	color: white;
+	text-shadow: 0px 2px 10px #ccc;
 }
 
 div#cabecalho a {
-	color:black;
+	color: black;
 	text-decoration:none;
 }
 
@@ -99,7 +108,7 @@ div#conteudo h4 {
 
 div#conteudo h5 {
 	margin-top:20px; 
-	margin-bottom:10px;
+	margin-bottom:20px;
 	font-size:20px;
 	font-weight: normal !important;
 }
@@ -118,6 +127,7 @@ div#comment_from_server
 	border-style:solid;
 	border-width:1px;
 	border-radius:10px;
+	border-color: #3b8eb5;
 	width: 58%;
 	padding: 10px;
 	margin-bottom:1%;
@@ -129,6 +139,7 @@ div#comment_from_server div.comment_username
 	padding-left: 10px;
 	padding-bottom: 10px;
 	font-weight: bold;
+	color:#4ea5cd;
 }
 
 div#comment_from_server div.comment_date
@@ -180,12 +191,11 @@ div.noticia_index img {
 div.noticia_index {
 	position:relative;
 	margin-top: 13px;
-	/*border-bottom: 4px solid #CCC;*/
 	display: inline-block;
 	width: 25%;
 	float: left;
 	height: 290px;
-		background-color:white;
+	background-color:white;
 }
 
 div.noticia_index>h3{
@@ -233,10 +243,12 @@ div#rodape {
 	padding:5px 0;
 	border-radius:0 0 9px 9px;
 	background-color:black;
-	color:white;
+	color:#4ea5cd;
 	display: inline-block;
 	width: 100%;
 	clear:both;
+	border-top:2px solid #3b8eb5;
+	text-shadow: 0px 2px 10px #3b8eb5;
 }
 
 div#rodape p {
@@ -309,10 +321,16 @@ table#change_permissions td{
 	border-color:#ccc;
 }
 
-div#controlos{
+div#controlos {
 	width: 100%;
 	display: inline;
 	float: left;
+}
+
+div#controlos a
+{
+	color:#4ea5cd;
+	font-weight: bold;
 }
 
 h4.servertitle{
@@ -322,11 +340,12 @@ h4.servertitle{
 div#message{
 	position:relative;
 	background-color:#4ea5cd;
-	border:1px solid #3b8eb5;
+	border-top:2px solid #3b8eb5;
+	border-bottom:2px solid #3b8eb5;
 	color:white;
 	text-align:center;
 	padding:10px 0;
-	font-size:25px;
+	font-size:20px;
 }
 
 div#close{
