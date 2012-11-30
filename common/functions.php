@@ -86,6 +86,22 @@
 		return false;
 	}
 	
+	function isCommentFromUser($comment_id, $db)
+	{
+		$stmt = $db->prepare('SELECT count(*) as count FROM comment WHERE rowid = :comment_id and user_id = :user_id');
+		$stmt->bindparam(':comment_id', $comment_id);
+		$stmt->bindparam(':user_id', $_SESSION['user_id']);
+		if($stmt->execute())
+		{
+			$stmt = $stmt->fetchAll();
+			if($stmt[0]['count']==1)
+				return true;
+			else
+				return false;
+		}
+		return false;
+	}
+	
 	function displaydate($date)
 	{
 		if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
@@ -94,6 +110,16 @@
           echo "Ontem, ".date('H:i', $date);
         else
           echo date('d/m/Y, H:i', $date);
+	}
+	
+	function returnDate($date)
+	{
+		if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
+          return "Hoje, ".date('H:i', $date);
+        elseif(date('dmY', time()-86400) == date('dmY', $date)) //yesterday (1 day = 86400 seconds)
+          return "Ontem, ".date('H:i', $date);
+        else
+          return date('d/m/Y, H:i', $date);
 	}
 	
 	function showallnews($news)
@@ -169,7 +195,7 @@
 							echo "<div class=comment".$row['id']."><h2>Comentários:</h2><div id=comments_server></div>";
 							echo "</div>";
 							if(isset($_SESSION['user_id']))
-								echo "<div id=new_comment><textarea id=text_new_comment rows=4 cols=92 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
+								echo "<div id=new_comment><textarea id=text_new_comment rows=4 cols=74 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
 				if(loggedin() && (editor() || admin()))
 				{
 					echo "<ul>";

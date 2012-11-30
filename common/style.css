@@ -142,6 +142,42 @@ div#comment_from_server div.comment_username
 	color:#4ea5cd;
 }
 
+div#comment_from_server input.edit_comment
+{
+	float:right;
+	background-color: white;
+	border: none;
+	color: black;
+	font-weight: bold;
+}
+
+div#comment_from_server input.edit_comment:hover
+{
+	float:right;
+	background-color: black;
+	border: none;
+	color: white;
+	font-weight: bold;
+}
+
+div#comment_from_server input.delete_comment
+{
+	float:right;
+	background-color: white;
+	border: none;
+	color: black;
+	font-weight: bold;
+}
+
+div#comment_from_server input.delete_comment:hover
+{
+	float:right;
+	background-color: black;
+	border: none;
+	color: white;
+	font-weight: bold;
+}
+
 div#comment_from_server div.comment_date
 {
 	font-size:10px;
@@ -159,8 +195,9 @@ div#new_comment textarea
 	border-radius: 10px;
 	border-style: dashed;
 	border-width:1px;
-	padding: 20px;
+	padding: 10px;
 	margin-bottom:1%;
+	font-size:15px;
 }
 
 div.arrow {
