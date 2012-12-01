@@ -20,8 +20,7 @@ $(document).ready(function(){
 	});
 	if($('div.noticia').attr("id")>0){
   		reload_comments();
-	}
-	
+	}		
 });
 
 
@@ -48,14 +47,20 @@ if($('div.noticia').attr("id")>0){
 					var comment=$('<div>');
 					$comment_d = value.date_format;
 					comment.attr({id:'comment_from_server', comment_id:value.rowid});
-					var delete_b="";
+					var delete_button="";
 					if(value.deletable){
-						delete_b='<input class=delete_comment type=button value="x">';
+						delete_button='<input class=delete_comment type=button value="x">';
 					}
-					comment.html(delete_b+'<input class=edit_comment type=button value="Editar"><div class=comment_username>'+value.username+' disse:</div><div class=comment_text>'+value.text+'</div><div class=comment_date>'+$comment_d+'</div>');
+					var edit_button = "";
+					if(value.editable){
+					edit_button='<input class=edit_comment type=button value="Editar">';
+					}
+					
+					comment.html(delete_button+edit_button+'<div class=comment_username>'+value.username+' disse:</div><div class=comment_text>'+value.text+'</div><div class=comment_date>'+$comment_d+'</div>');
 					comment.appendTo('#comments_server');
 				
-			});		
+			});	
+				
 			$('input.delete_comment').click(function(eventObject){
 		if($("li#username").attr('userid')!=null){
 			//console.log(eventObject.currentTarget.parentElement);
@@ -64,22 +69,23 @@ if($('div.noticia').attr("id")>0){
 			$.ajax({ 
   			 url: 'apagar_comentario.php',
 				dataType: 'json',
-			 data: {id:$(comment).attr('comment_id')},
+			 data: {id:$(comment).attr('comment_id'),news_id:$('.noticia').attr('id')},
 			 type: 'get',
 			 success: function(output) {
 			 	if(output=="ok"){
 			 	reload_comments();
 			 	}
 			 	else{
-			 	alert("Ocorreu um erro: "+output);
+			 	alert("Ocorreu um erro ao apagar o comentário: "+output);
 			 	}		
 			}
 		});
 		}
 	});
-			}		
+
+		}
 		}
 		});
-		}
+}
 }
 

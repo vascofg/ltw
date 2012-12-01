@@ -2,15 +2,15 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
 	if(!loggedin() || !isset($_GET['id'])) //if not logged in or no id set, go away
-		die(json_encode('Operação não permitida1'));
+		die(json_encode('Operação não permitida'));
 	
 	$id=(int)$_GET['id'];
+	$news_id=(int)$_GET['news_id'];
 	
-	if(!admin() && !isCommentFromUser($id, $db)) //if user isn't admin and the comment isn't his, go away
-		die(json_encode('Operação não permitida2'));
+	if((user() && !isCommentFromUser($id, $db)) || ((editor() || admin()) && !isCommentFromUser($id, $db) && !isnewsfromuser($news_id, $db))) //if it's an user and the comment isn't his, or an editor/admin and the comment isn't in his news and it's not his comment, go away
+		die(json_encode('Operação não permitida'));
 	
-	$id=$_GET['id'];
-	$stmt=$db->prepare('delete from comment where rowid= :id');
+	$stmt=$db->prepare('DELETE FROM comment WHERE rowid= :id');
 	$stmt->bindparam(':id', $id);
 	
 	if(!$stmt->execute())

@@ -14,8 +14,17 @@
 	foreach ($comments as $key => $value)
    	{
    	 $value['date_format']=returnDate($value['date']);
-   	 $value['deletable']=isCommentFromUser($value['rowid'], $db);
    	 $value['editable']=isCommentFromUser($value['rowid'], $db);
+   	 
+   	 if(editor() || admin())
+   	 {
+   	 	$value['deletable']=(isnewsfromuser($id, $db) || isCommentFromUser($value['rowid'], $db));
+   	 }
+   	 else
+   	 {
+   	 	$value['deletable']=isCommentFromUser($value['rowid'], $db);
+   	 }
+   	 
    	 array_push($ret, $value);
    	}
    	

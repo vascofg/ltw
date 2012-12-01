@@ -6,7 +6,7 @@
 	$user_id = (int) $_SESSION['user_id'];
 	$text = $_GET['text'];
 	$date = time();
-	//var_dump($news_id);
+	
 	$stmt = $db->prepare('insert into comment (news_id,user_id,text,date) values (:news_id, :user_id, :text, :date)');
 	$stmt->bindparam(':news_id', $news_id);
 	$stmt->bindparam(':user_id', $user_id);
