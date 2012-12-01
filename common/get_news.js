@@ -23,4 +23,6 @@ $(document).ready(function(){
 			thiselem.parent().parent().find("div.newsbody").slideUp(function(){thiselem.text("˅");
 		});
 	});
+	$.datepicker.setDefaults( $.datepicker.regional[ "pt" ] );
+	$("input[name=start_date],input[name=end_date]").datepicker({dateFormat : 'dd-mm-yy'});
 });

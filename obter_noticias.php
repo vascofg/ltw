@@ -11,7 +11,10 @@
 		<meta charset="UTF-8">
 		<title>Obter Notícias</title>
 		<link rel="stylesheet" href="common/style.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+		<script src="https://raw.github.com/jquery/jquery-ui/master/ui/i18n/jquery.ui.datepicker-pt.js"></script>
 		<script src="common/get_news.js"></script>
 	</head>
 	<body>

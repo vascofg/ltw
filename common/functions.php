@@ -132,7 +132,7 @@
 				$title = (strlen($row['title']) > 30) ? substr($row['title'],0,27).'...' : $row['title'];
 				  echo "<div class=\"noticia_index\">
 				  <h3><a href=\"./?id=".$row['id']."\">".stripslashes($title)."</a></h3>
-				  <a href=\"./?id=".$row['id']."\"><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
+				  <a href=\"./?id=".$row['id']."\"><img src=\"http://lorempixel.com/300/200/?dummy=".rand()."\" alt=\"300x200\"></a>
 				  <div class=\"newsdetails\">
 					<br />";
 				displaydate($row['date']);
@@ -172,7 +172,7 @@
 					echo "</div>";
 				}
 				echo "<h3>".stripslashes($row['title'])."</h3>
-				<a href=\"common/placeholder.jpg\" target=_blank><img src=\"common/placeholder.jpg\" alt=\"300x200\"></a>
+				<a href=\"common/placeholder.jpg\" target=_blank><img src=\"http://lorempixel.com/300/200/\" alt=\"300x200\"></a>
 				<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
 				<div class=\"newsdetails\">
 				<br />";
