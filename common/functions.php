@@ -105,23 +105,36 @@
 	function displaydate($date)
 	{
 		if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
-          echo "Hoje, ".date('H:i', $date);
-        elseif(date('dmY', time()-86400) == date('dmY', $date)) //yesterday (1 day = 86400 seconds)
-          echo "Ontem, ".date('H:i', $date);
-        else
-          echo date('d/m/Y, H:i', $date);
-	}
-	
-	function returnDate($date)
-	{
-		if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
           return "Hoje, ".date('H:i', $date);
-        elseif(date('dmY', time()-86400) == date('dmY', $date)) //yesterday (1 day = 86400 seconds)
+        if(date('dmY', time()-86400) == date('dmY', $date)) //yesterday (1 day = 86400 seconds)
           return "Ontem, ".date('H:i', $date);
-        else
-          return date('d/m/Y, H:i', $date);
+		switch(date('N',$date))
+		{
+			case 1:
+				$dayofweek = 'Seg';
+				break;
+			case 2:
+				$dayofweek = 'Ter';
+				break;
+			case 3:
+				$dayofweek = 'Qua';
+				break;
+			case 4:
+				$dayofweek = 'Qui';
+				break;
+			case 5:
+				$dayofweek = 'Sex';
+				break;
+			case 6:
+				$dayofweek = 'Sáb';
+				break;
+			case 7:
+				$dayofweek = 'Dom';
+				break;
+		}
+        return $dayofweek." ".date('d/m/Y, H:i', $date);
 	}
-	
+
 	function showallnews($news)
 	{
 		$count = 0;
@@ -136,7 +149,7 @@
 				  <a href=\"./?id=".$row['id']."\"><img src=\"http://lorempixel.com/300/200/?dummy=".rand()."\" alt=\"300x200\"></a>
 				  <div class=\"newsdetails\">
 					<br />";
-				displaydate($row['date']);
+				echo displaydate($row['date']);
 				if($row['tagname']!="")
 				  echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
 			}
@@ -192,7 +205,7 @@
 				{
 					echo "<b>Importada por:</b> ".getuserprofilelink($row['imported_by'], $db)."<br>";
 				}
-				displaydate($row['date']);
+				echo displaydate($row['date']);
 				if($row['tagname']!="")
 				  echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
 

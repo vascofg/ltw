@@ -13,7 +13,7 @@
 	
 	foreach ($comments as $key => $value)
    	{
-   	 $value['date_format']=returnDate($value['date']);
+   	 $value['date_format']=displaydate($value['date']);
    	 $value['editable']=isCommentFromUser($value['rowid'], $db);
    	 
    	 if(editor() || admin())

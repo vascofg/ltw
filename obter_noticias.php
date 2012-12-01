@@ -128,7 +128,7 @@
 								//only display text and details on detailed view (one news item)
 							 
 							$date = strtotime($row->{'date'});
-							displaydate($date);
+							echo displaydate($date);
 							echo "<br></div>";
 							if(!empty($row->{'tags'}))
 							{
