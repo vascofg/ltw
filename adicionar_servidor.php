@@ -51,6 +51,9 @@
 		$name=$_POST['name'];
 		$url=$_POST['url'];
 		
+		$name = strip_tags($name);
+		$url = strip_tags($url);
+		
 		require_once 'db/db.php';
 		$stmt = $db->prepare('INSERT INTO server values(?,?)');
 		if($stmt->execute(array($name,$url)))

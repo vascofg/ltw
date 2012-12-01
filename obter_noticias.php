@@ -116,12 +116,12 @@
 						foreach($json_news as $i => $row)
 						{
 							echo "<div class=\"noticia\">
-								<h3><input type=\"checkbox\" name=\"news[".$serveri."][".$i."]\"> ".stripslashes($row->{'title'})."<div class=\"arrow\">˅</div></h3>
-								<div class=\"newsbody\" style=\"display:none;\">".nl2br/*convert newlines in json to <br>*/(stripslashes($row->{'text'}))."</div>
+								<h3><input type=\"checkbox\" name=\"news[".$serveri."][".$i."]\"> ".strip_tags(stripslashes($row->{'title'}))."<div class=\"arrow\">˅</div></h3>
+								<div class=\"newsbody\" style=\"display:none;\">".nl2br/*convert newlines in json to <br>*/(strip_tags(stripslashes($row->{'text'})))."</div>
 								<div class=\"newsdetails\">
 								<br />
-								URL: <a target=\"_blank\" href=\"".stripslashes($row->{'url'})."\">".stripslashes($row->{'url'})."</a><br>
-								Submetida por: ".stripslashes($row->{'posted_by'})."<br>";
+								URL: <a target=\"_blank\" href=\"".strip_tags(stripslashes($row->{'url'}))."\">".strip_tags(stripslashes($row->{'url'}))."</a><br>
+								Submetida por: ".strip_tags(stripslashes($row->{'posted_by'}))."<br>";
 								//only display text and details on detailed view (one news item)
 							 
 							$date = strtotime($row->{'date'});
@@ -132,7 +132,7 @@
 								echo "<div class=\"newstags\">";
 								foreach($row->{'tags'} as $i=>$json_tag)
 								{
-									echo "#".stripslashes($json_tag);
+									echo "#".strip_tags(stripslashes($json_tag));
 									if(++$i != count($row->{'tags'}))
 										echo " ";
 								}
@@ -169,18 +169,18 @@ else { //insert selected news
 			foreach($server as $i => $row)
 			{
 				$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, ?, ?)');
-				if($stmt->execute(array($json_news[$serveri][$i]->{'title'}, strtotime($json_news[$serveri][$i]->{'date'}), $json_news[$serveri][$i]->{'text'}, $json_news[$serveri][$i]->{'posted_by'}, $json_news[$serveri][$i]->{'url'}, $_SESSION['username'])))
+				if($stmt->execute(array(strip_tags($json_news[$serveri][$i]->{'title'}), strtotime($json_news[$serveri][$i]->{'date'}), strip_tags($json_news[$serveri][$i]->{'text'}), strip_tags($json_news[$serveri][$i]->{'posted_by'}), strip_tags($json_news[$serveri][$i]->{'url'}), strip_tags($_SESSION['username']))))
 				{
 					$news_id=$db->lastInsertID();
 				
 					if(!empty($json_news[$serveri][$i]->{'tags'}))
 					{
 						$sql = "INSERT INTO 'tag'
-									SELECT '".$news_id."' as 'news_id', '".$json_news[$serveri][$i]->{'tags'}[0]."' as 'tag' ";
+									SELECT '".$news_id."' as 'news_id', '".strip_tags($json_news[$serveri][$i]->{'tags'}[0])."' as 'tag' ";
 						foreach ($json_news[$serveri][$i]->{'tags'} as $j=>$tag)
 						{
 							if ($j < 1) continue; //skip first tag
-							$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, $json_news[$serveri][$i]->{'tags'}[$j]);
+							$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, strip_tags($json_news[$serveri][$i]->{'tags'}[$j]));
 						}
 						if(!$db->query($sql))
 						{	

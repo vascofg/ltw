@@ -65,18 +65,18 @@
 			
 		require_once 'db/db.php';
 		$stmt = $db->prepare('INSERT INTO news values(null, ?, ?, ?, ?, null, null)');
-		if($stmt->execute(array($title, time(), $text, $_SESSION['username'])))
+		if($stmt->execute(array(strip_tags($title), time(), strip_tags($text), $_SESSION['username'])))
 		{
 			$news_id=$db->lastInsertID();
 			
 			if(!empty($tags)&& $tags!=' ')
 			{
 				$sql = "INSERT INTO 'tag'
-							SELECT '".$news_id."' as 'news_id', '".$tag_array[0]."' as 'tag' ";
+							SELECT '".$news_id."' as 'news_id', '".strip_tags($tag_array[0])."' as 'tag' ";
 				foreach ($tag_array as $id=>$tag)
 				{
 					if ($id < 1) continue; //skip first tag
-					$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, $tag_array[$id]);
+					$sql .= sprintf("UNION SELECT '%d', '%s' ", $news_id, strip_tags($tag_array[$id]));
 				}
 				if(!$db->query($sql))
 				{	

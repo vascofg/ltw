@@ -86,7 +86,7 @@
 		$tags=$_POST['tags'];
 		
 		$stmt = $db->prepare('UPDATE news SET title=?, text=? where id = ?');
-		if($stmt->execute(array($title, $text, $id)))
+		if($stmt->execute(array(strip_tags($title), strip_tags($text), $id)))
 		{
 			if(!empty($tag))
 			{
@@ -105,11 +105,11 @@
 				$tag_array = explode(' ',$tags);
 				$tag_array = array_filter($tag_array); //delete empty fields
 				$sql = "INSERT INTO 'tag'
-							SELECT '".$id."' as 'news_id', '".$tag_array[0]."' as 'tag' ";
+							SELECT '".$id."' as 'news_id', '".strip_tags($tag_array[0])."' as 'tag' ";
 				foreach ($tag_array as $i=>$tag)
 				{
 					if ($i < 1) continue; //skip first tag
-					$sql .= sprintf("UNION SELECT '%d', '%s' ", $id, $tag_array[$i]);
+					$sql .= sprintf("UNION SELECT '%d', '%s' ", $id, strip_tags($tag_array[$i]));
 				}
 				if(!$db->query($sql))
 				{
