@@ -127,10 +127,13 @@ div#conteudo h5 {
 	font-weight: normal !important;
 }
 
+div#new_comment {
+	width:722px;
+}
+
 div#new_comment input
 {
-	float:none;
-	margin-left: 50%;
+	float:right;
 	background-color: black;
 	border-color: black;
 	color: white;
@@ -142,7 +145,7 @@ div#comment_from_server
 	border-width:1px;
 	border-radius:10px;
 	border-color: #1F4F82;
-	width: 58%;
+	width: 700px;
 	padding: 10px;
 	margin-bottom:1%;
 }
@@ -212,6 +215,7 @@ div#new_comment textarea
 	padding: 10px;
 	margin-bottom:1%;
 	font-size:15px;
+	width:700px;
 }
 
 div.arrow {
@@ -331,7 +335,8 @@ div.del_favorite, div.add_favorite{
 }
 
 div.noticia ul {
-	margin-top:30px;
+	margin-top:42px;
+	margin-bottom:0;
 	padding-left:0;
 	background-color:#ccc;
 	padding:5px;
