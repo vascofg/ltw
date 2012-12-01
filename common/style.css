@@ -10,6 +10,7 @@ body {
 	color: #333333;
 	border-color: #3b8eb5;
 	background-color: white;
+	min-width:1200px;
 }
 
 div#cabecalho {
@@ -23,9 +24,12 @@ div#cabecalho {
 
 div#menu  {
 	background-color:#ccc;
-	padding:10px 4%;
-	margin: 0, 20px;
+	padding:10px;
+	margin: 0 auto;
 	/*margin-bottom: 15px;*/
+	width:1180px;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
 }
 
 a {
@@ -85,9 +89,11 @@ div#conteudo{
 }
 
 div#search{
-	margin:10px 4%;
-	padding:0 10px;
+	margin:0 auto;
+	margin-top:20px;
 	text-align:right;
+	padding:0, 10px;
+	width:1180px;
 }
 
 div#conteudo h2 {
@@ -284,19 +290,28 @@ div.noticia_index ul {
 	padding:5px;
 }
 
+div.noticia_index ul.left {
+	border-top-left-radius:7px;
+	border-bottom-left-radius:7px;
+}
+
+div.noticia_index ul.right {
+	border-top-right-radius:7px;
+	border-bottom-right-radius:7px;
+}
+
 div#rodape {
-	margin:0;
+	margin:0 auto;
 	padding:5px 0;
 	background-color:white;
 	color:#990000;
-	display: inline-block;
-	width: 100%;
+	width: 1200px;
 	clear:both;
 	border-top:2px solid #860004;
 }
 
 div#rodape p {
-	margin:0 4%;
+	margin:5px;
 	font-weight: bold;
 }
 
@@ -349,6 +364,14 @@ div.newsdetails {
 div.newstags {
 	font-size:12px;
 	font-weight: bold;
+	color: #1F4F82;
+}
+
+div.noticia_index>div.newstags {
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	width:285px;
 }
 
 div.newstags a{
@@ -394,14 +417,17 @@ div#message{
 	/*border-bottom:2px solid #3b8eb5;*/
 	color:white;
 	text-align:center;
+	margin:0 auto;
 	padding:10px 0;
 	font-size:20px;
+	border-radius:10px;
+	width:1200px;
 }
 
 div#close{
 	position:absolute;
 	top:0;
-	right:2px;
+	right:5px;
 	font-size:15px;
 	cursor:pointer; 
 }

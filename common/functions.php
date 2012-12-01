@@ -124,6 +124,7 @@
 	
 	function showallnews($news)
 	{
+		$count = 0;
 		foreach($news as $i=>$row) {
 			if($row['id']==$news[$i-1]['id']) //if repeating news (because of tags)
 				echo " <a href=\"./?tag=".$row['tagname']."\">#".$row['tagname']."</a>";
@@ -144,12 +145,18 @@
 			
 				if(loggedin() && (editor() || admin()))
 				{
-					echo "<ul>";
+					if($count%4==0) //if leftmost
+						echo "<ul class=\"left\">";
+					elseif($count%4==3 || $i+1==sizeof($news)) //if at right (or last)
+						echo "<ul class=\"right\">";
+					else
+						echo "<ul>";
 					
 					if(loggedin() && (admin() || (editor() && ($_SESSION['username'] == $row['posted_by'] || $_SESSION['username'] == $row['imported_by']))))
 						echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";
 					echo "<li style=\"border:0;\"></li>"; //display full height <ul>
 					echo "</ul>";
+					$count++;
 				}
 				echo "</div>";
 			}
