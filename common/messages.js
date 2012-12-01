@@ -1,5 +1,5 @@
 $(document).ready(function(){	
-	$("div#message div#close").click(function(){
+	$("div#message div#close").live("click",function(){
 		var message = $(this).parent();
 		message.slideUp('fast', function(){message.remove();});
 	});

@@ -256,4 +256,15 @@
 			unset($_SESSION['msg']);
 		}
 	}
+	
+	function getlatestnews($db)
+	{
+		if($stmt = $db->query('SELECT max(id) as max from news'))
+		{
+			$stmt = $stmt->fetch();
+			return $stmt['max'];
+		}
+		else
+			return "erro";
+	}
 ?>

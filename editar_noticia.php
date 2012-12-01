@@ -16,6 +16,9 @@
 		<meta charset="UTF-8">
 		<title>Editar Notícia</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/messages.js"></script>
+		<script src="common/alertnews.js"></script>
 	</head>
 	<body>
 <?php

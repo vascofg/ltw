@@ -24,6 +24,10 @@
 		<script src="common/search.js"></script>
 		<script src="common/messages.js"></script>
 		<script src="common/comments.js"></script>
+<?php
+	if(!empty($id))
+		echo "<script src=\"common/alertnews.js\"></script>";
+?>
 	</head>
 	<body>
 <?php
