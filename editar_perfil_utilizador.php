@@ -20,7 +20,7 @@
 ?>
 		<div id="menu">
 			<ul>
-			 	<li><a href="./">Voltar</a></li><li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
+			 	<a href="./"><img src="common/home.png"></a><li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
 			</ul>
 <?php
 	showloginmenu()

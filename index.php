@@ -45,7 +45,7 @@
 <?php
 	if(loggedin())
 	{
-		echo "<li><a href=\"./?fav=1\">Meus favoritos</a></li>";
+		echo "<a href=\"./\"><img src=\"common/home.png\"></a><li><a href=\"./?fav=1\">Meus favoritos</a></li>";
 		
 		if((editor() || admin()))
 		{

@@ -18,7 +18,7 @@
 ?>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li><?php
+				<a href="./"><img src="common/home.png"></a><?php
 	if($id==$_SESSION['user_id'] || admin()) //if current user profile or admin
 		echo "<li><a href=\"editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\">Editar perfil</a></li>";
 ?>

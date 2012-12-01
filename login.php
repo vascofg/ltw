@@ -19,7 +19,7 @@
 ?>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
+				<a href="./"><img src="common/home.png"></a>
 			</ul>
 		</div>
 <?php

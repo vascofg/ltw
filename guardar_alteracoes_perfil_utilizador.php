@@ -75,7 +75,7 @@
 ?>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li><li>Apagar Utilizador</li>
+				<a href="./"><img src="common/home.png"></a><li>Apagar Utilizador</li>
 			</ul>
 <?php
 	showloginmenu()

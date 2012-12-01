@@ -23,7 +23,7 @@
 ?>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li>
+				<a href="./"><img src="common/home.png"></a>
 			</ul>
 			<ul style="display:inline;" class="login"> <!-- had to define style because there was a bug in Chrome where the display:inline wouldnt work from the css file-->
 <?php

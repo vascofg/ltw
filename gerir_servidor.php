@@ -20,7 +20,7 @@
 ?>
 		<div id="menu">
 			<ul>
-				<li><a href="./">Voltar</a></li><li><a href="adicionar_servidor.php">Adicionar servidor</a></li>
+				<a href="./"><img src="common/home.png"></a><li><a href="adicionar_servidor.php">Adicionar servidor</a></li>
 			</ul>
 <?php
 	showloginmenu();
