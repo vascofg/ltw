@@ -192,7 +192,7 @@
 					echo "</div>";
 				}
 				echo "<h3>".stripslashes($row['title'])."</h3>
-				<a href=\"common/placeholder.jpg\" target=_blank><img src=\"http://lorempixel.com/300/200/\" alt=\"300x200\"></a>
+				<img src=\"http://lorempixel.com/300/200/\" alt=\"300x200\">
 				<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
 				<div class=\"newsdetails\">
 				<br />";
