@@ -1,0 +1,9 @@
+Grupo T5G7
+
+Vasco Gonçalves
+Maria João Araújo
+
+- O nosso projecto faz tudo o que é especificado no enunciado do projecto.
+- Para além disso implementamos imagens aleatórias para cada notícia.
+
+Os utilizadores de teste são test_admin, test_editor e test_user, e as passes admin, editor e user respectivamente.
