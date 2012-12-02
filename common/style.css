@@ -338,6 +338,27 @@ div#comment_from_server div.comment_date {
 	padding-left: 10px;
 }
 
+div#comment_from_server div.comment_edited_label {
+	font-size: 10px;
+	margin: 0;
+	margin-right: -45px;
+	margin-top: -3px;
+	padding: 3px;
+	float: right;
+	font-weight: bold;
+	color: white;
+	background-color: #990000;
+	border-radius: 5px;
+}
+
+div#comment_from_server div.comment_edition_date {
+	font-size: 10px;
+	padding-right: 30px;
+	width: 10%;
+	margin-right: 15px;
+	float: right;
+}
+
 div#comment_from_server div.comment_text {
 	padding-left: 10px;
 	padding-bottom: 10px;

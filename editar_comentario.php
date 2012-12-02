@@ -6,16 +6,18 @@
 	
 	$id=(int)$_GET['id'];
 	$text=$_GET['text'];
-	$date = time();
+	$edition_date = time();
+	$edited = 1; // if a comment is edited, edited == 1
 	
 	if(!isCommentFromUser($id, $db)) //if the comment isn't from the user who wants to edit it, go away
 		die(json_encode('Operação não permitida'));
 	
 	$id=$_GET['id'];
-	$stmt = $db->prepare('UPDATE comment SET text = :text, date = :date WHERE rowid = :id');
+	$stmt = $db->prepare('UPDATE comment SET text = :text, edition_date = :edition_date, edited = :edited WHERE rowid = :id');
 	$stmt->bindparam(':id', $id);
 	$stmt->bindparam(':text', $text);
-	$stmt->bindparam(':date', $date);
+	$stmt->bindparam(':edition_date', $edition_date);
+	$stmt->bindparam(':edited', $edited);
 	
 	if(!$stmt->execute())
 	{
