@@ -15,7 +15,7 @@ function sendButton(){
   			 url: 'novo_comentario.php',
 				dataType: 'json',
 			 data: {news_id: $('.noticia').attr('id'),user_id:$("li#username").attr('userid'),text:$("#textarea_new_comment").val()},
-			 type: 'get',
+			 type: 'post',
 			 success: function(output) {
 			 	if(output=="ok") {
 			 	$('#textarea_new_comment').val("");
@@ -71,19 +71,17 @@ function reloadComments() {
 						edit_button='<input class=edit_comment type=button value="Editar">';
 					}
 					
-					var $comment_d = "";
 					var $comment_edition_d = "";
 					var edition_date_label = "";
 					if(value.edited == 1) {
 						$comment_edition_d = value.edition_date_format;
-						$comment_d = '<div class=original_date>Adicionado '+value.date_format+'</div>';
 						
 						edited_label='<div class=comment_edited_label>Editado</div>';
 						edition_date_label='<div class=comment_edition_date>'+edited_label+$comment_edition_d+'</div>';
 					}
-					else {
-						$comment_d = value.date_format;
-					}
+					
+					$comment_d = "";
+					$comment_d = '<div class=original_date>Adicionado '+value.date_format+'</div>';
 					
 					comment.html(delete_button+edit_button+'<div class=comment_username>'+value.username+' disse:</div><div class=comment_text>'+value.text+'</div><div class=comment_date>'+edition_date_label+$comment_d+'</div>');
 					comment.appendTo('#comments_server');
@@ -158,7 +156,7 @@ function reloadComments() {
   			 						url: 'editar_comentario.php',
 									dataType: 'json',
 			 						data: {text:$("#textarea_new_comment").val(), id:$('#comment_from_server').attr('comment_id')},
-				 					type: 'get',
+				 					type: 'post',
 			 						success: function(output) {
 			 							if(output=="ok"){
 			 								$('#textarea_new_comment').val("");

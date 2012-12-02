@@ -2,9 +2,9 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
 
-	$news_id =(int) $_GET['news_id'];
+	$news_id =(int) $_POST['news_id'];
 	$user_id = (int) $_SESSION['user_id'];
-	$text = $_GET['text'];
+	$text = $_POST['text'];
 	$date = time();
 	$edition_date = time();
 	$edited = 0; // if a comment is new, edited == 0

@@ -4,7 +4,7 @@
 
 	$id = $_GET['id'];
 	
-	$stmt = $db->prepare('SELECT comment.rowid, text, username, date, edition_date, edited FROM comment, user WHERE user.id=comment.user_id AND news_id = :id ORDER BY comment.edition_date DESC');
+	$stmt = $db->prepare('SELECT comment.rowid, text, username, date, edition_date, edited FROM comment, user WHERE user.id=comment.user_id AND news_id = :id ORDER BY comment.rowid DESC');
 	$stmt->bindparam(':id', $id);
 	$stmt->execute();
 	$comments = $stmt->fetchall();
