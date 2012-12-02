@@ -192,7 +192,7 @@
 					echo "</div>";
 				}
 				echo "<h3>".stripslashes($row['title'])."</h3>
-				<img src=\"http://lorempixel.com/300/200/\" alt=\"300x200\">
+				<img src=\"http://lorempixel.com/300/200/\" alt=\"300x200\">				
 				<div class=\"newsbody\">".nl2br/*convert newlines in database to <br>*/(stripslashes($row['text']))."</div>
 				<div class=\"newsdetails\">
 				<br />";
@@ -215,7 +215,7 @@
 							echo "<div class=comment".$row['id']."><h2>Comentários:</h2><div id=comments_server></div>";
 							echo "</div>";
 							if(isset($_SESSION['user_id']))
-								echo "<div id=new_comment><textarea id=text_new_comment rows=4 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
+								echo "<div id=new_comment><textarea id=textarea_new_comment rows=4 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
 				if(loggedIn() && (editor() || admin()))
 				{
 					echo "<ul>";
