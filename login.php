@@ -53,8 +53,12 @@
 	{
 		$username=$_POST['username'];
 		$password=$_POST['password'];
-		$password=crypt($username.$password, '$1$'.substr(md5($password.$username), 0, 8)); //le awesome salt
 		
+		if(preg_match('/\W/',$username) || preg_match('/\W/',$password))
+			redirectMsg($_SERVER['PHP_SELF'], 'Apenas caraceres alfanuméricos');
+		
+		$password=crypt($username.$password, '$1$'.substr(md5($password.$username), 0, 8)); //le awesome salt
+
 		require_once 'db/db.php';
 		if(isset($_POST['register']))
 		{
