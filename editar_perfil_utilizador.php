@@ -13,6 +13,8 @@
 		<meta charset="UTF-8">
 		<title>Editar Perfil do Utilizador</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/messages.js"></script>
 	</head>
 	<body>
 <?php
@@ -23,9 +25,10 @@
 			 	<a href="./"><img src="common/home.png"></a><li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
 			</ul>
 <?php
-	showLoginMenu()
+	showLoginMenu();
+	echo "</div>";
+	showMessage();
 ?>
-		</div>
 		<div id="conteudo">
 <?php
 		$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE id = :id');

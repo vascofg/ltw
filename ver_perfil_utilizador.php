@@ -11,6 +11,8 @@
 		<meta charset="UTF-8">
 		<title>Ver Perfil de Utilizador</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/messages.js"></script>
 	</head>
 	<body>
 <?php
@@ -24,11 +26,11 @@
 ?>
 			</ul>
 <?php
-	showLoginMenu()
-?>
-		</div>
-		<div id="conteudo">
-<?php
+	showLoginMenu();
+	echo "</div>";
+	showMessage();
+	echo "<div id=\"conteudo\">";
+	
 	$stmt = $db->prepare('SELECT username, user_type FROM user WHERE id = :id');
 	if(!empty($id))
 		$stmt->bindparam(':id', $id);

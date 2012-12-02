@@ -55,7 +55,7 @@
 		$password=$_POST['password'];
 		
 		if(preg_match('/\W/',$username) || preg_match('/\W/',$password))
-			redirectMsg($_SERVER['PHP_SELF'], 'Apenas caraceres alfanuméricos');
+			redirectMsg($_SERVER['PHP_SELF'], 'Apenas caracteres alfanuméricos');
 		
 		$password=crypt($username.$password, '$1$'.substr(md5($password.$username), 0, 8)); //le awesome salt
 
@@ -70,7 +70,7 @@
 				$_SESSION['username'] = $username;
 				$_SESSION['user_type'] = 0;
 				$_SESSION['user_id'] = $db->lastInsertID();
-				redirectMsg('./', 'Utilizador registado! Login efectuado');
+				redirectMsg('./', 'Utilizador registado e login efectuado');
 			}
 		}
 		else

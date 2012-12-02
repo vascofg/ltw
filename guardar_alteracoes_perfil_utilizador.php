@@ -1,6 +1,8 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
+	if(!loggedIn())
+		redirectMsg("./", 'Operação não permitida');
 	$pass_actual=$_POST['pass_actual'];
 	if(!loggedIn() || (!isset($pass_actual) && !admin())) //if not logged in or not admin, go away
 		redirectMsg("./", 'Operação não permitida');
@@ -30,17 +32,19 @@
 	$noResults = false;
 	$differentPasswords = false;
 	
-	if(count($stmt)==0){ //if no results
-		$noResults = true;
+	if(count($stmt)==0){ //if no results, password is wrong
+		redirectmsg('editar_perfil_utilizador.php?id='.$_SESSION['user_id'],'A password actual não está correcta');
+		
 	}
 	else {
 		
 		$row=$stmt[0];
 		
 		if($nova_pass != $nova_pass_2)
-		{
-			$differentPasswords = true;
-		}	
+			redirectmsg('editar_perfil_utilizador.php?id='.$row['id'],'As passwords inseridas são diferentes');
+			
+		if(preg_match('/\W/',$username) || preg_match('/\W/',$nova_pass) || preg_match('/\W/',$nova_pass_2))
+			redirectMsg('editar_perfil_utilizador.php?id='.$row['id'],'Apenas caracteres alfanuméricos');
 		else
 		{	
 			if(strlen($nova_pass)>0) {
@@ -48,64 +52,17 @@
 				$stmt_password = $db->prepare('UPDATE user SET password =:nova_pass WHERE username = :username');
 				$stmt_password->bindparam(':nova_pass', $password);
 				$stmt_password->bindparam(':username', $username);
+				$stmt_password->execute();
 			}
 			
 			if(isset($user_type)) {
 				$stmt_user_type = $db->prepare('UPDATE user SET user_type = :user_type WHERE username = :username');
 				$stmt_user_type->bindparam(':user_type', $user_type);
 				$stmt_user_type->bindparam(':username', $username);
+				$stmt_user_type->execute();
 			}
+			
+			redirectmsg('ver_perfil_utilizador.php?id='.$row['id'],'Operação efectuada');
 		}	
 	}
 ?>
-
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Editar Perfil do Utilizador</title>
-		<link rel="stylesheet" href="common/style.css">
-	</head>
-	<body>
-<?php
-	showHeader('Editar Perfil do Utilizador');
-?>
-		<div id="menu">
-			<ul>
-				<a href="./"><img src="common/home.png"></a><li>Apagar Utilizador</li>
-			</ul>
-<?php
-	showLoginMenu()
-?>
-		</div>
-		<div id="conteudo">
-		<?php
-
-		if($noResults) {
-			echo "<h5>A edição de dados falhou!</h5>";
-			echo "<h5>A password actual não está correcta.</h5>";
-		}
-		else
-		if($differentPasswords) {
-			echo "<h5>A edição de dados falhou!</h5>";
-			echo "<h5>A nova password não foi bem confirmada.</h5>";
-		}
-		else {
-			$executa_password=(!isset($stmt_password) || $stmt_password->execute());
-			$executa_user_type=(!isset($stmt_user_type) || $stmt_user_type->execute());
-		
-			if($executa_password && $executa_user_type) {
-				echo "<h5>Perfil editado com sucesso!</h5>";
-			}
-			else {
-				echo "<h5>A edição de dados falhou!</h5>";
-			}
-		}
-		
-		echo "<a href=\"./editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\"><input id=\"go_back_to_edition\" type=button value=\"Ok\"></a>";
-		echo "</div>";
-		showFooter();
-?>
-	</body>
-</html>
