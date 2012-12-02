@@ -13,12 +13,12 @@
 	
 	foreach ($comments as $key => $value)
    	{
-   	 $value['date_format']=displaydate($value['date']);
+   	 $value['date_format']=displayDate($value['date']);
    	 $value['editable']=isCommentFromUser($value['rowid'], $db);
    	 
    	 if(editor() || admin())
    	 {
-   	 	$value['deletable']=(isnewsfromuser($id, $db) || isCommentFromUser($value['rowid'], $db));
+   	 	$value['deletable']=(isNewsFromUser($id, $db) || isCommentFromUser($value['rowid'], $db));
    	 }
    	 else
    	 {
@@ -27,7 +27,6 @@
    	 
    	 array_push($ret, $value);
    	}
-   	
 	
 	echo json_encode($ret);
 ?>

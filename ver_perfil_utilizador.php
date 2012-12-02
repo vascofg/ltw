@@ -3,7 +3,7 @@
 	require_once 'db/db.php';
 	$id=$_GET['id'];
 	if(empty($id)) //if no id set, go away
-		redirectmsg("./", 'Operação não permitida');
+		redirectMsg("./", 'Operação não permitida');
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Ver Perfil de Utilizador');
+	showHeader('Ver Perfil de Utilizador');
 ?>
 		<div id="menu">
 			<ul>
@@ -24,7 +24,7 @@
 ?>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -69,7 +69,7 @@
 	}
 	echo "<p></p>
 		</div>";
-	showfooter();
+	showFooter();
 ?>	
 	</body>
 </html>

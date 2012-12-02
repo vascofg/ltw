@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
-	if(!loggedin() || !admin()) //if not logged in or not administrator, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || !admin()) //if not logged in or not administrator, go away
+		redirectMsg("./", 'Operação não permitida');
 	require_once('db/db.php');
 	if(!isset($_POST['submit_insert'])) {
 ?>
@@ -19,7 +19,7 @@
 	</head>
 	<body>
 <?php
-	showheader('Obter notícias de outros servidores');
+	showHeader('Obter notícias de outros servidores');
 ?>
 		<div id="menu">
 			<ul>
@@ -128,7 +128,7 @@
 								//only display text and details on detailed view (one news item)
 							 
 							$date = strtotime($row->{'date'});
-							echo displaydate($date);
+							echo displayDate($date);
 							echo "<br></div>";
 							if(!empty($row->{'tags'}))
 							{
@@ -155,14 +155,14 @@
 	}
 	}
 	echo "</div>";
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>
 <?php }
 else { //insert selected news
 	if(!isset($_POST['news']))
-		redirectmsg("./", 'Nenhuma notícia seleccionada');
+		redirectMsg("./", 'Nenhuma notícia seleccionada');
 	if(isset($_SESSION['json_news']))
 	{
 		$json_news = $_SESSION['json_news'];
@@ -203,9 +203,9 @@ else { //insert selected news
 				}
 			}
 		}
-		redirectmsg("./", 'Operação efectuada');
+		redirectMsg("./", 'Operação efectuada');
 	}
 	else
-		redirectmsg("./", 'Erro a obter o JSON');
+		redirectMsg("./", 'Erro a obter o JSON');
 }
  ?>

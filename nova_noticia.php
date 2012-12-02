@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
-	if(!loggedin() || user()) //if not logged in or not editor, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || user()) //if not logged in or not editor, go away
+		redirectMsg("./", 'Operação não permitida');
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>
 <!DOCTYPE html>
@@ -13,14 +13,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Inserir notícia');
+	showHeader('Inserir notícia');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -43,7 +43,7 @@
 			</form>
 		</div>
 <?php
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>
@@ -88,7 +88,7 @@
 					}
 				}
 			}
-			redirectmsg("./?id=" . $news_id, 'Operação efectuada');
+			redirectMsg("./?id=" . $news_id, 'Operação efectuada');
 		}
 		else
 		{

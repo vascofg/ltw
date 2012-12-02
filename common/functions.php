@@ -21,12 +21,12 @@
 		}
 	}
 	
-	function redirectmsg($url, $msg) {
+	function redirectMsg($url, $msg) {
 		$_SESSION['msg']=$msg;
 		redirect($url);
 	}
 	
-	function loggedin() {
+	function loggedIn() {
 		return isset($_SESSION['username']);
 	}
 	
@@ -42,7 +42,7 @@
 		return $_SESSION['user_type']==2;
 	}
 	
-	function hasfavorite($news_id, $db) {
+	function hasFavorite($news_id, $db) {
 		$stmt = $db->prepare('SELECT count(favorite.news_id) as favorite FROM news LEFT JOIN favorite ON news.id=favorite.news_id where news.id=? and favorite.user_id=?');
 		if($stmt->execute(array($news_id, $_SESSION['user_id'])))
 		{
@@ -54,7 +54,7 @@
 		return false;
 	}
 	
-	function getuserprofilelink($username, $db) { // if the user exists get the link, else just echo the name
+	function getUserProfileLink($username, $db) { // if the user exists get the link, else just echo the name
 		$stmt = $db->prepare('SELECT id FROM user WHERE username = :username');
 		$stmt->bindparam(':username', $username);
 			
@@ -70,7 +70,7 @@
 		return false;
 	}
 	
-	function isnewsfromuser($news_id, $db)
+	function isNewsFromUser($news_id, $db)
 	{
 		$stmt = $db->prepare('SELECT count(*) as count FROM news WHERE id = :news_id and (posted_by = :username OR imported_by = :username)');
 		$stmt->bindparam(':news_id', $news_id);
@@ -102,7 +102,7 @@
 		return false;
 	}
 	
-	function displaydate($date)
+	function displayDate($date)
 	{
 		if(date('dmY') == date('dmY', $date)) //if news is from today, display only time, otherwise display date and time
           return "Hoje, ".date('H:i', $date);
@@ -135,7 +135,7 @@
         return $dayofweek." ".date('d/m/Y, H:i', $date);
 	}
 
-	function showallnews($news)
+	function showAllNews($news)
 	{
 		$count = 0;
 		foreach($news as $i=>$row) {
@@ -149,14 +149,14 @@
 				  <a href=\"./?id=".$row['id']."\"><img src=\"http://lorempixel.com/300/200/?dummy=".rand()."\" alt=\"300x200\"></a>
 				  <div class=\"newsdetails\">
 					<br />";
-				echo displaydate($row['date']);
+				echo displayDate($row['date']);
 				if($row['tagname']!="")
 				  echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
 			}
 			if($row['id']!=$news[$i+1]['id']) { //if next row not a repeat, then close this news
 				echo   "</div>";
 			
-				if(loggedin() && (editor() || admin()))
+				if(loggedIn() && (editor() || admin()))
 				{
 					if($count%4==0) //if leftmost
 						echo "<ul class=\"left\">";
@@ -165,7 +165,7 @@
 					else
 						echo "<ul>";
 					
-					if(loggedin() && (admin() || (editor() && ($_SESSION['username'] == $row['posted_by'] || $_SESSION['username'] == $row['imported_by']))))
+					if(loggedIn() && (admin() || (editor() && ($_SESSION['username'] == $row['posted_by'] || $_SESSION['username'] == $row['imported_by']))))
 						echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";
 					echo "<li style=\"border:0;\"></li>"; //display full height <ul>
 					echo "</ul>";
@@ -176,7 +176,7 @@
 		}
 	}
 	
-	function shownewsid($news, $db)
+	function showNewsId($news, $db)
 	{
 		foreach($news as $i=>$row) {
 			if($i>0) //if repeating news (because of tags)
@@ -184,8 +184,8 @@
 			else
 			{
 				echo "<div class=\"noticia\" id=".$row['id'].">";
-				if(loggedin()) { //favorites
-					if(hasfavorite($row['id'], $db))
+				if(loggedIn()) { //favorites
+					if(hasFavorite($row['id'], $db))
 						echo "<div class=\"del_favorite\" id=\"".$row['id']."\"><img width=\"30px\" src=\"common/star_filled.png\">";
 					else
 						echo "<div class=\"add_favorite\" id=\"".$row['id']."\"><img width=\"30px\" src=\"common/star_empty.png\">";
@@ -199,13 +199,13 @@
 				if(!empty($row['url'])) //display URL if news is imported
 					echo "<b>URL original:</b> <a target=\"_blank\" href=\"".stripslashes($row['url'])."\">".$row['url']."</a><br>";
 
-				echo "<b>Submetida por:</b> ".getuserprofilelink($row['posted_by'], $db)."<br>";
+				echo "<b>Submetida por:</b> ".getUserProfileLink($row['posted_by'], $db)."<br>";
 				
 				if(!empty($row['imported_by'])) //if news is imported
 				{
-					echo "<b>Importada por:</b> ".getuserprofilelink($row['imported_by'], $db)."<br>";
+					echo "<b>Importada por:</b> ".getUserProfileLink($row['imported_by'], $db)."<br>";
 				}
-				echo displaydate($row['date']);
+				echo displayDate($row['date']);
 				if($row['tagname']!="")
 				  echo "</div><div class=\"newstags\"><a href=\"./?tag=".stripslashes($row['tagname'])."\">#".stripslashes($row['tagname'])."</a>"; //first tag (close news details and start tags div)
 
@@ -216,12 +216,12 @@
 							echo "</div>";
 							if(isset($_SESSION['user_id']))
 								echo "<div id=new_comment><textarea id=text_new_comment rows=4 placeholder=\"Novo Comentário...\"/></textarea><br><input id=send_comment type=button value=\"Enviar Comentário\"></div>";
-				if(loggedin() && (editor() || admin()))
+				if(loggedIn() && (editor() || admin()))
 				{
 					echo "<ul>";
 					
 					echo "<li><a href=./>Ver Todas</a></li>";
-					if(loggedin() && (admin() || (editor() && ($_SESSION['username'] == $row['posted_by'] || $_SESSION['username'] == $row['imported_by']))))
+					if(loggedIn() && (admin() || (editor() && ($_SESSION['username'] == $row['posted_by'] || $_SESSION['username'] == $row['imported_by']))))
 						echo "<li><a href=\"editar_noticia.php?id=".$row['id']."\">Editar</a></li><li><a href=\"apagar_noticia.php?id=".$row['id']."\">Apagar</a></li>";
 					echo "<li style=\"border:0;\"></li>"; //display full height <ul>
 					echo "</ul>";
@@ -231,7 +231,7 @@
 		}
 	}
 	
-	function showpagination($db, $p, $firstid, $lastid)
+	function showPagination($db, $p, $firstid, $lastid)
 	{
 			echo "<div id=controlos>";
 			$totals = $db->query("select min(id) as first, max(id) as last from news")->fetch();
@@ -242,7 +242,7 @@
 			echo "</div>";
 	}
 	
-	function showheader($subtitle)
+	function showHeader($subtitle)
 	{
 		echo "<div id=\"cabecalho\">";
 		echo "<a href=\"./\"><h1>Social News</h1></a>";
@@ -251,24 +251,25 @@
 		echo "</div>";
 	}
 	
-	function showfooter()
+	function showFooter()
 	{
 		echo "<div id=\"rodape\">
-				<p>Projecto 1 - Linguagens e Tecnologias Web @ FEUP - 2012</p>
+				<p>Social News Project - Linguagens e Tecnologias Web @ FEUP - T5G7</p>
+				<div class=copyright>2012 © Maria João Araújo | Vasco Gonçalves</div>
 			</div>";
 	}
 	
-	function showloginmenu()
+	function showLoginMenu()
 	{
 		echo "<ul class=\"login\">";
-		if(loggedin())
+		if(loggedIn())
 			echo "<li id=username userid=".$_SESSION['user_id'].">Bem-vindo <a href=ver_perfil_utilizador.php?id=".$_SESSION['user_id'].">".$_SESSION['username']."</a></li><li><a href=\"logout.php\">Logout</a></li>";
 		else
 			echo "<li><a href=\"login.php\">Login</a></li>";
 		echo "</ul>";
 	}
 	
-	function showmessage()
+	function showMessage()
 	{
 		if(isset($_SESSION['msg']))
 		{
@@ -277,7 +278,7 @@
 		}
 	}
 	
-	function getlatestnews($db)
+	function getLatestNews($db)
 	{
 		if($stmt = $db->query('SELECT max(id) as max from news'))
 		{

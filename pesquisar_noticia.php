@@ -16,7 +16,7 @@
 	if(count($news)==0) //if no results
 		echo "<h5>Nenhuma notícia encontrada.</h5>";
 	else
-		showallnews($news);
+		showAllNews($news);
 	if(!isset($search))
-		showpagination($db, $p, $news[0]['id'], $news[sizeof($news)-1]['id']);
+		showPagination($db, $p, $news[0]['id'], $news[sizeof($news)-1]['id']);
 ?>

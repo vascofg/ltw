@@ -9,7 +9,7 @@ $(document).ready(function(){
 			 type: 'get',
 			 success: function(output) {
 			 	if(output=="ok"){
-			 	reload_comments();
+			 	reloadComments();
 			 	}
 			 	else{
 			 	alert("Ocorreu um erro.");
@@ -19,12 +19,12 @@ $(document).ready(function(){
 		}
 	});
 	if($('div.noticia').attr("id")>0){
-  		reload_comments();
+  		reloadComments();
 	}		
 });
 
 
-function reload_comments(){
+function reloadComments(){
 if($('div.noticia').attr("id")>0){
   	$.ajax({ 
   		 url: 'obter_comentarios.php',
@@ -53,7 +53,7 @@ if($('div.noticia').attr("id")>0){
 					}
 					var edit_button = "";
 					if(value.editable){
-					edit_button='<input class=edit_comment type=button value="Editar">';
+						edit_button='<input class=edit_comment type=button value="Editar">';
 					}
 					
 					comment.html(delete_button+edit_button+'<div class=comment_username>'+value.username+' disse:</div><div class=comment_text>'+value.text+'</div><div class=comment_date>'+$comment_d+'</div>');
@@ -73,7 +73,7 @@ if($('div.noticia').attr("id")>0){
 			 type: 'get',
 			 success: function(output) {
 			 	if(output=="ok"){
-			 	reload_comments();
+			 	reloadComments();
 			 	}
 			 	else{
 			 	alert("Ocorreu um erro ao apagar o comentário: "+output);

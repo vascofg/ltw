@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
-	if(!loggedin() || !admin()) //if not logged in or not admin, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || !admin()) //if not logged in or not admin, go away
+		redirectMsg("./", 'Operação não permitida');
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['name']) || empty($_POST['name']) || !isset($_POST['url']) || empty($_POST['url'])) {
 ?>
 <!DOCTYPE html>
@@ -13,14 +13,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Adicionar servidor');
+	showHeader('Adicionar servidor');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -39,7 +39,7 @@
 			</form>
 		</div>
 <?php
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>
@@ -57,7 +57,7 @@
 		require_once 'db/db.php';
 		$stmt = $db->prepare('INSERT INTO server values(?,?)');
 		if($stmt->execute(array($name,$url)))
-			redirectmsg("./gerir_servidor.php", 'Operação efectuada');
+			redirectMsg("./gerir_servidor.php", 'Operação efectuada');
 		else
 		{
 			$error=$db->errorInfo();

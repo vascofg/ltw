@@ -1,6 +1,6 @@
 <?php
 	require_once 'common/functions.php';
-	if(!loggedin() || !admin()) //if not logged in or not admin, go away
+	if(!loggedIn() || !admin()) //if not logged in or not admin, go away
 		redirectmsg("./", 'Operação não permitida');
 ?>
 <!DOCTYPE html>
@@ -12,14 +12,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Procurar utilizadores');
+	showHeader('Procurar utilizadores');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -34,7 +34,7 @@
 			</form>
 		</div>
 <?php
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>

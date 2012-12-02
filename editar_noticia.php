@@ -1,12 +1,12 @@
 <?php
 	require_once 'common/functions.php';
-	if(!loggedin() || user() || !isset($_GET['id']) || empty($_GET['id'])) //if not logged in, not editor or no id set, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || user() || !isset($_GET['id']) || empty($_GET['id'])) //if not logged in, not editor or no id set, go away
+		redirectMsg("./", 'Operação não permitida');
 	$id = (int)$_GET['id'];
 	require_once 'db/db.php'; //in this file it's needed either way
 	
-	if(!admin() && !isnewsfromuser($id, $db)) //if user isn't admin and news isn't his, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!admin() && !isNewsFromUser($id, $db)) //if user isn't admin and news isn't his, go away
+		redirectMsg("./", 'Operação não permitida');
 		
 	if($_SERVER['REQUEST_METHOD'] != "POST" || !isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['text']) || empty($_POST['text'])) {
 ?>
@@ -22,14 +22,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Editar notícia');
+	showHeader('Editar notícia');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -74,7 +74,7 @@
 		echo "Erro: " . $error[2];
 	}
 	echo "</div>";
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>
@@ -124,7 +124,7 @@
 					}
 				}
 			}
-			redirectmsg("./?id=" . $id, 'Operação efectuada');
+			redirectMsg("./?id=" . $id, 'Operação efectuada');
 		}
 		else
 		{

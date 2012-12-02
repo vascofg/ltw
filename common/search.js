@@ -6,7 +6,7 @@ var delay = (function(){
   };
 })();
 
-function updateresults(search, ms) {
+function updateResults(search, ms) {
 	var title, text, tag, p;
 	if($("input:checkbox[name='title']").attr("checked"))
 		title=1;
@@ -40,13 +40,13 @@ $(document).ready(function(){
 	$("input:text[name='search']").keyup(function()
 	{
 		if($('input:checkbox:checked').length>0)
-			updateresults($("input:text[name='search']").val(), 500);
+			updateResults($("input:text[name='search']").val(), 500);
 	});
 	$("input:checkbox[name='title'],input:checkbox[name='text'],input:checkbox[name='tag']").change(function()
 	{
 		if($('input:checkbox:checked').length>0)
-			updateresults($("input:text[name='search']").val(), 50);
+			updateResults($("input:text[name='search']").val(), 50);
 		else
-			updateresults("", 50);
+			updateResults("", 50);
 	});
 });
