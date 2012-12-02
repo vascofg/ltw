@@ -103,10 +103,10 @@
 		
 			$url = $server['url']."/api/news.php?start_date=".urlencode($start_date)."&end_date=".urlencode($end_date)."&tags=".urlencode($tags); //urlencode converts special characters to their hex value for passing through url
 			if(!$json = json_decode(file_get_contents($url)))
-				echo "<h5>Falhou a obtenção do JSON!</h5>";
+				echo "<h5>Falhou a comunicação com o servidor!</h5>";
 			else{
 				if($json->{'result'}=="error")
-					echo "<h5>O JSON reportou um erro com o código ".$json->{'code'}.": \"".$json->{'reason'}."\"</h5>";
+					echo "<h5>O servidor reportou um erro com o código ".$json->{'code'}.": \"".$json->{'reason'}."\"</h5>";
 				else
 				{
 					$json_news = $json->{'data'};
