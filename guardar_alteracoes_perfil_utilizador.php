@@ -13,25 +13,25 @@
 	// if the user isn't an administrator, his current password needs to be verified
 	if(!admin())
 	{
-	
-	$password=crypt($username.$pass_actual, '$1$'.substr(md5($pass_actual.$username), 0, 8)); //le awesome salt
-	$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE username = :username and password=:password');
-	$stmt->bindparam(':username', $username);
-	$stmt->bindparam(':password', $password);
+		$password=crypt($username.$pass_actual, '$1$'.substr(md5($pass_actual.$username), 0, 8)); //le awesome salt
+		$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE username = :username and password=:password');
+		$stmt->bindparam(':username', $username);
+		$stmt->bindparam(':password', $password);
 	}
 	// if the user is an administrator, he doesn't need to input the current password of the user
 	else
 	{
-	$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE username = :username ');
-	$stmt->bindparam(':username', $username);
+		$stmt = $db->prepare('SELECT id, username, user_type FROM user WHERE username = :username ');
+		$stmt->bindparam(':username', $username);
 	}
 	
 	$stmt->execute();
 	$stmt = $stmt->fetchAll();
+	$noResults = false;
+	$differentPasswords = false;
 	
 	if(count($stmt)==0){ //if no results
-		echo "<h5>Os dados não foram alterados!</h5>";
-		echo "<h5>Nenhum utilizador encontrado.</h5>";
+		$noResults = true;
 	}
 	else {
 		
@@ -39,25 +39,23 @@
 		
 		if($nova_pass != $nova_pass_2)
 		{
-			echo "<h5>Os dados não foram alterados!</h5>";
-			
-			echo "<h5>A nova password não foi bem confirmada!</h5>";
+			$differentPasswords = true;
 		}	
 		else
 		{	
-			if(strlen($nova_pass)>0){
+			if(strlen($nova_pass)>0) {
 				$password=crypt($username.$nova_pass, '$1$'.substr(md5($nova_pass.$username), 0, 8)); //le awesome salt
 				$stmt_password = $db->prepare('UPDATE user SET password =:nova_pass WHERE username = :username');
 				$stmt_password->bindparam(':nova_pass', $password);
 				$stmt_password->bindparam(':username', $username);
-			 }
-			if(isset($user_type)){
+			}
+			
+			if(isset($user_type)) {
 				$stmt_user_type = $db->prepare('UPDATE user SET user_type = :user_type WHERE username = :username');
 				$stmt_user_type->bindparam(':user_type', $user_type);
 				$stmt_user_type->bindparam(':username', $username);
 			}
 		}	
-		
 	}
 ?>
 
@@ -83,18 +81,29 @@
 		</div>
 		<div id="conteudo">
 		<?php
-		$executa_password=(!isset($stmt_password) || $stmt_password->execute());
-		$executa_user_type=(!isset($stmt_user_type) || $stmt_user_type->execute());
-		
-		if($executa_password && $executa_user_type)
-		{
-			echo "<h5>Perfil editado com sucesso!</h5>";
+
+		if($noResults) {
+			echo "<h5>A edição de dados falhou!</h5>";
+			echo "<h5>A password actual não está correcta.</h5>";
 		}
 		else
-		{
+		if($differentPasswords) {
 			echo "<h5>A edição de dados falhou!</h5>";
+			echo "<h5>A nova password não foi bem confirmada.</h5>";
+		}
+		else {
+			$executa_password=(!isset($stmt_password) || $stmt_password->execute());
+			$executa_user_type=(!isset($stmt_user_type) || $stmt_user_type->execute());
+		
+			if($executa_password && $executa_user_type) {
+				echo "<h5>Perfil editado com sucesso!</h5>";
+			}
+			else {
+				echo "<h5>A edição de dados falhou!</h5>";
+			}
 		}
 		
+		echo "<a href=\"./editar_perfil_utilizador.php?id=".$_SESSION['user_id']."\"><input id=\"go_back_to_edition\" type=button value=\"Ok\"></a>";
 		echo "</div>";
 		showFooter();
 ?>

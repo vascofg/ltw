@@ -396,6 +396,11 @@ div.del_favorite, div.add_favorite {
 	cursor: pointer;
 }
 
+input#go_back_to_edition {
+	margin-left: 49%
+}
+
+
 table#change_permissions {
 	margin: auto;
 	text-align: center;
