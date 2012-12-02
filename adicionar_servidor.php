@@ -61,6 +61,8 @@
 		else
 		{
 			$error=$db->errorInfo();
+			if($error[1]==19)
+				redirectmsg("gerir_servidor.php","Servidor com o mesmo nome / URL já registado");
 			echo "Erro: " . $error[2];
 		}
 	}
