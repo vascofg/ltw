@@ -1,8 +1,8 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
-	if(!loggedin() || !admin()) //if not logged in or not admin, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || !admin()) //if not logged in or not admin, go away
+		redirectMsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 ?>
 <!DOCTYPE html>
@@ -16,16 +16,16 @@
 	</head>
 	<body>
 <?php
-	showheader('Gerir servidores');
+	showHeader('Gerir servidores');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a><li><a href="adicionar_servidor.php">Adicionar servidor</a></li>
 			</ul>
 <?php
-	showloginmenu();
+	showLoginMenu();
 	echo "</div>";
-	showmessage();
+	showMessage();
 	echo "<div id=\"conteudo\">";
 	$stmt = $db->query('SELECT rowid, * FROM server order by name');
 	
@@ -74,7 +74,7 @@
 	}
 	echo "<p></p>
 		</div>";
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>

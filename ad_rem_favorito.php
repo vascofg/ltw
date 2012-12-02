@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
-	if(loggedin()){
+	if(loggedIn()){
 	
 		$id=(int)$_POST['id'];
 		$op=(int)$_POST['op']; //1 is remove

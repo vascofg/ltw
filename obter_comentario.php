@@ -10,7 +10,7 @@
 	$comments = $stmt->fetchall();
 	$comment = $comments[0];
 	
-   	$comment['date_format']=displaydate($comment['date']);
+   	$comment['date_format']=displayDate($comment['date']);
    
    $ret = array();
    array_push($ret, $comment);

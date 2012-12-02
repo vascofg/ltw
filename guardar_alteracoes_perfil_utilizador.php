@@ -2,8 +2,8 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
 	$pass_actual=$_POST['pass_actual'];
-	if(!loggedin() || (!isset($pass_actual)&&!admin())) //if not logged in or not admin, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || (!isset($pass_actual) && !admin())) //if not logged in or not admin, go away
+		redirectMsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 	$user_type=$_POST['user_type'];
 		
@@ -71,14 +71,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Editar Perfil do Utilizador');
+	showHeader('Editar Perfil do Utilizador');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a><li>Apagar Utilizador</li>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -96,7 +96,7 @@
 		}
 		
 		echo "</div>";
-		showfooter();
+		showFooter();
 ?>
 	</body>
 </html>

@@ -2,8 +2,8 @@
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
 	
-	if((!loggedin()) || (empty($_GET['id'])) || (!admin() && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
-		redirectmsg("./", 'Operação não permitida');
+	if((!loggedIn()) || (empty($_GET['id'])) || (!admin() && ((int)$_SESSION['user_id']) != ((int)$_GET['id']))) //if not logged in, go away
+		redirectMsg("./", 'Operação não permitida');
 	$id=(int)$_GET['id'];
 	if($_SERVER['REQUEST_METHOD'] != "POST") {
 ?>
@@ -16,14 +16,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Editar Perfil do Utilizador');
+	showHeader('Editar Perfil do Utilizador');
 ?>
 		<div id="menu">
 			<ul>
 			 	<a href="./"><img src="common/home.png"></a><li><a href="apagar_utilizador.php?id=<?php echo $id;?>">Apagar Utilizador</a></li>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -35,7 +35,7 @@
 	if($stmt){
 		$stmt = $stmt->fetchAll();
 		if(count($stmt)==0) //if no results
-			redirectmsg('./','Utilizador não encontrado');
+			redirectMsg('./','Utilizador não encontrado');
 		else {
 		
 		$row=$stmt[0];
@@ -104,7 +104,7 @@
 		}
 	}
 	echo "</div>";
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>

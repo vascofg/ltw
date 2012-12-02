@@ -1,7 +1,7 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php';
-	if(!loggedin() || !isset($_GET['id'])) //if not logged in or no id set, go away
+	if(!loggedIn() || !isset($_GET['id'])) //if not logged in or no id set, go away
 		die(json_encode('Operação não permitida1'));
 	
 	$id=(int)$_GET['id'];

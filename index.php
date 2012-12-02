@@ -4,8 +4,8 @@
 	$tag = $_GET['tag'];
 	$p = (int)$_GET['p'];
 	$fav = (int)$_GET['fav'];
-	if(!empty($fav) && !loggedin()) //only allow favorite search if user is logged in
-		redirectmsg("./", 'Operação não permitida');
+	if(!empty($fav) && !loggedIn()) //only allow favorite search if user is logged in
+		redirectMsg("./", 'Operação não permitida');
 	$offset = $p*12;
  	if((!empty($id) && !empty($tag)) || (!empty($id) && !empty($fav)) || (!empty($tag) && !empty($fav))) //tag AND id AND favorite? no sir	
 		redirect('./');
@@ -33,17 +33,17 @@
 <?php
 	
 	if(!empty($tag)) //tag search
-		showheader('#'.$tag);
+		showHeader('#'.$tag);
 	elseif(!empty($fav)) //favorites
-		showheader('Favoritos');
+		showHeader('Favoritos');
 	else
-		showheader('');
+		showHeader('');
 		
 ?>
 		<div id="menu">
 			<ul>
 <?php
-	if(loggedin())
+	if(loggedIn())
 	{
 		echo "<a href=\"./\"><img src=\"common/home.png\"></a><li><a href=\"./?fav=1\">Meus favoritos</a></li>";
 		
@@ -65,9 +65,9 @@
 	}
 	
 	echo "</ul>";
-	showloginmenu();
+	showLoginMenu();
 	echo "</div>";
-	showmessage();
+	showMessage();
 	if(empty($tag) && empty($fav) && empty($id))
 	{
 		echo '<div id="search">
@@ -83,15 +83,15 @@
 		echo "<h5>Nenhuma notícia encontrada.</h5>";
 	else {
 		if(!empty($id)) //if news by id
-			shownewsid($news,$db);
+			showNewsId($news,$db);
 		else{ //in any other case
-			showallnews($news);
+			showAllNews($news);
 			if(empty($tag) && empty($fav)) //only show pagination on all news listing
-				showpagination($db, $p, $news[0]['id'], $news[sizeof($news)-1]['id']);
+				showPagination($db, $p, $news[0]['id'], $news[sizeof($news)-1]['id']);
 		}
 	}
 	echo "</div>";
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>

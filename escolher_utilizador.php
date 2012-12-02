@@ -1,8 +1,8 @@
 <?php
 	require_once 'common/functions.php';
 	require_once 'db/db.php'; //in this file it's needed either way
-	if(!loggedin() || !admin()) //if not logged in or not admin, go away
-		redirectmsg("./", 'Operação não permitida');
+	if(!loggedIn() || !admin()) //if not logged in or not admin, go away
+		redirectMsg("./", 'Operação não permitida');
 	$username=$_GET['username'];
 ?>
 <!DOCTYPE html>
@@ -14,14 +14,14 @@
 	</head>
 	<body>
 <?php
-	showheader('Escolher Utilizador');
+	showHeader('Escolher Utilizador');
 ?>
 		<div id="menu">
 			<ul>
 				<a href="./"><img src="common/home.png"></a>
 			</ul>
 <?php
-	showloginmenu()
+	showLoginMenu()
 ?>
 		</div>
 		<div id="conteudo">
@@ -54,13 +54,12 @@
 			}
 			if($row['user_type']==1)
 			{
-			$name= "Editor";
+				$name= "Editor";
 			}
 			if($row['user_type']==2)
 			{
-			$name= "Administrador";
+				$name= "Administrador";
 			}
-			
 			
 				echo " 
 					<tr>
@@ -88,7 +87,7 @@
 	}
 	echo "<p></p>
 		</div>";
-	showfooter();
+	showFooter();
 ?>
 	</body>
 </html>
