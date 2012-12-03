@@ -12,7 +12,7 @@
 	$stmt = $db->prepare('INSERT INTO comment (news_id,user_id,text,date,edition_date,edited) VALUES (:news_id, :user_id, :text, :date, :edition_date, :edited)');
 	$stmt->bindparam(':news_id', $news_id);
 	$stmt->bindparam(':user_id', $user_id);
-	$stmt->bindparam(':text', $text);
+	$stmt->bindparam(':text', strip_tags($text));
 	$stmt->bindparam(':date', $date);
 	$stmt->bindparam(':edition_date', $edition_date);
 	$stmt->bindparam(':edited', $edited);

@@ -12,6 +12,7 @@
 	
    	$comment['date_format']=displayDate($comment['date']);
    	$comment['edition_date_format']=displayDate($comment['edition_date']);
+	$comment['text']=stripslashes($comment['text']);
    
    $ret = array();
    array_push($ret, $comment);

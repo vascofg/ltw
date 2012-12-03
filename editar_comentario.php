@@ -14,7 +14,7 @@
 	
 	$stmt = $db->prepare('UPDATE comment SET text = :text, edition_date = :edition_date, edited = :edited WHERE rowid = :id');
 	$stmt->bindparam(':id', $id);
-	$stmt->bindparam(':text', $text);
+	$stmt->bindparam(':text', strip_tags($text));
 	$stmt->bindparam(':edition_date', $edition_date);
 	$stmt->bindparam(':edited', $edited);
 	
