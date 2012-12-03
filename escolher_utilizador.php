@@ -11,6 +11,8 @@
 		<meta charset="UTF-8">
 		<title>Alterar permissões</title>
 		<link rel="stylesheet" href="common/style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="common/messages.js"></script>
 	</head>
 	<body>
 <?php
@@ -21,11 +23,11 @@
 				<a href="./"><img src="common/home.png"></a>
 			</ul>
 <?php
-	showLoginMenu()
-?>
-		</div>
-		<div id="conteudo">
-<?php
+	showLoginMenu();
+	echo "</div>";
+	showMessage();
+	echo "<div id=\"conteudo\">";
+
 	if(!empty($username))
 		$stmt = $db->query('SELECT id, username, user_type FROM user WHERE username like \'%'.$_GET['username'].'%\'');
 	else

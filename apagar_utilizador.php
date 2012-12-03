@@ -14,7 +14,7 @@
 		echo "Erro: " . $error[2];
 	}
 	elseif($id!=$_SESSION['user_id'])
-		redirectMsg('./', 'Operação efectuada');
+		redirectMsg('escolher_utilizador.php', 'Operação efectuada');
 	else
 		require_once('logout.php');
 ?>
