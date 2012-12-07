@@ -16,7 +16,7 @@
    	 $value['date_format']=displayDate($value['date']);
    	 $value['edition_date_format']=displayDate($value['edition_date']);
    	 $value['editable']=isCommentFromUser($value['rowid'], $db);
-	 $value['text']=stripslashes($value['text']);
+	 $value['text']=nl2br(stripslashes($value['text']));
    	 
    	 if(editor() || admin())
    	 {
