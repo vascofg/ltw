@@ -6,4 +6,14 @@ Maria João Araújo
 - O nosso projecto faz tudo o que é especificado no enunciado do projecto.
 - Para além disso implementamos imagens aleatórias para cada notícia.
 
-Os utilizadores de teste são test_admin, test_editor e test_user, e as passes admin, editor e user respectivamente.
+Os utilizadores de teste - passwords são:
+test_admin - admin
+test_editor - editor
+test_user - user
+user1 - 123456
+user2 - 123456
+user3 - 123456
+editor1 - 123456
+editor2 - 123456
+admin1 - 123456
+admin2 - 123456
